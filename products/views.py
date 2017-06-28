@@ -14,6 +14,16 @@ class IndexView(generic.ListView):
         """Return the last four added products."""
         return Product.objects.order_by('-added_date')[:4]
 
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 class ProductDetailView(generic.DetailView):
     template_name = 'products/product_detail.html'
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context

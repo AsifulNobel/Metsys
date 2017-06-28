@@ -1,92 +1,30 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Metsys Bazar</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/category_style.css">
-        <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <nav class="navbar-default navbar-wrapper navbar-fixed-top">
-          <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">metsys bazar</a>
-            </div>
+{% extends "products/base_site.html" %}
+{% load staticfiles %}
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-center">
-                <li><a href="#">home<span class="sr-only">(current)</span></a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">categories <span class="caret"></span></a>
-
-                  <ul class="dropdown-menu">
-                    <li class="dropdown-submenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">shirts</a>
-
-                        <ul class="dropdown-menu">
-                            <li class="active"><a href="#">men</a></li>
-                            <li><a href="#">women</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">pants</a></li>
-                    <li><a href="#">sunglasses</a></li>
-                    <li><a href="#">shoes</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">books</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">smartphones</a></li>
-                    <li><a href="#">tv</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">bags</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <form class="navbar-form navbar-left">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-              </form>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">login</a></li>
-                <li><a href="#">sign up</a></li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-
-        <div class="container">
+{% block product %}
+    <div class="container">
             <div class="clearfix"><h1></h1></div>
             <div class="row">
+                {% if product %}
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <img src="shirt-1.jpg" alt="shirt" width="400" height="400">
+                    <img src="{{ product.image.url }}" alt="shirt" width="400" height="400">
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-6">
-                    <div class="col-lg-12 col-md-12">
-                        <img src="shirt-1.jpg" alt="shirt" width="100" height="100">
+                    <!-- <div class="col-lg-12 col-md-12 block-centered">
+                        <img src="{{ product.image.url }}" alt="shirt" width="100" height="100">
                     </div>
-                    <div class="col-lg-12 col-md-12">
-                        <img src="shirt-1.jpg" alt="shirt" width="100" height="100">
-                    </div>
+                    <div class="col-lg-12 col-md-12 block-centered">
+                        <img src="{{ product.image.url }}" alt="shirt" width="100" height="100">
+                    </div> -->
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <h4 id="company">Design Co.</h4>
-                    <h1>Shirt 1</h1>
+                    <h4 id="company">{{ product.company }}</h4>
+                    <h1>{{ product.name }}</h1>
 
-                    <p class="h3 price">Tk. 1200</p>
+                    <p class="h3 price">Tk. {{ product.price }}</p>
 
                     <div class="row">
+                        {% if product.size %}
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <label for="Size Choosing">Size</label>
                             <div class="btn-group">
@@ -98,6 +36,7 @@
                                 </select>
                             </div>
                         </div>
+                        {% endif %}
 
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <label for="Quantity Selection">Quantity</label>
@@ -113,40 +52,9 @@
 
                     <button type="button" class="add-cart">Add to Cart</button>
 
-                    <p id="product-description">This is a sample product only, and not available for purchase. Ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
+                    <p id="product-description">{{ product.description }}</p>
                 </div>
+                {% endif %}
             </div>
         </div>
-
-        <!-- footer -->
-        <footer class="footer">
-          <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                     <p class="h4">©2017 All Rights Reserved.</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                  <p class="h4">Links</p>
-                  <p class="footer-links"><a href="#">About Us</a></p>
-                  <p class="footer-links"><a href="#">Contact Us</a></p>
-                  <p class="footer-links"><a href="#">Privacy Policy</a></p>
-                </div>
-              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center">
-                <p class="h4">Free shipping on all orders</p>
-                <p>Phone: +880-XXXXXXXX</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 text-center">
-                <p class="h4">Follow Us</p>
-                <span class="social"><i class="fa fa-inverse fa-facebook fa-2x" aria-hidden="true"></i></span>
-                <span class="social"><i class="fa fa-inverse fa-twitter fa-2x" aria-hidden="true"></i></span>
-                <span class="social"><i class="fa fa-inverse fa-instagram fa-2x" aria-hidden="true"></i></span>
-                <span class="social"><i class="fa fa-inverse fa-pinterest fa-2x" aria-hidden="true"></i></span>
-             </div>
-            </div>
-          </div>
-        </footer>
-        <!-- /footer -->
-    </body>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-</html>
+{% endblock %}

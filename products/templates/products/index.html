@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">metsys bazar</a>
+              <a class="navbar-brand" href="{% url 'products:index' %}">metsys bazar</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,24 +32,29 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">categories <span class="caret"></span></a>
 
                   <ul class="dropdown-menu">
-                    <li class="dropdown-submenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">shirts</a>
+                      <!-- <li class="dropdown-submenu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">shirts</a>
 
-                        <ul class="dropdown-menu">
-                            <li><a href="#">men</a></li>
-                            <li><a href="#">women</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">pants</a></li>
-                    <li><a href="#">sunglasses</a></li>
-                    <li><a href="#">shoes</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">books</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">smartphones</a></li>
-                    <li><a href="#">tv</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">bags</a></li>
+                          <ul class="dropdown-menu">
+                              <li><a href="#">men</a></li>
+                              <li><a href="#">women</a></li>
+                          </ul>
+                      </li>
+                      <li><a href="#">pants</a></li>
+                      <li><a href="#">sunglasses</a></li>
+                      <li><a href="#">shoes</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#">books</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#">smartphones</a></li>
+                      <li><a href="#">tv</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#">bags</a></li> -->
+                    {% if categories %}
+                        {% for category in categories %}
+                            <li><a href="#">{{ category.category }}</a></li>
+                        {% endfor %}
+                    {% endif %}
                   </ul>
                 </li>
               </ul>
@@ -118,7 +123,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="thumbnail" src="{% static product.image %}" alt="Generic placeholder image" width="200" height="200">
+                            <img class="thumbnail" src="{{ product.image.url }}" alt="Generic placeholder image" width="200" height="200">
                         </div>
                         <div class="col-md-12">
                             <h2>{{ product.name }}</h2>
