@@ -21,15 +21,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="{% url 'products:index' %}">metsys bazar</a>
+              <a class="navbar-brand" href="{% url 'products:index' %}">Metsys Bazar</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-center">
-                <li><a href="{% url 'products:index' %}">home<span class="sr-only">(current)</span></a></li>
+                <li><a href="{% url 'products:index' %}">Home<span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">categories <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
 
                   <ul class="dropdown-menu">
                       <!-- <li class="dropdown-submenu">
@@ -52,7 +52,7 @@
                       <li><a href="#">bags</a></li> -->
                     {% if categories %}
                         {% for category in categories %}
-                            <li><a href="#">{{ category.category }}</a></li>
+                            <li><a href="{% url 'products:category_products' category.category %}">{{ category.category }}</a></li>
                         {% endfor %}
                     {% endif %}
                   </ul>
@@ -65,8 +65,8 @@
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">login</a></li>
-                <li><a href="#">sign up</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign up</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->

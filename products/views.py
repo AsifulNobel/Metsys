@@ -27,3 +27,17 @@ class ProductDetailView(generic.DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         return context
+
+class CategoryView(generic.ListView):
+    model = Category
+    template_name = 'products/category.html'
+    context_object_name = 'category'
+
+    def get_queryset(self):
+        return Category.objects.filter(category=self.kwargs['category'])[0]
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryView, self).get_context_data(**kwargs)
+        context['products'] = Product.objects.filter(category=context['category'])
+
+        return context

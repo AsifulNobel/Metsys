@@ -1,0 +1,66 @@
+{% extends "products/base_site.html" %}
+{% load staticfiles %}
+
+{% block product %}
+        <!-- products -->
+        <div class="container marketing">
+            <div class="row new-heading">
+                <div class="col-lg-12">
+                    <h3>{{ category.category }}</h3>
+                </div>
+            </div>
+
+          <!-- Three columns of text below the carousel -->
+          <div class="row">
+              {% for product in products %}
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <img class="thumbnail" src="{{ product.image.url }}" alt="Generic placeholder image" width="200" height="200">
+                      </div>
+                      <div class="col-md-12">
+                          <h3>{{ product.name }}</h3>
+                      </div>
+
+                      <div class="col-md-12">
+                          <dl class="row">
+                              <dt class="col-sm-3">Price:</dt>
+                              <dd class="col-sm-9">Tk. {{ product.price }}</dd>
+                          </dl>
+                          <p><a class="btn btn-default" href="{% url 'products:product_detail' product.slug %}" role="button">View details &raquo;</a></p>
+                      </div>
+                  </div>
+              </div><!-- /.col-lg-3 -->
+              {% endfor %}
+          </div><!-- /.row -->
+      </div><!-- /container marketing -->
+        <!-- /products -->
+{% endblock %}
+
+        <!-- pagination -->
+        <!-- <div class="container">
+            <div class="row">
+                <div class="block-centered">
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination">
+                        <li>
+                          <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                          <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                </div>
+            </div>
+        </div> -->
+        <!-- /pagination -->
