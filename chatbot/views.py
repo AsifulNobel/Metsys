@@ -7,6 +7,8 @@ from django.utils.decorators import method_decorator
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
+from .ContextualChatbotsWithTF.testingModel import response_message
+
 
 def chat(request):
     context = {}
@@ -26,19 +28,21 @@ def respond_to_websockets(message):
     result_message = {
         'type': 'text'
     }
-    if 'fat' in message['text']:
-        result_message['text'] = random.choice(jokes['fat'])
 
-    elif 'stupid' in message['text']:
-        result_message['text'] = random.choice(jokes['stupid'])
+    # if 'fat' in message['text']:
+    #     result_message['text'] = random.choice(jokes['fat'])
+    #
+    # elif 'stupid' in message['text']:
+    #     result_message['text'] = random.choice(jokes['stupid'])
+    #
+    # elif 'dumb' in message['text']:
+    #     result_message['text'] = random.choice(jokes['dumb'])
+    #
+    # elif message['text'] in ['hi', 'hey', 'hello']:
+    #     result_message['text'] = "Hello to you too! If you're interested in yo mama jokes, just tell me fat, stupid or dumb and i'll tell you an appropriate joke."
+    # else:
+    #     result_message['text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, stupid or dumb."
 
-    elif 'dumb' in message['text']:
-        result_message['text'] = random.choice(jokes['dumb'])
-
-    elif message['text'] in ['hi', 'hey', 'hello']:
-        result_message['text'] = "Hello to you too! If you're interested in yo mama jokes, just tell me fat, stupid or dumb and i'll tell you an appropriate joke."
-    else:
-        result_message['text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, stupid or dumb."
+    result_message['text'] = response_message(message['text'])
 
     return result_message
-    
