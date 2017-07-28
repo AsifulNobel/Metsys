@@ -1,6 +1,3 @@
-#This is example of Contextual Chatbots with Tensorflow taken from here - https://chatbotsmagazine.com/contextual-chat-bots-with-tensorflow-4391749d0077
-#added comment for better understanding
-
 ##############################    STEP 1    ################################
 #things we need for NLP
 import nltk

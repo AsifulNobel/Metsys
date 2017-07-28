@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'channels',
+    'rest_framework',
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
     'chatbot.apps.ChatbotConfig'

@@ -12,13 +12,16 @@
         <link rel="stylesheet" href="{% static 'chatbot/css/chat.css' %}">
 
         <link href="{% static 'chatbot/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="{% static 'chatbot/js/jquery.min.js' %}"></script>
         <base target="_blank"/>
         <title>Metsys Bot</title>
 
     </head>
     <body>
         <!-- Wrap all page content here -->
+        <div class="top" style="height: 40px;background-color:#a6a4a8; color: Black;font-family: Ubuntu; font-size:1.5em;padding:5px;padding-left:20px;">
+            Metsys Chatbot
+        </div>
 
         <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
             <!-- Begin page content -->

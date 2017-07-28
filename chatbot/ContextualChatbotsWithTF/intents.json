@@ -1,7 +1,7 @@
 {"intents": [
         {"tag": "greeting",
          "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
-         "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
+         "responses": ["Hello, welcome to Chowdhury Electronics. How can I help you?"],
          "context_set": ""
         },
         {"tag": "goodbye",
@@ -16,27 +16,56 @@
          "patterns": ["What hours are you open?", "What are your hours?", "When are you open?" ],
          "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
         },
-        {"tag": "mopeds",
-         "patterns": ["Which mopeds do you have?", "What kinds of mopeds are there?", "What do you rent?" ],
-         "responses": ["We rent Yamaha, Piaggio and Vespa mopeds", "We have Piaggio, Vespa and Yamaha mopeds"]
+        {"tag": "products",
+         "patterns": ["Which products do you guys sell?", "What products do you guys have?" ],
+         "responses": ["We sell Television , Home Theater Systems , Air Conditioner and Microwave oven", "We have Television , Home Theater Systems , Air Conditioner and Microwave oven"]
         },
-        {"tag": "payments",
+        {"tag": "television",
+         "patterns": ["Which television do you guys sell?", "Which television brand you guys sell" ,"I want to buy a television","I want to buy a telvision", "Tell me about television" ],
+         "responses": ["We sell television from Samsung,Sony,LG,and Toshiba"],
+          "context_set": "tele_brand"
+        },
+        {"tag": "hometheater",
+         "patterns": ["Which Home Theater System do you guys sell?", "Which Home Theater System brand you guys sell" ,"I want to buy a Home Theater System","I want to buy a Home Theater System", "Tell me about Home Theater System" ],
+         "responses": ["We sell Home Theater System only from Sony"],
+          "context_set": "home_brand"
+        },
+        {"tag": "Sony_TV",
+         "patterns": ["Tell me about sony TV", "Sony" , "Which sony tv do you guys have?"],
+         "responses": ["We have Sony TV model with 24, 32, 40, 43 ,49, 55, 60, 65 inch screen they have 720p , 1080p or 4k resolution"],
+         "context_set": "specific"
+        },
+        {"tag": "Samsung_TV",
+         "patterns": ["Tell me about Samsung TV", "Samsung" , "Which Samsung tv do you guys have?"],
+         "responses": ["We have Samsung TV model with 24, 32, 40, 43 ,48, 55, 65 inch screen they have 720p , 1080p or 4k resolution"],
+         "context_set": "specific"
+        },
+        {"tag": "Toshiba_TV",
+         "patterns": ["Tell me about Toashiba TV", "Toashiba" , "Which Toashiba tv do you guys have?"],
+         "responses": ["We have Toashiba TV model with 32, 40, 43 inch screen they have 720p , 1080p or 4k resolution"],
+         "context_set": "specific"
+        },
+        {"tag": "LG_TV",
+         "patterns": ["Tell me about LG TV", "LG" , "Which LG tv do you guys have?"],
+         "responses": ["We have LG TV model with 32, 43, 55, 65 inch screen they have 720p , 1080p or 4k resolution"],
+         "context_set": "specific"
+        },
+        {"tag": "details",
+         "patterns": ["Tell me more" , "Can you give me more info?", "Can you give me detailed info?"],
+         "responses": ["For more information please call 01611-646464"],
+         "context_filter": "specific"
+        },
+        {"tag": "payments_card",
          "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Are you cash only?" ],
-         "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
+         "responses": ["We accept Nexus, VISA, Mastercard and AMEX", "We accept most major credit cards"]
+        },
+        {"tag": "payments_bkash",
+         "patterns": ["Do you accept bKash" ],
+         "responses": ["Yes we accept bKash payment"]
         },
         {"tag": "opentoday",
          "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
          "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
-        },
-        {"tag": "rental",
-         "patterns": ["Can we rent a moped?", "I'd like to rent a moped", "How does this work?" ],
-         "responses": ["Are you looking to rent today or later this week?"],
-         "context_set": "rentalday"
-        },
-        {"tag": "today",
-         "patterns": ["today"],
-         "responses": ["For rentals today please call 1-800-MYMOPED", "Same-day rentals please call 1-800-MYMOPED"],
-         "context_filter": "rentalday"
         }
    ]
 }
