@@ -35,22 +35,30 @@ net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
 net = tflearn.regression(net)
 model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
-model.load('./chatbot/ContextualChatbotsWithTF/model.tflearn')
+# model.load('./chatbot/ContextualChatbotsWithTF/model.tflearn')
+model.load('model.tflearn')
 
 context = {}
 
 ERROR_THRESHOLD = 0.25
 
 def clean_up_sentence(sentence):
+    print("Input Sentence:", sentence)
+
     # tokenize the pattern
     sentence_words = nltk.word_tokenize(sentence)
+    print("\nTokenized words:", sentence_words)
     # stem each word
     sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    print("\nStemmed words:", sentence_words)
     return sentence_words
 
 def bow(sentence, words, show_details=False):
+    print("\nTraining words:", words)
+    print("\nClasses:", classes)
     # tokenize the pattern
     sentence_words = clean_up_sentence(sentence)
+
     # bag of words
     bag = [0]*len(words)
     for s in sentence_words:
@@ -65,6 +73,8 @@ def bow(sentence, words, show_details=False):
 def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
+
+    print("\nBOW result:", results)
     # filter out predictions below a threshold
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
     # sort by strength of probability
@@ -73,6 +83,8 @@ def classify(sentence):
     for r in results:
         return_list.append((classes[r[0]], r[1]))
     # return tuple of intent and probability
+
+    print("\nIntent and probability:", return_list)
     return return_list
 
 def response_message(sentence, userID='123', show_details=False):
@@ -105,12 +117,13 @@ def response_message(sentence, userID='123', show_details=False):
 
             results.pop(0)
 
-# looping = True
-# while looping:
-#     userInput = input('>>>').strip()
-#
-#     if len(userInput) > 0:
-#         if userInput != 'quit' and userInput != 'exit':
-#             response_message(userInput)
-#         elif userInput == 'quit' or userInput == 'exit':
-#             looping = False
+looping = True
+while looping:
+    userInput = input('>>>').strip()
+
+    if len(userInput) > 0:
+        if userInput != 'quit' and userInput != 'exit':
+            # response_message(userInput)
+            print(response_message(userInput))
+        elif userInput == 'quit' or userInput == 'exit':
+            looping = False
