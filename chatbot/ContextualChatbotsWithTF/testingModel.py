@@ -35,8 +35,8 @@ net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
 net = tflearn.regression(net)
 model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
-# model.load('./chatbot/ContextualChatbotsWithTF/model.tflearn')
-model.load('model.tflearn')
+model.load('./chatbot/ContextualChatbotsWithTF/model.tflearn')
+# model.load('model.tflearn')
 
 context = {}
 
@@ -117,13 +117,13 @@ def response_message(sentence, userID='123', show_details=False):
 
             results.pop(0)
 
-looping = True
-while looping:
-    userInput = input('>>>').strip()
-
-    if len(userInput) > 0:
-        if userInput != 'quit' and userInput != 'exit':
-            # response_message(userInput)
-            print(response_message(userInput))
-        elif userInput == 'quit' or userInput == 'exit':
-            looping = False
+# looping = True
+# while looping:
+#     userInput = input('>>>').strip()
+#
+#     if len(userInput) > 0:
+#         if userInput != 'quit' and userInput != 'exit':
+#             # response_message(userInput)
+#             print(response_message(userInput))
+#         elif userInput == 'quit' or userInput == 'exit':
+#             looping = False
