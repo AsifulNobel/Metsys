@@ -67,14 +67,14 @@ def bow(sentence, words, show_details=False):
                 bag[i] = 1
                 if show_details:
                     print ("found in bag: %s" % w)
-
+    print("BOW output:", np.array(bag))
     return(np.array(bag))
 
 def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
 
-    print("\nBOW result:", results)
+    print("\nNeural Net result:", results)
     # filter out predictions below a threshold
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
     # sort by strength of probability
