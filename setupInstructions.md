@@ -25,4 +25,7 @@
     - Restore database `pg_restore -d bazar -1 bazar.dump`
 + Install redis `sudo apt-get install redist-server`
 + Install pip packages from requirements.txt
++ Run a python shell and download nltk package
+    - `import nltk`
+    - `nltk.download('punkt')`
 + Run server `python manage.py runserver`
