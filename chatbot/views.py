@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from chatbot.serializers import MessageSerializer
 from django.shortcuts import render
-from .ContextualChatbotsWithTF.interface import response_message
+from .ContextualChatbotsWithTF.responderInterface import response_message
 
 
 def chat(request):

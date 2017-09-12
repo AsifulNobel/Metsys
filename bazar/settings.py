@@ -164,3 +164,36 @@ CHANNEL_LAYERS = {
         "ROUTING": "chatbot.routing.channel_routing",
     },
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s - %(levelname)s - %(module)s - %(process)d - %(thread)d - %(message)s'
+        },
+        'simple': {
+            'format': '%(asctime)s - %(levelname)s - %(module)s - %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'chatbot.ContextualChatbotsWithTF.EnglishNLP.englishResponder': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'chatbot.ContextualChatbotsWithTF.BanglaNLP.banglaResponder': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'chatbot.ContextualChatbotsWithTF.interface': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
+    },
+}
