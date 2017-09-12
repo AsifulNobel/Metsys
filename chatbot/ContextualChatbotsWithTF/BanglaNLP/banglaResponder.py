@@ -104,5 +104,4 @@ def response_message(sentence, userID='123', show_details=False):
                     return random.choice(i['responses'])
             results.pop(0)
     else:
-        # TODO: Conver this to bangla
-        return 'Ami bujhi nai apnar kotha. Aro clear koren.'
+        return 'আমি বুঝিনি আপনার কথা, আরেকটু খুলে বলুন...'
