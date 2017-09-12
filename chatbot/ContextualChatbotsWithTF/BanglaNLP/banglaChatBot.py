@@ -1,28 +1,15 @@
-##############################    STEP 1    ################################
-#things we need for NLP
-import nltk
-from nltk.stem.lancaster import LancasterStemmer
-stemmer = LancasterStemmer()
+# -*- coding: utf-8 -*-
+import csv
+######PREVIOUS CODE SECTIONS STARTS HERE###################
 
-
-##############################    STEP 2    ################################
-#things we need for Tensorflow
-import numpy as np
-import tflearn
-import tensorflow as tf
-import random
-
-
-##############################    STEP 3    ################################
-# import our chat-bot intents file
 import json
+# import trie
+import nltk
+from stemming_bn import isEnglish, stemBanglaWord
 
-with open('intents.json') as json_data:
+with open('./banglaintents.json') as json_data:
     intents = json.load(json_data)
 
-
-##############################    STEP 4    ################################
-#we can now begin to organize our documents, words and classification classes
 words = []
 classes = []
 documents = []
@@ -41,15 +28,24 @@ for intent in intents['intents']:
             classes.append(intent['tag'])
 
 # stem and lower each word and remove duplicates
-words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
-words = sorted(list(set(words)))
+#Used custom function stemBanglaWord() here
+words = [stemBanglaWord(w) for w in words if w not in ignore_words]
+#words = sorted(list(set(words)))
 
 # remove duplicates
 classes = sorted(list(set(classes)))
 
-print (len(documents), "documents")
+print (len(documents), "documents",documents)
 print (len(classes), "classes", classes)
 print (len(words), "unique stemmed words", words)
+
+
+##############################    STEP 2    ################################
+#things we need for Tensorflow
+import numpy as np
+import tflearn
+import tensorflow as tf
+import random
 
 
 ##############################    STEP 5    ################################
@@ -67,7 +63,8 @@ for doc in documents:
     # list of tokenized words for the pattern
     pattern_words = doc[0]
     # stem each word
-    pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+    # Used custom function stemBanglaWord() here
+    pattern_words = [stemBanglaWord(word) for word in pattern_words]
     # create our bag of words array
     for w in words:
         bag.append(1) if w in pattern_words else bag.append(0)
@@ -96,6 +93,7 @@ train_y = list(training[:,1])
 # reset underlying graph data
 tf.reset_default_graph()
 # Build neural network
+
 net = tflearn.input_data(shape=[None, len(train_x[0])])
 net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, 8)
@@ -113,9 +111,6 @@ model.save('model.tflearn')  ##save the tensorflow model
 # save all of our data structures
 import pickle
 pickle.dump( {'words':words, 'classes':classes, 'train_x':train_x, 'train_y':train_y}, open( "training_data", "wb" ) )
-
-
-
 
 # #this stupid code make no sense . Cause I tried to use this code from separate file and failed . In same file we don't need to reload everything again
 # ##############################    STEP 8    ################################
@@ -146,7 +141,7 @@ def clean_up_sentence(sentence):
     # tokenize the pattern
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word
-    sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    sentence_words = [stemBanglaWord(word) for word in sentence_words]
     return sentence_words
 
 # return bag of words array: 0 or 1 for each word in the bag that exists in the sentence
@@ -167,82 +162,13 @@ def bow(sentence, words, show_details=False):
 print (bow("is your shop open today?", words))
 
 
+
 #commenting out STEP 10 and 11 because this is the test of context free response
 #as contextual response is added in STEP 12 commenting out the 10 and 11
 #but keeping the code for future reference and comparison
 
-# ##############################    STEP 10    ################################
-# #building th response processor
-# ERROR_THRESHOLD = 0.25
-# def classify(sentence):
-#     # generate probabilities from the model
-#     results = model.predict([bow(sentence, words)])[0]
-#     # filter out predictions below a threshold
-#     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
-#     # sort by strength of probability
-#     results.sort(key=lambda x: x[1], reverse=True)
-#     return_list = []
-#     for r in results:
-#         return_list.append((classes[r[0]], r[1]))
-#     # return tuple of intent and probability
-#     return return_list
-#
-# def response(sentence, userID='123', show_details=False):
-#     results = classify(sentence)
-#     # if we have a classification then find the matching intent tag
-#     if results:
-#         # loop as long as there are matches to process
-#         while results:
-#             for i in intents['intents']:
-#                 # find a tag matching the first result
-#                 if i['tag'] == results[0][0]:
-#                     # a random response from the intent
-#                     return print(random.choice(i['responses']))
-#
-#             results.pop(0)
-#
-#
-#
-# #Each sentence passed to response() is classified.
-# # Our classifier uses model.predict() and is lighting fast.
-# # The probabilities returned by the model are lined-up with our intents definitions to produce a list of potential responses.
-# #If one or more classifications are above a threshold, we see if a tag matches an intent and then process that.
-# # We’ll treat our classification list as a stack and pop off the stack looking for a suitable match until we find one, or it’s empty.
-#
-#
-# ##############################    STEP 11    ################################
-# #testing our classify and response function
-# #remember this a context free response
-# #Contextualization has not been included yet
-#
-# print(classify('is your shop open today?'))
-# response('is your shop open today?')
-# print(classify('do you take cash?'))
-# response('do you take cash?')
-# print(classify('what kind of mopeds do you rent?'))
-# response('what kind of mopeds do you rent?')
-# print(classify('Goodbye, see you later'))
-# response('Goodbye, see you later')
-
-
-
-##############################    STEP 12    ################################
-#we are now moving towards the final step of our program
-# which is the bot can answer the question based on the context of whole conversation
-
-#We want to handle a question about renting a moped and ask if the rental is for today.
-# That clarification question is a simple contextual response.
-# If the user responds ‘today’ and the context is the rental timeframe then it’s best they call the rental company’s 1–800 #.
-# No time to waste.
-#To achieve this we will add the notion of ‘state’ to our framework. T
-# his is comprised of a data-structure to maintain state and specific code to manipulate it while processing intents.
-#Because the state of our state-machine needs to be easily persisted, restored, copied, etc.
-# it’s important to keep it all in a data structure such as a dictionary.
-
-
-# create a data structure to hold user context
-context = {}
-
+##############################    STEP 10    ################################
+#building th response processor
 ERROR_THRESHOLD = 0.25
 def classify(sentence):
     # generate probabilities from the model
@@ -266,28 +192,30 @@ def response(sentence, userID='123', show_details=False):
             for i in intents['intents']:
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
-                    # set context for this intent if necessary
-                    if 'context_set' in i:
-                        if show_details: print ('context:', i['context_set'])
-                        context[userID] = i['context_set']
-
-                    # check if this intent is contextual and applies to this user's conversation
-                    if not 'context_filter' in i or \
-                        (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
-                        if show_details: print ('tag:', i['tag'])
-                        # a random response from the intent
-                        return print(random.choice(i['responses']))
+                    # a random response from the intent
+                    return print(random.choice(i['responses']))
 
             results.pop(0)
 
 
-# Our context state is a dictionary, it will contain state for each user.
-# We’ll use some unique identified for each user (eg. cell #).
-# This allows our framework and state-machine to maintain state for multiple users simultaneously.
-# create a data structure to hold user context
-# context = {}
-#In this way, if a user just typed ‘today’ out of the blue (no context), our ‘today’ intent won’t be processed.
-# If they enter ‘today’ as a response to our clarification question (intent tag:‘rental’) then the intent is processed.
 
-response('we want to rent a moped')
-response('today')
+#Each sentence passed to response() is classified.
+# Our classifier uses model.predict() and is lighting fast.
+# The probabilities returned by the model are lined-up with our intents definitions to produce a list of potential responses.
+#If one or more classifications are above a threshold, we see if a tag matches an intent and then process that.
+# We’ll treat our classification list as a stack and pop off the stack looking for a suitable match until we find one, or it’s empty.
+
+
+##############################    STEP 11    ################################
+#testing our classify and response function
+#remember this a context free response
+#Contextualization has not been included yet
+
+print(classify('আপনাদের দোকান কি আজকে খোলা থাকবে '))
+response('আপনাদের দোকান কি আজকে খোলা থাকবে ?')
+print(classify('আপনারা কি টাকা একসেপ্ট করেন?'))
+response('আপনারা কি টাকা একসেপ্ট করেন?')
+print(classify('আপনারা কীরকম গাড়ি ভাড়া '))
+response('আপনারা কীরকম গাড়ি ভাড়া দেন?')
+print(classify('ধন্যবাদ'))
+response('ধন্যবাদ')

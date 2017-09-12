@@ -5,3 +5,4 @@ staticfiles
 db.sqlite3
 superPass.txt
 latest.dump
+.idea

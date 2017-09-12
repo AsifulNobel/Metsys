@@ -21,21 +21,25 @@ train_x = data['train_x']
 train_y = data['train_y']
 
 with open(os.path.join(DIR_NAME, 'intents.json')) as json_data:
-    # print("Loading Intents...")
-    logger.info("Loading Intents...")
+    print("Loading Intents...")
+    # logger.info("Loading Intents...")
     intents = json.load(json_data)
 
 # load our saved model
-# print("Loading Model...")
-logger.info("Loading Model...")
+print("Loading Model...")
+# logger.info("Loading Model...")
 
+# Clears the default graph stack and resets the global default graph
+tf.reset_default_graph()
 net = tflearn.input_data(shape=[None, len(train_x[0])])
 net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
 net = tflearn.regression(net)
 model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
-model.load('./chatbot/ContextualChatbotsWithTF/model.tflearn')
+
+DIR_NAME_MODEL = os.path.dirname(os.path.abspath('__file__'))
+model.load(DIR_NAME_MODEL+'/chatbot/ContextualChatbotsWithTF/EnglishNLP/model.tflearn')
 # model.load('model.tflearn')
 
 context = {}
@@ -74,7 +78,7 @@ def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
 
-    print("\nNeural Net result:", results)
+    print("\nNeural Network result:", results)
     # filter out predictions below a threshold
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
     # sort by strength of probability
@@ -116,14 +120,3 @@ def response_message(sentence, userID='123', show_details=False):
                         return random.choice(i['responses'])
 
             results.pop(0)
-
-# looping = True
-# while looping:
-#     userInput = input('>>>').strip()
-#
-#     if len(userInput) > 0:
-#         if userInput != 'quit' and userInput != 'exit':
-#             # response_message(userInput)
-#             print(response_message(userInput))
-#         elif userInput == 'quit' or userInput == 'exit':
-#             looping = False
