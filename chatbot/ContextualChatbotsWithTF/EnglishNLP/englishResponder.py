@@ -8,6 +8,7 @@ import nltk
 from nltk.stem.lancaster import LancasterStemmer
 import os
 import logging
+from .timethis import timethis
 
 DIR_NAME = os.path.dirname(os.path.abspath(__file__))
 logger = logging.getLogger(__name__)
@@ -44,6 +45,7 @@ context = {}
 
 ERROR_THRESHOLD = 0.25
 
+@timethis
 def clean_up_sentence(sentence):
     logger.debug("Input Sentence: {}".format(sentence))
 
@@ -55,6 +57,7 @@ def clean_up_sentence(sentence):
     logger.debug("Stemmed words: {}".format(sentence_words))
     return sentence_words
 
+@timethis
 def bow(sentence, words, show_details=False):
     logger.debug("Training words: {}".format(words))
     logger.debug("Classes: {}".format(classes))
@@ -72,6 +75,7 @@ def bow(sentence, words, show_details=False):
     logger.debug("BOW output: {}".format(np.array(bag)))
     return(np.array(bag))
 
+@timethis
 def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]

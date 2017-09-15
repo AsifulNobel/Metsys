@@ -194,6 +194,14 @@ LOGGING = {
         'chatbot.ContextualChatbotsWithTF.interface': {
             'handlers': ['console'],
             'level': 'DEBUG',
-        }
+        },
+        'chatbot.ContextualChatbotsWithTF.BanglaNLP.timethis': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'chatbot.ContextualChatbotsWithTF.EnglishNLP.timethis': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
     },
 }
