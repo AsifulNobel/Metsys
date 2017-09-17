@@ -1,9 +1,13 @@
 import csv
 import os
+from .timethis import timethis
+from libc.stddef cimport wchar_t
+from libc.stdlib cimport calloc, free
 
-#In this I have used a clever trick to filter out all the garbage in CSV
-#I checked if the cell string contains only ASCII or NOT
-#If not it is definitely a Bangla Word ;-)
+cdef extern from "Python.h":
+    wchar_t* PyUnicode_AsWideCharString(object, Py_ssize_t *)
+
+
 def isEnglish(s):
     try:
         s.encode(encoding='utf-8').decode('ascii')
@@ -12,69 +16,86 @@ def isEnglish(s):
     else:
         return True
 
+def loadWords(csvfile):
+    global banglaWordlist
+    global bnWordListLength
+    reader = csv.reader(csvfile , delimiter=',')
 
-DIR_NAME = os.path.dirname(os.path.abspath('__file__'))
-DIR_NAME_FIX = "/chatbot/ContextualChatbotsWithTF/BanglaNLP"
+    array = list(reader)
 
-try:
-    with open(os.path.join(DIR_NAME, 'splittedDictionary.csv'), 'r') as csvfile:
-        reader = csv.reader(csvfile , delimiter=',')
+    for i in range (0 , len(array)-1):
+        for j in range( (len(array[i])-1) , 0 , -1):
+            if (isEnglish(array[i][j]) == False) and (len(array[i][j]) > 0):
+                banglaWordlist.append(array[i][j])
+    bnWordListLength = len(banglaWordlist)
 
-        banglaWordlist = list()
-        array = list(reader)
+@timethis
+def loadFile():
+    DIR_NAME = os.path.dirname(os.path.abspath('__file__'))
+    DIR_NAME_FIX = "/chatbot/ContextualChatbotsWithTF/BanglaNLP"
 
-        for i in range (0 , len(array)-1):
-            for j in range( (len(array[i])-1) , 0 , -1):
-                if(isEnglish(array[i][j]) == False):
-                    banglaWordlist.append(array[i][j])
-except FileNotFoundError:
-    with open(os.path.join(DIR_NAME+DIR_NAME_FIX, 'splittedDictionary.csv'), 'r') as csvfile:
-        reader = csv.reader(csvfile , delimiter=',')
-
-        banglaWordlist = list()
-        array = list(reader)
-
-        for i in range (0 , len(array)-1):
-            for j in range( (len(array[i])-1) , 0 , -1):
-                if(isEnglish(array[i][j]) == False):
-                    banglaWordlist.append(array[i][j])
-
-
-#print(banglaWordlist)
-#print(len(banglaWordlist))
+    try:
+        with open(os.path.join(DIR_NAME, 'splittedDictionary.csv'), 'r') as csvfile:
+            loadWords(csvfile)
+    except FileNotFoundError:
+        with open(os.path.join(DIR_NAME+DIR_NAME_FIX, 'splittedDictionary.csv'), 'r') as csvfile:
+            loadWords(csvfile)
 
 
 #### This is an implementation of Longest Common Subsequence algorithm in Python 3.*
-
 # Dynamic programming implementation of LCS problem
 
 # Returns length of LCS for X[0..m-1], Y[0..n-1]
 def longest_common_substring(s1, s2):
-   m = [[0] * (1 + len(s2)) for i in range(1 + len(s1))]
-   cdef int longest, x_longest
-   longest = 0
-   x_longest = 0
+    cdef:
+        int longest, x_longest
+        int x, y, k
+        Py_ssize_t lengthRefWord
+        Py_ssize_t lengthStemWord
+        wchar_t *referenceWord = PyUnicode_AsWideCharString(s1, &lengthRefWord)
+        wchar_t *stemmableWord = PyUnicode_AsWideCharString(s2, &lengthStemWord)
+        int t1 = lengthRefWord+1
+        int t2 = lengthStemWord+1
+        int **m = <int **> calloc(t1, sizeof(int *))
+        wchar_t tempChar1;
+        wchar_t tempChar2;
+    longest = 0
+    x_longest = 0
 
-   cdef int x, y
+    for k in range(t1):
+       m[k] = <int *> calloc(t2, sizeof(int))
 
-   for x in range(1, 1 + len(s1)):
-       for y in range(1, 1 + len(s2)):
-           if s1[x - 1] == s2[y - 1]:
+    for x in range(1, t1):
+        for y in range(1, t2):
+           tempChar1 = referenceWord[x - 1]
+           tempChar2 = stemmableWord[y - 1]
+
+           if tempChar1 == tempChar2:
                m[x][y] = m[x - 1][y - 1] + 1
                if m[x][y] > longest:
                    longest = m[x][y]
                    x_longest = x
            else:
                m[x][y] = 0
-   return s1[x_longest - longest: x_longest]
+    free(m)
+    return s1[x_longest - longest: x_longest]
+
 
 def stemBanglaWord(s):
-    cdef int max = 0
+    cdef:
+        int max = 0
+        int i = 0
+    global banglaWordlist
 
     maxString = ""
-    for i in banglaWordlist:
-        longestCommonSubstring = longest_common_substring(i , s)
+
+    for i in range(bnWordListLength):
+        longestCommonSubstring = longest_common_substring(banglaWordlist[i], s)
         if len(longestCommonSubstring) > max:
             maxString = longestCommonSubstring
             max = len(longestCommonSubstring)
     return maxString
+
+cdef list banglaWordlist = list()
+cdef int bnWordListLength = 0
+loadFile()

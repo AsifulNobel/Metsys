@@ -3,7 +3,7 @@ from Cython.Build import cythonize
 
 setup(
     ext_modules = cythonize("stemming_bn.pyx",
-    language="c++")
+    language="c")
 )
 
 # Run command for building c/c++ file from .pyx files:

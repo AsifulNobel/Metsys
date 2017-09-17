@@ -1,15 +1,20 @@
 import time
-from functools import wraps
+from contextlib import contextmanager
 import logging
 
 logger = logging.getLogger(__name__)
 
-def timethis(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start = time.perf_counter()
-        r = func(*args, **kwargs)
-        end = time.perf_counter()
-        logger.debug('{}.{} : {}'.format(func.__module__, func.__name__, end - start))
-        return r
-    return wrapper
+def timethis(what):
+    @contextmanager
+    def benchmark():
+        start = time.time()
+        yield
+        end = time.time()
+        logger.debug("%s : %0.3f seconds" % (what, end-start))
+    if hasattr(what,"__call__"):
+        def timed(*args,**kwargs):
+            with benchmark():
+                return what(*args,**kwargs)
+        return timed
+    else:
+        return benchmark()
