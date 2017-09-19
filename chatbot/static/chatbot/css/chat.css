@@ -1,20 +1,33 @@
-/*I am not very proud of this CSS. Mostly borrowed it from a friends project and cut out all the parts that were unnecessary.*/
 html,
 body {
     height: 100%;
 }
+
+.top {
+    height: 40px;
+    background-color: #291b37;
+    color: #e7edf2;
+    font-family: Lato, sans-serif;
+    font-size:1.5em;
+    padding:5px;
+    padding-left:20px;
+}
+
 #wrap {
     min-height: 80%;
     height: auto;
 }
+
 #messages-container{
     width:100%;
     display:table;
 }
+
 .msg-row{
     display:table-row;
     height:0
 }
+
 .bot-icon-div{
     float: left;
     padding-right: 6px;
@@ -27,7 +40,8 @@ body {
     padding-top: 15px;
 
 }
-.bot-icon{  
+
+.bot-icon{
     height:40px;
 }
 
@@ -58,6 +72,7 @@ body {
     }
 
 }
+
 .message-text{
     font-size: 14px;
     font-family:'Myriad Pro';
@@ -68,6 +83,7 @@ body {
   word-break: initial;
 
 }
+
 #send-box{
     padding-top: 10px;
     padding-left: 10px;
@@ -89,19 +105,23 @@ body {
     top:40px;
     overflow-y:auto;
 }
+
 #sub-body-container{
     max-width: 50em;
     margin:0 auto;
 }
+
 #bottom-box{
     padding:5px;
     height:auto;
 }
+
 [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-ph);
     display:block;
     opacity:0.4;
 }
+
 #messageToSend {
     font-size: 14px;
     color:#000000;
@@ -136,6 +156,7 @@ body {
     line-height:normal;
     outline:none;
 }
+
 .user-msg-bubble{
 font-size: 10px;
     margin-top: -20px;
@@ -143,8 +164,8 @@ font-size: 10px;
     padding-left: 10px;
     color: #aaa;
 }
+
 .bot-msg-body{
         background: #eee;
     border-radius: 5px;
 }
-
