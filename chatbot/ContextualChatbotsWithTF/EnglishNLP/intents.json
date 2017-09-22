@@ -17,38 +17,143 @@
          "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
         },
         {"tag": "products",
-         "patterns": ["Which products do you guys sell?", "What products do you guys have?" ],
-         "responses": ["We sell Television , Home Theater Systems , Air Conditioner and Microwave oven", "We have Television , Home Theater Systems , Air Conditioner and Microwave oven"]
-        },
-        {"tag": "television",
-         "patterns": ["Which television do you guys sell?", "Which television brand you guys sell" ,"I want to buy a television","I want to buy a telvision", "Tell me about television" ],
-         "responses": ["We sell television from Samsung,Sony,LG,and Toshiba"],
-          "context_set": "tele_brand"
+         "patterns": ["Which products do you guys sell?", "What products do you guys have?", "What do you sell?" ],
+         "responses": ["We sell Television, Home Theater Systems, Air Conditioner and Microwave oven", "We have Television and Home Theater Systems"]
         },
         {"tag": "hometheater",
          "patterns": ["Which Home Theater System do you guys sell?", "Which Home Theater System brand you guys sell" ,"I want to buy a Home Theater System","I want to buy a Home Theater System", "Tell me about Home Theater System" ],
          "responses": ["We sell Home Theater System only from Sony"],
           "context_set": "home_brand"
         },
+        {"tag": "Sony_Hometheater",
+         "patterns": ["Tell me about sony home theater", "Sony home theater system" , "Which sony home theater do you guys have?"],
+         "responses": ["We have Sony home theater systems with compact satellite speakers, tall boy speakers, floor standing speakers with subwoofers and 5-master digital amplifiers"],
+         "context_set": "specific"
+        },
+        {"tag": "television",
+         "patterns": ["Which television do you guys sell?", "Which television brand you guys sell" ,"I want to buy a television","I want to buy a television", "Tell me about television" ],
+         "responses": ["We sell television from Samsung,Sony,LG,and Toshiba"],
+          "context_set": "tele_brand"
+        },
         {"tag": "Sony_TV",
          "patterns": ["Tell me about sony TV", "Sony" , "Which sony tv do you guys have?"],
-         "responses": ["We have Sony TV model with 24, 32, 40, 43 ,49, 55, 60, 65 inch screen they have 720p , 1080p or 4k resolution"],
+         "responses": ["We have Sony TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"],
          "context_set": "specific"
+        },
+        {"tag": "Sony_TV_24",
+         "patterns": ["Tell me about sony 24 inch TV", "Sony 24 inch tv" , "What is the price of 24 inch sony tv?", "how much for 24 inch sony tv?"],
+         "responses": ["It costs 22 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "Sony_TV_32",
+         "patterns": ["Tell me about sony 32 inch TV", "Sony 32 inch tv" , "What is the price of 32 inch sony tv?", "how much for 32 inch sony tv?"],
+         "responses": ["It costs 27 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "Sony_TV_40",
+         "patterns": ["Tell me about sony 40 inch TV", "Sony 40 inch tv" , "What is the price of 40 inch sony tv?", "how much for 40 inch sony tv?"],
+         "responses": ["It costs 34 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "Sony_TV_55",
+         "patterns": ["Tell me about sony 55 inch TV", "Sony 55 inch tv" , "What is the price of 55 inch sony tv?", "how much for 55 inch sony tv?"],
+         "responses": ["It costs 80 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "Sony_TV_60",
+         "patterns": ["Tell me about sony 60 inch TV", "Sony 60 inch tv" , "What is the price of 60 inch sony tv?", "how much for 24 inch sony tv?"],
+         "responses": ["It costs 97 thousand taka"],
+         "context_set": ""
         },
         {"tag": "Samsung_TV",
          "patterns": ["Tell me about Samsung TV", "Samsung" , "Which Samsung tv do you guys have?"],
-         "responses": ["We have Samsung TV model with 24, 32, 40, 43 ,48, 55, 65 inch screen they have 720p , 1080p or 4k resolution"],
+         "responses": ["We have Samsung TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"],
          "context_set": "specific"
         },
+        {"tag": "Samsung_TV_24",
+         "patterns": ["Tell me about Samsung 24 inch TV", "Samsung 24 inch tv" , "What is the price of 24 inch samsung tv?", "how much for 24 inch samsung tv?"],
+         "responses": ["It costs 21 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "samsung_TV_32",
+         "patterns": ["Tell me about samsung 32 inch TV", "samsung 32 inch tv" , "What is the price of 32 inch samsung tv?", "how much for 32 inch samsung tv?"],
+         "responses": ["It costs 25 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "samsung_TV_40",
+         "patterns": ["Tell me about samsung 40 inch TV", "samsung 40 inch tv" , "What is the price of 40 inch samsung tv?", "how much for 40 inch samsung tv?"],
+         "responses": ["It costs 31 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "samsung_TV_55",
+         "patterns": ["Tell me about samsung 55 inch TV", "samsung 55 inch tv" , "What is the price of 55 inch samsung tv?", "how much for 55 inch samsung tv?"],
+         "responses": ["It costs 81 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "samsung_TV_60",
+         "patterns": ["Tell me about samsung 60 inch TV", "samsung 60 inch tv" , "What is the price of 60 inch samsung tv?", "how much for 24 inch samsung tv?"],
+         "responses": ["It costs 94 thousand taka"],
+         "context_set": ""
+        },
         {"tag": "Toshiba_TV",
-         "patterns": ["Tell me about Toashiba TV", "Toashiba" , "Which Toashiba tv do you guys have?"],
-         "responses": ["We have Toashiba TV model with 32, 40, 43 inch screen they have 720p , 1080p or 4k resolution"],
+         "patterns": ["Tell me about Toshiba TV", "Toshiba" , "Which Toshiba tv do you guys have?"],
+         "responses": ["We have Toshiba TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"],
          "context_set": "specific"
+        },
+        {"tag": "toshiba_TV_24",
+         "patterns": ["Tell me about toshiba 24 inch TV", "toshiba 24 inch tv" , "What is the price of 24 inch toshiba tv?", "how much for 24 inch toshiba tv?"],
+         "responses": ["It costs 17 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "toshiba_TV_32",
+         "patterns": ["Tell me about toshiba 32 inch TV", "toshiba 32 inch tv" , "What is the price of 32 inch toshiba tv?", "how much for 32 inch toshiba tv?"],
+         "responses": ["It costs 21 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "toshiba_TV_40",
+         "patterns": ["Tell me about toshiba 40 inch TV", "toshiba 40 inch tv" , "What is the price of 40 inch toshiba tv?", "how much for 40 inch toshiba tv?"],
+         "responses": ["It costs 30 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "toshiba_TV_55",
+         "patterns": ["Tell me about toshiba 55 inch TV", "toshiba 55 inch tv" , "What is the price of 55 inch toshiba tv?", "how much for 55 inch toshiba tv?"],
+         "responses": ["It costs 73 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "toshiba_TV_60",
+         "patterns": ["Tell me about toshiba 60 inch TV", "toshiba 60 inch tv" , "What is the price of 60 inch toshiba tv?", "how much for 24 inch toshiba tv?"],
+         "responses": ["It costs 91 thousand taka"],
+         "context_set": ""
         },
         {"tag": "LG_TV",
          "patterns": ["Tell me about LG TV", "LG" , "Which LG tv do you guys have?"],
-         "responses": ["We have LG TV model with 32, 43, 55, 65 inch screen they have 720p , 1080p or 4k resolution"],
+         "responses": ["We have LG TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"],
          "context_set": "specific"
+        },
+        {"tag": "lg_TV_24",
+         "patterns": ["Tell me about lg 24 inch TV", "lg 24 inch tv" , "What is the price of 24 inch lg tv?", "how much for 24 inch lg tv?"],
+         "responses": ["It costs 20 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "lg_TV_32",
+         "patterns": ["Tell me about lg 32 inch TV", "lg 32 inch tv" , "What is the price of 32 inch lg tv?", "how much for 32 inch lg tv?"],
+         "responses": ["It costs 25 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "lg_TV_40",
+         "patterns": ["Tell me about lg 40 inch TV", "lg 40 inch tv" , "What is the price of 40 inch lg tv?", "how much for 40 inch lg tv?"],
+         "responses": ["It costs 32 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "lg_TV_55",
+         "patterns": ["Tell me about lg 55 inch TV", "lg 55 inch tv" , "What is the price of 55 inch lg tv?", "how much for 55 inch lg tv?"],
+         "responses": ["It costs 78 thousand taka"],
+         "context_set": ""
+        },
+        {"tag": "lg_TV_60",
+         "patterns": ["Tell me about lg 60 inch TV", "lg 60 inch tv" , "What is the price of 60 inch lg tv?", "how much for 24 inch lg tv?"],
+         "responses": ["It costs 95 thousand taka"],
+         "context_set": ""
         },
         {"tag": "details",
          "patterns": ["Tell me more" , "Can you give me more info?", "Can you give me detailed info?"],
@@ -60,7 +165,7 @@
          "responses": ["We accept Nexus, VISA, Mastercard and AMEX", "We accept most major credit cards"]
         },
         {"tag": "payments_bkash",
-         "patterns": ["Do you accept bKash" ],
+         "patterns": ["Do you accept bKash", "Can I pay with bKash" ],
          "responses": ["Yes we accept bKash payment"]
         },
         {"tag": "opentoday",

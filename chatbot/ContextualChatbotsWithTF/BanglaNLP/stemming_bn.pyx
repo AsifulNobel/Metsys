@@ -1,8 +1,12 @@
 import csv
 import os
-from .timethis import timethis
 from libc.stddef cimport wchar_t
-from libc.stdlib cimport calloc, free
+from cpython.mem cimport PyMem_Malloc, PyMem_Free
+
+try:
+    from timethis import timethis
+except ModuleNotFoundError:
+    from .timethis import timethis
 
 cdef extern from "Python.h":
     wchar_t* PyUnicode_AsWideCharString(object, Py_ssize_t *)
@@ -46,24 +50,27 @@ def loadFile():
 # Dynamic programming implementation of LCS problem
 
 # Returns length of LCS for X[0..m-1], Y[0..n-1]
-def longest_common_substring(s1, s2):
+def longest_common_substring(refWord, stemWord):
     cdef:
         int longest, x_longest
         int x, y, k
         Py_ssize_t lengthRefWord
         Py_ssize_t lengthStemWord
-        wchar_t *referenceWord = PyUnicode_AsWideCharString(s1, &lengthRefWord)
-        wchar_t *stemmableWord = PyUnicode_AsWideCharString(s2, &lengthStemWord)
+        wchar_t *referenceWord = PyUnicode_AsWideCharString(refWord, &lengthRefWord)
+        wchar_t *stemmableWord = PyUnicode_AsWideCharString(stemWord, &lengthStemWord)
         int t1 = lengthRefWord+1
         int t2 = lengthStemWord+1
-        int **m = <int **> calloc(t1, sizeof(int *))
+        int **m = <int **> PyMem_Malloc(t1 * sizeof(int *))
         wchar_t tempChar1;
         wchar_t tempChar2;
     longest = 0
     x_longest = 0
 
     for k in range(t1):
-       m[k] = <int *> calloc(t2, sizeof(int))
+       m[k] = <int *> PyMem_Malloc(t2 * sizeof(int))
+    for x in range(0, t1):
+        for y in range(0, t2):
+            m[x][y] = 0
 
     for x in range(1, t1):
         for y in range(1, t2):
@@ -77,8 +84,12 @@ def longest_common_substring(s1, s2):
                    x_longest = x
            else:
                m[x][y] = 0
-    free(m)
-    return s1[x_longest - longest: x_longest]
+    for k in range(t1):
+       PyMem_Free(m[k])
+    PyMem_Free(m)
+    PyMem_Free(referenceWord)
+    PyMem_Free(stemmableWord)
+    return refWord[x_longest - longest: x_longest]
 
 
 def stemBanglaWord(s):
