@@ -18,7 +18,7 @@
         },
         {"tag": "products",
          "patterns": ["Which products do you guys sell?", "What products do you guys have?", "What do you sell?" ],
-         "responses": ["We sell Television, Home Theater Systems, Air Conditioner and Microwave oven", "We have Television and Home Theater Systems"]
+         "responses": ["We sell Television and Home Theater Systems", "We have Television and Home Theater Systems"]
         },
         {"tag": "hometheater",
          "patterns": ["Which Home Theater System do you guys sell?", "Which Home Theater System brand you guys sell" ,"I want to buy a Home Theater System","I want to buy a Home Theater System", "Tell me about Home Theater System" ],
@@ -31,7 +31,7 @@
          "context_set": "specific"
         },
         {"tag": "television",
-         "patterns": ["Which television do you guys sell?", "Which television brand you guys sell" ,"I want to buy a television","I want to buy a television", "Tell me about television" ],
+         "patterns": ["Which television do you guys sell?", "Which television brand you guys sell" , "I want to buy a television", "Tell me about television", "Which tv do you guys sell?", "Which tv brand you guys sell" , "I want to buy a tv", "Tell me about tv" ],
          "responses": ["We sell television from Samsung,Sony,LG,and Toshiba"],
           "context_set": "tele_brand"
         },
@@ -42,27 +42,27 @@
         },
         {"tag": "Sony_TV_24",
          "patterns": ["Tell me about sony 24 inch TV", "Sony 24 inch tv" , "What is the price of 24 inch sony tv?", "how much for 24 inch sony tv?"],
-         "responses": ["It costs 22 thousand taka"],
+         "responses": ["Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"],
          "context_set": ""
         },
         {"tag": "Sony_TV_32",
          "patterns": ["Tell me about sony 32 inch TV", "Sony 32 inch tv" , "What is the price of 32 inch sony tv?", "how much for 32 inch sony tv?"],
-         "responses": ["It costs 27 thousand taka"],
+         "responses": ["Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"],
          "context_set": ""
         },
         {"tag": "Sony_TV_40",
          "patterns": ["Tell me about sony 40 inch TV", "Sony 40 inch tv" , "What is the price of 40 inch sony tv?", "how much for 40 inch sony tv?"],
-         "responses": ["It costs 34 thousand taka"],
+         "responses": ["Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"],
          "context_set": ""
         },
         {"tag": "Sony_TV_55",
          "patterns": ["Tell me about sony 55 inch TV", "Sony 55 inch tv" , "What is the price of 55 inch sony tv?", "how much for 55 inch sony tv?"],
-         "responses": ["It costs 80 thousand taka"],
+         "responses": ["Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"],
          "context_set": ""
         },
         {"tag": "Sony_TV_60",
          "patterns": ["Tell me about sony 60 inch TV", "Sony 60 inch tv" , "What is the price of 60 inch sony tv?", "how much for 24 inch sony tv?"],
-         "responses": ["It costs 97 thousand taka"],
+         "responses": ["Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"],
          "context_set": ""
         },
         {"tag": "Samsung_TV",
@@ -72,27 +72,27 @@
         },
         {"tag": "Samsung_TV_24",
          "patterns": ["Tell me about Samsung 24 inch TV", "Samsung 24 inch tv" , "What is the price of 24 inch samsung tv?", "how much for 24 inch samsung tv?"],
-         "responses": ["It costs 21 thousand taka"],
+         "responses": ["Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"],
          "context_set": ""
         },
         {"tag": "samsung_TV_32",
          "patterns": ["Tell me about samsung 32 inch TV", "samsung 32 inch tv" , "What is the price of 32 inch samsung tv?", "how much for 32 inch samsung tv?"],
-         "responses": ["It costs 25 thousand taka"],
+         "responses": ["Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"],
          "context_set": ""
         },
         {"tag": "samsung_TV_40",
          "patterns": ["Tell me about samsung 40 inch TV", "samsung 40 inch tv" , "What is the price of 40 inch samsung tv?", "how much for 40 inch samsung tv?"],
-         "responses": ["It costs 31 thousand taka"],
+         "responses": ["Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"],
          "context_set": ""
         },
         {"tag": "samsung_TV_55",
          "patterns": ["Tell me about samsung 55 inch TV", "samsung 55 inch tv" , "What is the price of 55 inch samsung tv?", "how much for 55 inch samsung tv?"],
-         "responses": ["It costs 81 thousand taka"],
+         "responses": ["Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"],
          "context_set": ""
         },
         {"tag": "samsung_TV_60",
          "patterns": ["Tell me about samsung 60 inch TV", "samsung 60 inch tv" , "What is the price of 60 inch samsung tv?", "how much for 24 inch samsung tv?"],
-         "responses": ["It costs 94 thousand taka"],
+         "responses": ["Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"],
          "context_set": ""
         },
         {"tag": "Toshiba_TV",
@@ -102,27 +102,27 @@
         },
         {"tag": "toshiba_TV_24",
          "patterns": ["Tell me about toshiba 24 inch TV", "toshiba 24 inch tv" , "What is the price of 24 inch toshiba tv?", "how much for 24 inch toshiba tv?"],
-         "responses": ["It costs 17 thousand taka"],
+         "responses": ["Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"],
          "context_set": ""
         },
         {"tag": "toshiba_TV_32",
          "patterns": ["Tell me about toshiba 32 inch TV", "toshiba 32 inch tv" , "What is the price of 32 inch toshiba tv?", "how much for 32 inch toshiba tv?"],
-         "responses": ["It costs 21 thousand taka"],
+         "responses": ["Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"],
          "context_set": ""
         },
         {"tag": "toshiba_TV_40",
          "patterns": ["Tell me about toshiba 40 inch TV", "toshiba 40 inch tv" , "What is the price of 40 inch toshiba tv?", "how much for 40 inch toshiba tv?"],
-         "responses": ["It costs 30 thousand taka"],
+         "responses": ["Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"],
          "context_set": ""
         },
         {"tag": "toshiba_TV_55",
          "patterns": ["Tell me about toshiba 55 inch TV", "toshiba 55 inch tv" , "What is the price of 55 inch toshiba tv?", "how much for 55 inch toshiba tv?"],
-         "responses": ["It costs 73 thousand taka"],
+         "responses": ["Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"],
          "context_set": ""
         },
         {"tag": "toshiba_TV_60",
          "patterns": ["Tell me about toshiba 60 inch TV", "toshiba 60 inch tv" , "What is the price of 60 inch toshiba tv?", "how much for 24 inch toshiba tv?"],
-         "responses": ["It costs 91 thousand taka"],
+         "responses": ["Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"],
          "context_set": ""
         },
         {"tag": "LG_TV",
@@ -132,32 +132,32 @@
         },
         {"tag": "lg_TV_24",
          "patterns": ["Tell me about lg 24 inch TV", "lg 24 inch tv" , "What is the price of 24 inch lg tv?", "how much for 24 inch lg tv?"],
-         "responses": ["It costs 20 thousand taka"],
+         "responses": ["LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"],
          "context_set": ""
         },
         {"tag": "lg_TV_32",
          "patterns": ["Tell me about lg 32 inch TV", "lg 32 inch tv" , "What is the price of 32 inch lg tv?", "how much for 32 inch lg tv?"],
-         "responses": ["It costs 25 thousand taka"],
+         "responses": ["LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"],
          "context_set": ""
         },
         {"tag": "lg_TV_40",
          "patterns": ["Tell me about lg 40 inch TV", "lg 40 inch tv" , "What is the price of 40 inch lg tv?", "how much for 40 inch lg tv?"],
-         "responses": ["It costs 32 thousand taka"],
+         "responses": ["LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"],
          "context_set": ""
         },
         {"tag": "lg_TV_55",
          "patterns": ["Tell me about lg 55 inch TV", "lg 55 inch tv" , "What is the price of 55 inch lg tv?", "how much for 55 inch lg tv?"],
-         "responses": ["It costs 78 thousand taka"],
+         "responses": ["LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"],
          "context_set": ""
         },
         {"tag": "lg_TV_60",
          "patterns": ["Tell me about lg 60 inch TV", "lg 60 inch tv" , "What is the price of 60 inch lg tv?", "how much for 24 inch lg tv?"],
-         "responses": ["It costs 95 thousand taka"],
+         "responses": ["LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"],
          "context_set": ""
         },
         {"tag": "details",
          "patterns": ["Tell me more" , "Can you give me more info?", "Can you give me detailed info?"],
-         "responses": ["For more information please call 01611-646464"],
+         "responses": ["For more information please call 01752508980"],
          "context_filter": "specific"
         },
         {"tag": "payments_card",
@@ -166,7 +166,7 @@
         },
         {"tag": "payments_bkash",
          "patterns": ["Do you accept bKash", "Can I pay with bKash" ],
-         "responses": ["Yes we accept bKash payment"]
+         "responses": ["Yes we accept bKash payment and our bkash marchent account no.01687032353"]
         },
         {"tag": "opentoday",
          "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
@@ -174,4 +174,3 @@
         }
    ]
 }
-
