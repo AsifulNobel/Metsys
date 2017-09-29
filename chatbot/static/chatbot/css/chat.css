@@ -1,15 +1,17 @@
 html,
 body {
     height: 100%;
+    font-size: 16px;
 }
 
 .top {
     height: 40px;
     background-color: #291b37;
     color: #e7edf2;
-    font-family: Lato, sans-serif;
-    font-size:1.5em;
-    padding:5px;
+    font-family: "Lato", sans-serif;
+    font-size:1.5rem;
+    padding-top:5px;
+    padding-bottom:40px;
     padding-left:20px;
 }
 
@@ -28,24 +30,7 @@ body {
     height:0
 }
 
-.bot-icon-div{
-    float: left;
-    padding-right: 6px;
-    margin-bottom: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    width: 38px;
-    height: 32px;
-    padding-top: 15px;
-
-}
-
-.bot-icon{
-    height:40px;
-}
-
-.bottom-padding{
+.bottom-padding {
     padding-bottom:10px;
 }
 
@@ -57,7 +42,6 @@ body {
 }
 
 @keyframes fadeInAndUp {
-
     0% {
         bottom:-5px;
         opacity:0.1;
@@ -74,56 +58,58 @@ body {
 }
 
 .message-text{
-    font-size: 14px;
-    font-family:'Myriad Pro';
+    font-size: 1rem;
+    font-family: 'Ubuntu','Myriad Pro';
     overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
-  word-break: initial;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    word-break: initial;
 
 }
 
 #send-box{
     padding-top: 10px;
-    padding-left: 10px;
     padding-bottom: 10px;
-    padding-right: 10px;
     background-color:#FFFFFF;
     height:auto;
     width:100%;
     margin-left:0px;
     margin-right:0px;
+    border-radius: 20px;
+    border-color: #78509e;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #body-container{
-    padding:10px;
     position:absolute;
-    bottom:50px;
+    bottom:55px;
     right:0;
     left:0;
-    top:40px;
+    top:45px;
     overflow-y:auto;
 }
 
 #sub-body-container{
     max-width: 50em;
     margin:0 auto;
+    padding: 5px;
 }
 
 #bottom-box{
-    padding:5px;
-    height:auto;
+    height: auto;
 }
 
 [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-ph);
     display:block;
-    opacity:0.4;
+    opacity:0.5;
 }
 
 #messageToSend {
-    font-size: 14px;
+    font-size: 0.9rem;
     color:#000000;
     border: 0px;
     min-height:22px;
@@ -134,38 +120,87 @@ body {
     padding-bottom:0px;
     padding-right:40px;
     margin:0px;
-    width:100%;
-}
-
-.send-button-div{
-    text-align:right;
-    line-height : normal;
-    position:absolute;
-    right:15px;
-    margin-top:-6px;
 }
 
 #messageSendButton {
-
     background-color:#FFFFFF;
     color:none;
     border: 0px;
     padding :0px;
     font-family:Glyphs;
-    font-size:26px;
+    font-size:1.3rem;
     line-height:normal;
     outline:none;
 }
 
 .user-msg-bubble{
-font-size: 10px;
-    margin-top: -20px;
+    font-size: 0.7rem;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    color: #3a7d4a;
+}
+
+.bot-msg-bubble{
+    font-size: 0.7rem;
+    margin-top: -15px;
     margin-bottom: 10px;
     padding-left: 10px;
-    color: #aaa;
+    color: #2c5ebf;
 }
 
 .bot-msg-body{
-        background: #eee;
+    background: #483659;
+    color: #fff;
     border-radius: 5px;
+}
+
+.user-msg {
+    text-align: right;
+}
+
+@media screen and (min-width: 1400px) {
+    html {
+        font-size: 19px;
+    }
+
+    .top {
+        height: 50px;
+        padding-top:3px;
+        padding-bottom:40px;
+        padding-left:30px;
+    }
+
+    #body-container{
+        top:55px;
+        bottom: 65px;
+    }
+
+    #sub-body-container {
+        max-width: 50em;
+        padding-top: 10px;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    html {
+        font-size: 22px;
+    }
+
+    .top {
+        height: 60px;
+        padding-top:3px;
+        padding-bottom:50px;
+        padding-left:40px;
+    }
+
+    #body-container{
+        top:65px;
+        bottom: 75px;
+    }
+
+    #sub-body-container {
+        max-width: 50em;
+        padding-top: 25px;
+    }
 }

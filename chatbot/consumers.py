@@ -64,7 +64,7 @@ def chat_send(message):
         'text': json.dumps(message_to_send_content)
     })
 
-    # Call my view to actually construct the reseponse to
+    # Call my view to actually construct the response to
     # the query
     response = respond_to_websockets(
         message
