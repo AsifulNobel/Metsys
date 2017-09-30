@@ -12,15 +12,18 @@ body {
 #top-brand {
     color: #e7edf2;
     font-size:1.5rem;
+    outline: none;
 }
 
 #nav-feedback {
     color: #e7edf2;
+    outline: none;
     font-size:1.5rem;
 }
 
 #nav-contact {
     color: #e7edf2;
+    outline: none;
     font-size:1.5rem;
 }
 
@@ -97,7 +100,7 @@ body {
     bottom:50px;
     right:0;
     left:0;
-    top:45px;
+    top:50px;
     overflow-y:auto;
 }
 
@@ -178,7 +181,7 @@ body {
     }
 
     #body-container{
-        top:55px;
+        top:60px;
         bottom: 60px;
     }
 
@@ -194,7 +197,7 @@ body {
     }
 
     #body-container{
-        top:65px;
+        top:70px;
         bottom: 70px;
     }
 
