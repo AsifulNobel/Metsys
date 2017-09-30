@@ -55,14 +55,16 @@ def chat_send(message):
 
     # First send the candidate message in the right format for
     # chatbot to print it on the message channel
-    message_to_send_content = {
-        'text': message['text'],
-        'type': 'text',
-        'source': 'CANDIDATE'
-    }
-    message.reply_channel.send({
-        'text': json.dumps(message_to_send_content)
-    })
+    # message_to_send_content = {
+    #     'text': message['text'],
+    #     'type': 'text',
+    #     'source': 'CANDIDATE'
+    # }
+    # message.reply_channel.send({
+    #     'text': json.dumps(message_to_send_content)
+    # })
+    # Do not need the above part, because user message printing is handled in
+    # client side
 
     # Call my view to actually construct the response to
     # the query

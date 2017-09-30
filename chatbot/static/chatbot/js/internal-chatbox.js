@@ -28,8 +28,14 @@ function add_message_to_chat(data, formatted_div){
 
 // Function that is called when the server sends a message via websockets to my front end.
 function processAndDisplayChatMessage(message){
-
-	var content_data = JSON.parse(message.data);
+	if (message.data) {
+		// Bot Message
+		var content_data = JSON.parse(message.data);
+	}
+	else {
+		// User message
+		var content_data = message
+	}
 	var formatted_div = generate_formatted_chat_message(
 		content_data);
 
@@ -49,9 +55,16 @@ function sendTextMessage() {
     message.command= 'send'
     message.timestamp = new Date();
 
+	message_to_send_content = {
+        'text': message['text'],
+        'type': 'text',
+        'source': 'CANDIDATE'
+    }
 
     $('#messageToSend').text('');
 	chatsock.send(JSON.stringify(message));
+	// Displays user message
+	processAndDisplayChatMessage(message_to_send_content);
 	$("#message").val('').focus();
     return false;
 }
