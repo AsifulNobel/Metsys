@@ -20,7 +20,10 @@
     - have to check if a complaint exists before resolving it, because two
     admins may try to resolve it at the same time
 + Create *moderator* model
-    - username, hashed password
+    - index, username, hashed password
+
++ Create *feedback* model
+    - index, name(optional), comment
 
 ### Frontend
 + Add a small red empty crosshair icon beside every bot message
@@ -32,6 +35,13 @@
 
 + Design Admin panel with login for complaints
     - Design Login Page
+
++ Feedback Option
+    - Make a popup with animation for feedback
+
++ Help Option
+    - Make a popup with animation for instructions about using the chatbot web
+    app
 
 ### Backend
 + Implement rest api for complaint
@@ -51,3 +61,6 @@
 + Can delete complaints in bulk
 + A option to generate new `intents.json`
     - Option to download that file
++ Feedback option
+    - Give users option to make comments about the chatbot or web app
+    - User can give info, if he/she chooses to

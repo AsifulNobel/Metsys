@@ -4,15 +4,24 @@ body {
     font-size: 16px;
 }
 
-.top {
-    height: 40px;
+#top {
     background-color: #291b37;
-    color: #e7edf2;
     font-family: "Lato", sans-serif;
+}
+
+#top-brand {
+    color: #e7edf2;
     font-size:1.5rem;
-    padding-top:5px;
-    padding-bottom:40px;
-    padding-left:20px;
+}
+
+#nav-feedback {
+    color: #e7edf2;
+    font-size:1.5rem;
+}
+
+#nav-contact {
+    color: #e7edf2;
+    font-size:1.5rem;
 }
 
 #wrap {
@@ -85,7 +94,7 @@ body {
 
 #body-container{
     position:absolute;
-    bottom:55px;
+    bottom:50px;
     right:0;
     left:0;
     top:45px;
@@ -149,10 +158,14 @@ body {
     color: #2c5ebf;
 }
 
+.user-msg-body {
+    box-shadow: 5px 5px 3px grey;
+}
+
 .bot-msg-body{
     background: #483659;
     color: #fff;
-    border-radius: 5px;
+    box-shadow: 5px 5px 3px #675466;
 }
 
 .user-msg {
@@ -164,16 +177,9 @@ body {
         font-size: 19px;
     }
 
-    .top {
-        height: 50px;
-        padding-top:3px;
-        padding-bottom:40px;
-        padding-left:30px;
-    }
-
     #body-container{
         top:55px;
-        bottom: 65px;
+        bottom: 60px;
     }
 
     #sub-body-container {
@@ -187,16 +193,9 @@ body {
         font-size: 22px;
     }
 
-    .top {
-        height: 60px;
-        padding-top:3px;
-        padding-bottom:50px;
-        padding-left:40px;
-    }
-
     #body-container{
         top:65px;
-        bottom: 75px;
+        bottom: 70px;
     }
 
     #sub-body-container {
