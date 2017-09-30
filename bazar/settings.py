@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'bazar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bazar',
+        'NAME': 'metsys',
         'USER': 'nobel',
         'PASSWORD': 'v@R@ns1',
         'HOST': '127.0.0.1',
