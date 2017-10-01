@@ -64,5 +64,7 @@
 + A option to generate new `intents.json`
     - Option to download that file
 + Feedback option
+    - ~~Add rest api for feedbacks~~
+    - Connect rest api to front-end
     - Give users option to make comments about the chatbot or web app
     - User can give info, if he/she chooses to
