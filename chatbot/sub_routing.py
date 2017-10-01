@@ -5,7 +5,8 @@ from .consumers import (
     ws_disconnect,
     chat_start,
     chat_leave,
-    chat_send
+    chat_send,
+    feedback_send
 )
 
 
@@ -32,4 +33,5 @@ custom_routing = [
     route("chat.receive", chat_start, command="^start$"),
     route("chat.receive", chat_leave, command="^leave$"),
     route("chat.receive", chat_send, command="^send$"),
+    route("chat.receive", feedback_send, command="^feedback$"),
 ]

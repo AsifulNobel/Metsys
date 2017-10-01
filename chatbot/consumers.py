@@ -2,7 +2,7 @@ import json
 from channels import Channel
 from channels.sessions import enforce_ordering
 
-from .views import respond_to_websockets
+from .views import (respond_to_websockets, saveFeedback)
 
 
 @enforce_ordering
@@ -37,7 +37,7 @@ def ws_disconnect(message):
 # Chat channel handling ###
 
 def chat_start(message):
-    # Genearlly add them to a room, or do other things that should be
+    # Generally add them to a room, or do other things that should be
     # done when the chat is started
     pass
 
@@ -72,8 +72,11 @@ def chat_send(message):
         message
     )
 
-    # Reformat the reponse and send it to the html to print
+    # Reformat the response and send it to the html to print
     response['source'] = 'BOT'
     message.reply_channel.send({
         'text': json.dumps(response)
     })
+
+def feedback_send(feedbackMessage):
+    saveFeedback(feedbackMessage)

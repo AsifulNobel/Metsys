@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <!-- Living Dangerously!! Security Flaws beyond measure :'( -->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -67,27 +68,25 @@
         <!-- Feedback Modal -->
         <div class="modal fade" id="feedbackModal" role="dialog">
             <div class="modal-dialog">
-
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" id="feedbackClose">&times;</button>
                         <h3 class="modal-title">Feedback</h3>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="feedbackModalForm">
                         <form>
                             <div class="form-group">
                                 <label for="userName">Name</label>
-                                <input type="text" class="form-control" placeholder="Name">
+                                <input type="text" class="form-control" placeholder="Name" id="userName">
                             </div>
                             <div class="form-group">
                                 <label for="comments">Comments</label>
-                                <textarea class="form-control" rows="3" placeholder="Comments..."></textarea>
+                                <textarea class="form-control" rows="3" placeholder="Comments..." id="comments"></textarea>
                             </div>
+                            <button type="button" class="pull-right btn btn-primary" id="feedbackSubmit" onclick="sendFeedback()">Send Feedback</button>
+                            <div class="clearfix"></div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
                 <!-- Modal Content -->
@@ -218,6 +217,7 @@
                 message.command= 'start'
                 chatsock.send(JSON.stringify(message)); // START TALKING!
             }
+
             chatsock.onmessage = function(message){
                 processAndDisplayChatMessage(message);
             };
@@ -231,7 +231,8 @@
                 $('.error-notification').html("Unable to connect to the metsys server. Please try again in a few minutes (by refreshing the page).")
                 $('.error-notification').show();
                 $('.non-error').hide();
-                $("#body-container").scrollTop( $('#body-container')[0].scrollHeight );
+                $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
+                $("#feedbackClose").trigger('click');
             }
 
             $(document).ready(function() {

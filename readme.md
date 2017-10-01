@@ -28,16 +28,18 @@
 
 ### Frontend
 + Add a small red empty crosshair icon beside every bot message
-    - When clicked, icon will be filled
+    - ~~When clicked, icon will be filled~~
+    - ~~The message and the request message before it will be passed to websocket~~
     - The message and the request message before it will be saved in database
     - Before saving check if those already exists in database
     - If complaint cannot be saved, do not fill icon and show error message
     - If complaint already exists, do the usual
+    - The message and the request message before it can be deleted from database
 
 + Design Admin panel with login for complaints
     - Design Login Page
 
-+ Feedback Option
++ ~~Feedback Option~~
     - ~~Make a popup with animation for feedback~~
 
 + Help Option
@@ -63,8 +65,7 @@
 + Can delete complaints in bulk
 + A option to generate new `intents.json`
     - Option to download that file
-+ Feedback option
++ ~~Feedback option~~
     - ~~Add rest api for feedbacks~~
-    - Connect rest api to front-end
-    - Give users option to make comments about the chatbot or web app
-    - User can give info, if he/she chooses to
+    - ~~Give users option to make comments about the chatbot or web app~~
+    - ~~User can give info, if he/she chooses to~~

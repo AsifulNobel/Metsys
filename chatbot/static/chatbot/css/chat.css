@@ -175,6 +175,12 @@ body {
     text-align: right;
 }
 
+.complaint-mark {
+    margin-left: -1rem;
+    font-size: 2.2rem;
+    color: #af2424;
+}
+
 @media screen and (min-width: 1400px) {
     html {
         font-size: 19px;
@@ -188,6 +194,10 @@ body {
     #sub-body-container {
         max-width: 50em;
         padding-top: 10px;
+    }
+
+    .complaint-mark {
+        font-size: 1.8rem;
     }
 }
 
@@ -204,5 +214,9 @@ body {
     #sub-body-container {
         max-width: 50em;
         padding-top: 25px;
+    }
+
+    .complaint-mark {
+        font-size: 1.5rem;
     }
 }

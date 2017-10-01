@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from chatbot.serializers import MessageSerializer, FeedbackSerializer
+from .models import Feedbacks
 from django.shortcuts import render
 from .ContextualChatbotsWithTF.responderInterface import response_message
 
@@ -18,6 +19,13 @@ def respond_to_websockets(message):
     result_message['text'] = response_message(message['text'])
 
     return result_message
+
+def saveFeedback(feedbackMessage):
+    feedback = Feedbacks(name=feedbackMessage['name'],\
+        comment=feedbackMessage['comment'])
+    feedback.save()
+
+    return
 
 
 @api_view(['GET', 'POST'])
