@@ -27,14 +27,13 @@
     - ~~index, name(optional), comment~~
 
 ### Frontend
-+ Add a small red empty crosshair icon beside every bot message
++ ~~Add a small red empty crosshair icon beside every bot message~~
     - ~~When clicked, icon will be filled~~
     - ~~The message and the request message before it will be passed to websocket~~
-    - The message and the request message before it will be saved in database
-    - Before saving check if those already exists in database
-    - If complaint cannot be saved, do not fill icon and show error message
-    - If complaint already exists, do the usual
-    - The message and the request message before it can be deleted from database
+    - ~~The message and the request message before it will be saved in database~~
+    - ~~Before saving check if those already exists in database~~
+    - ~~If complaint already exists, fill icon and log error in console~~
+    - ~~The message and the request message before it can be deleted from database~~
 
 + Design Admin panel with login for complaints
     - Design Login Page
@@ -48,8 +47,10 @@
     - Add instructions
 
 ### Backend
-+ Implement rest api for complaint
-    - Save complaint from chat window
++ ~~Complaints operations~~
+    - ~~Save complaint from chat window~~
+    - ~~Delete complaint from chat window~~
+    - ~~Implement rest api~~
 + Show complaints to admins
     - Collapsible complaints for better loading performance, so
     that tags, responses and contexts are loaded later

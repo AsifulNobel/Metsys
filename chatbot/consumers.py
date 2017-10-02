@@ -2,7 +2,8 @@ import json
 from channels import Channel
 from channels.sessions import enforce_ordering
 
-from .views import (respond_to_websockets, saveFeedback)
+from .views import (respond_to_websockets, saveFeedback, saveComplaint,
+    deleteComplaint)
 
 
 @enforce_ordering
@@ -35,42 +36,16 @@ def ws_disconnect(message):
 
 
 # Chat channel handling ###
-
 def chat_start(message):
-    # Generally add them to a room, or do other things that should be
-    # done when the chat is started
     pass
 
 
 def chat_leave(message):
-    # Reverse of join - remove them from everything.
-    # if user logged in:
-    #   find the current room with job id and user id
-    #   remove the room_id from the list for this channel
-    #   remove this reply_channel from the group associated with the room
     pass
 
 
 def chat_send(message):
-
-    # First send the candidate message in the right format for
-    # chatbot to print it on the message channel
-    # message_to_send_content = {
-    #     'text': message['text'],
-    #     'type': 'text',
-    #     'source': 'CANDIDATE'
-    # }
-    # message.reply_channel.send({
-    #     'text': json.dumps(message_to_send_content)
-    # })
-    # Do not need the above part, because user message printing is handled in
-    # client side
-
-    # Call my view to actually construct the response to
-    # the query
-    response = respond_to_websockets(
-        message
-    )
+    response = respond_to_websockets(message)
 
     # Reformat the response and send it to the html to print
     response['source'] = 'BOT'
@@ -80,3 +55,18 @@ def chat_send(message):
 
 def feedback_send(feedbackMessage):
     saveFeedback(feedbackMessage)
+
+def complaint_save(complaintMessage):
+    response = saveComplaint(complaintMessage['messagePair'])
+
+    complaintMessage.reply_channel.send({
+        'text': json.dumps(response)
+    })
+
+
+def complaint_delete(complaintMessage):
+    response = deleteComplaint(complaintMessage['messagePair'])
+
+    complaintMessage.reply_channel.send({
+        'text': json.dumps(response)
+    })

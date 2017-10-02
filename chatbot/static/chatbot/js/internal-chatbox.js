@@ -143,6 +143,11 @@ function makeComplaint(element) {
 	$(element).children().addClass('fa-times-circle')
 
 	messagePair = getMessagePair(element)
+	complaint_message = {}
+	complaint_message.messagePair = messagePair
+	complaint_message.command = "complain"
+
+	chatsock.send(JSON.stringify(complaint_message))
 }
 
 function deleteComplaint(element) {
@@ -150,4 +155,9 @@ function deleteComplaint(element) {
 	$(element).children().removeClass('fa-times-circle')
 
 	messagePair = getMessagePair(element)
+	complaint_message = {}
+	complaint_message.messagePair = messagePair
+	complaint_message.command = "complainWithdraw"
+
+	chatsock.send(JSON.stringify(complaint_message))
 }

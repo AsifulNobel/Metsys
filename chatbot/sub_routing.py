@@ -6,7 +6,9 @@ from .consumers import (
     chat_start,
     chat_leave,
     chat_send,
-    feedback_send
+    feedback_send,
+    complaint_save,
+    complaint_delete
 )
 
 
@@ -34,4 +36,6 @@ custom_routing = [
     route("chat.receive", chat_leave, command="^leave$"),
     route("chat.receive", chat_send, command="^send$"),
     route("chat.receive", feedback_send, command="^feedback$"),
+    route("chat.receive", complaint_save, command="^complain$"),
+    route("chat.receive", complaint_delete, command="^complainWithdraw$"),
 ]
