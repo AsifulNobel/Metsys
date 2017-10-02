@@ -56,6 +56,7 @@
     that tags, responses and contexts are loaded later
     - At first only tag and context should be choice, only if
     new tag then show option to add response and context
+    - Tie context with ClassTag
     - Must add tags or choose existing one
     - Must add response, if new tag
     - Must add context or choose existing one
