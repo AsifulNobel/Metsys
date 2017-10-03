@@ -36,7 +36,7 @@
     - ~~The message and the request message before it can be deleted from database~~
 
 + Design Admin panel with login for complaints
-    - Design Login Page
+    - ~~Design Login Page~~
 
 + ~~Feedback Option~~
     - ~~Make a popup with animation for feedback~~
@@ -51,7 +51,7 @@
     - ~~Save complaint from chat window~~
     - ~~Delete complaint from chat window~~
     - ~~Implement rest api~~
-+ Show complaints to admins
++ ~~Show complaints to admins~~
     - Collapsible complaints for better loading performance, so
     that tags, responses and contexts are loaded later
     - At first only tag and context should be choice, only if

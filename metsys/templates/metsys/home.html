@@ -1,0 +1,32 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Living Dangerously!! Security Flaws beyond measure :'( -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{% static 'metsys/images/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'metsys/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'metsys/css/home.css' %}">
+        <link href="{% static 'metsys/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'metsys/js/jquery.min.js' %}"></script>
+        <script src="{% static 'metsys/bootstrap/js/bootstrap.min.js' %}"></script>
+        <title>Metsys Landing</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="emptyDiv"></div>
+            <div class="boxOfThree text-center">
+                <a class="flex-item" href="{% url 'products:index' %}" target="_blank"><div>Metsys Bazar
+                </div></a>
+                <a class="flex-item" href="{% url 'chatbot:chat' %}" target="_blank"><div>Metsys Chatbot
+                </div></a>
+                <a class="flex-item" href="{% url 'chatbot:modLogin' %}" target="_blank"><div>Moderator Login
+                </div></a>
+            </div>
+        </div>
+    </body>
+</html>

@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
-    'chatbot.apps.ChatbotConfig'
+    'chatbot.apps.ChatbotConfig',
+    'metsys.apps.MetsysConfig',
 ]
 
 MIDDLEWARE = [

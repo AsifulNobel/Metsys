@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^bazar/', include('products.urls')),
     url(r'^chat/', include('chatbot.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('metsys.urls')),
 ]
 
 # For loading files from media directory

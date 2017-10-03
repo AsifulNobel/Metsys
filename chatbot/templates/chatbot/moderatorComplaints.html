@@ -1,0 +1,31 @@
+{% extends 'chatbot/base.html' %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
+{% endblock %}
+
+{% block title %}Complaints{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <h1>Complaints</h1>
+    <div class="list-style">
+        {% for complaint in complaints_list %}
+        <ul>
+            <li><a href="{% url 'chatbot:complaintDetails' complaint.id %}" target="_blank">{{ complaint.created }}</a></li>
+        </ul>
+        {% empty %}
+            <div class="row">
+                <p>No complaints</p>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'chatbot:modHome' %}">Home</a><br>
+    <a href="{% url 'chatbot:modLogout' %}">Logout</a>
+</div>
+{% else %}
+<h1>You are not Authenticated</h1>
+{% endif %}
+{% endblock %}

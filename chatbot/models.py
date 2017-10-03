@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 # Create your models here.
 class ClassTag(models.Model):
     tagName = models.CharField(max_length=255, unique=True)
@@ -35,6 +36,13 @@ class Complaints(models.Model):
     responseMessage = models.CharField(max_length=2000)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        # Adds 6 hours to UTC time
+        return "Complaint posted on: " + (self.created+timezone.timedelta(hours=6)).strftime("%Y-%b-%d %I:%M:%S %p")
+
 class Feedbacks(models.Model):
     name = models.CharField(max_length=50, default='anonymous')
     comment = models.CharField(max_length=3000)
+
+    def __str__(self):
+        return "Feedback posted on: " + self.created

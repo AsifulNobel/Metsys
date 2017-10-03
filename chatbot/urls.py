@@ -14,7 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views import chat, message_api, feedback_api, complaint_save, complaint_delete
+from django.contrib.auth import views as auth_views
+from .views import (chat, message_api, feedback_api,
+complaint_save, complaint_delete, moderator_login, moderator_home,
+ComplaintsView, complaintDetail)
 
 app_name = 'chatbot'
 
@@ -23,5 +26,10 @@ urlpatterns = [
     url(r'^message/', message_api, name='chat_api_message'),
     url(r'^feedback/', feedback_api, name='chat_api_feedback'),
     url(r'^complain-make/', complaint_save, name='chat_api_complain'),
-    url(r'^complain-delete/', complaint_delete, name='chat_api_complain_withdraw')
+    url(r'^complain-delete/', complaint_delete, name='chat_api_complain_withdraw'),
+    url(r'^admin/login', moderator_login, name='modLogin'),
+    url(r'^admin/logout', auth_views.logout, {'next_page': 'chatbot:modLogin'}, name='modLogout'),
+    url(r'^admin/home', moderator_home, name='modHome'),
+    url(r'^admin/complaints', ComplaintsView.as_view(), name='modComplaints'),
+    url(r'^admin/complaint/(?P<complaint_id>\d+)', complaintDetail, name='complaintDetails'),
 ]

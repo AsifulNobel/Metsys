@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Living Dangerously!! Security Flaws beyond measure :'( -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{% static 'chatbot/images/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'chatbot/bootstrap/css/bootstrap.min.css' %}">
+        {% block stylesheet %}{% endblock %}
+        <link href="{% static 'chatbot/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'chatbot/js/jquery.min.js' %}"></script>
+        <script src="{% static 'chatbot/bootstrap/js/bootstrap.min.js' %}"></script>
+        <title>{% block title %}{% endblock %}</title>
+
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

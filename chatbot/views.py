@@ -4,7 +4,7 @@ from rest_framework import status
 from chatbot.serializers import (MessageSerializer,
     FeedbackSerializer, ComplaintSerializer)
 from .models import Feedbacks, Complaints
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .ContextualChatbotsWithTF.responderInterface import response_message
 
 
@@ -118,3 +118,53 @@ def complaint_delete(request):
             return Response(status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# Authentication
+from django.shortcuts import HttpResponse
+from django.contrib.auth import authenticate, login
+from django.views import generic
+from django.utils import timezone
+from .forms import LoginForm
+
+def moderator_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            cleanData = form.cleaned_data
+            user = authenticate(username=cleanData['userName'],
+                                password=cleanData['password'])
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+
+                    return redirect('chatbot:modHome')
+                else:
+                    # Use custom page
+                    return redirect('chatbot:modLogin')
+            else:
+                # Use custom page
+                return redirect('chatbot:modLogin')
+        else:
+            form = LoginForm()
+    else:
+        form = LoginForm()
+    return render(request, 'chatbot/login.html', {'form': form})
+
+
+def moderator_home(request):
+    return render(request, 'chatbot/moderatorHome.html', {'user': request.user})
+
+class ComplaintsView(generic.ListView):
+    template_name = 'chatbot/moderatorComplaints.html'
+    context_object_name = 'complaints_list'
+
+    def get_queryset(self):
+        """Return all complaints."""
+        return Complaints.objects.all()
+
+def complaintDetail(request, complaint_id):
+    complaint = Complaints.objects.filter(pk=complaint_id).first()
+    context = {'complaint': complaint}
+    return render(request, 'chatbot/complaintDetail.html', context)
