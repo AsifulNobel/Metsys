@@ -22,7 +22,7 @@
     CREATE ROLE nobel WITH LOGIN CREATEDB CREATEUSER SUPERUSER PASSWORD'v@R@ns1';
     ```
     - Quit from postgresql-cli `\q`
-    - Restore database `pg_restore -d bazar -1 bazar.dump`
+    - Restore database `pg_restore -d metsys -1 metsysLatest.dump`
 + Install redis `sudo apt-get install redist-server`
 + Install pip packages from requirements.txt
 + Run a python shell and download nltk package

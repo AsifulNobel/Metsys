@@ -1,6 +1,7 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-64
+cython=0.26.1=py36_0
 libprotobuf=3.2.0=0
 mkl=2017.0.3=0
 numpy=1.12.1=py36_0
