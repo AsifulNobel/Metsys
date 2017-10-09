@@ -106,20 +106,8 @@ def response_message(sentence, userID='123', show_details=False):
             for i in intents['intents']:
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
-                    # set context for this intent if necessary
-                    if 'context_set' in i:
-                        if show_details:
-                            logger.debug('context:'.format(i['context_set']))
-                        context[userID] = i['context_set']
-
-                    # check if this intent is contextual and applies to this user's conversation
-                    if not 'context_filter' in i or \
-                        (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
-
-                        if show_details:
-                            logger.debug('tag:', i['tag'])
-                        # a random response from the intent
-                        return random.choice(i['responses'])
+                    # a random response from the intent
+                    return random.choice(i['responses'])
 
             results.pop(0)
     else:
