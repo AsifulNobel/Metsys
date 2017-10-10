@@ -168,3 +168,15 @@ def complaintDetail(request, complaint_id):
     complaint = Complaints.objects.filter(pk=complaint_id).first()
     context = {'complaint': complaint}
     return render(request, 'chatbot/complaintDetail.html', context)
+
+
+# Intents
+from .intents import updateBanglaIntents, updateEnglishIntents
+
+def englishIntentAdd(request):
+    status = updateEnglishIntents()
+    return render(request, 'chatbot/intentSuccess.html', {'status': status})
+
+
+def banglaIntentAdd(request):
+    return render(request, 'chatbot/intentSuccess.html')

@@ -10,26 +10,20 @@ class ClassTag(models.Model):
         return self.tagName
 
 class EnglishRequests(models.Model):
-    requestMessage = models.CharField(max_length=500, unique=True)
+    requestMessage = models.CharField(max_length=500)
     tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
 
 class BanglaRequests(models.Model):
-    requestMessage = models.CharField(max_length=500, unique=True)
+    requestMessage = models.CharField(max_length=500)
     tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
 
 class EnglishResponses(models.Model):
-    responseMessage = models.CharField(max_length=2000, unique=True)
+    responseMessage = models.CharField(max_length=2000)
     tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
 
 class BanglaResponses(models.Model):
-    responseMessage = models.CharField(max_length=2000, unique=True)
+    responseMessage = models.CharField(max_length=2000)
     tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
-
-class ContextTag(models.Model):
-    tagName = models.CharField(max_length=255, unique=True)
-
-    def __str__(self):
-        return self.tagName
 
 class Complaints(models.Model):
     requestMessage = models.CharField(max_length=500)

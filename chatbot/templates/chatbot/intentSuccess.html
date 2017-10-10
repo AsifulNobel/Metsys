@@ -1,0 +1,22 @@
+{% extends 'chatbot/base.html' %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
+{% endblock %}
+
+{% block title %}Intents{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    {% if status == 0 %}
+        <h1>Intent Update Success</h1>
+    {% else %}
+        <h1>Intent Update Failed</h1>
+    {% endif %}
+</div>
+{% else %}
+<h1>You are not Authenticated</h1>
+{% endif %}
+{% endblock %}
