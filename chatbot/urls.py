@@ -17,7 +17,8 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from .views import (chat, message_api, feedback_api,
 complaint_save, complaint_delete, moderator_login, moderator_home,
-ComplaintsView, complaintDetail, englishIntentAdd, banglaIntentAdd)
+ComplaintsView, complaintDetail, englishIntentAdd, banglaIntentAdd,
+englishIntentDownload, banglaIntentDownload)
 
 app_name = 'chatbot'
 
@@ -30,8 +31,10 @@ urlpatterns = [
     url(r'^admin/login', moderator_login, name='modLogin'),
     url(r'^admin/logout', auth_views.logout, {'next_page': 'chatbot:modLogin'}, name='modLogout'),
     url(r'^admin/home', moderator_home, name='modHome'),
-    url(r'^admin/complaints', ComplaintsView.as_view(), name='modComplaints'),
+    url(r'^admin/complaints$', ComplaintsView.as_view(), name='modComplaints'),
     url(r'^admin/complaint/(?P<complaint_id>\d+)', complaintDetail, name='complaintDetails'),
-    url(r'intents/english', englishIntentAdd, name='englishIntentsAdd'),
-    url(r'intents/bangla', banglaIntentAdd, name='banglaIntentsAdd'),
+    url(r'^admin/intents/english$', englishIntentAdd, name='englishIntentsAdd'),
+    url(r'^admin/intents/english/download', englishIntentDownload, name='englishIntDown'),
+    url(r'^admin/intents/bangla$', banglaIntentAdd, name='banglaIntentsAdd'),
+    url(r'^admin/intents/bangla/download', banglaIntentDownload, name='banglaIntDown'),
 ]

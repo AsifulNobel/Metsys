@@ -172,11 +172,41 @@ def complaintDetail(request, complaint_id):
 
 # Intents
 from .intents import updateBanglaIntents, updateEnglishIntents
+import os
+from django.http import HttpResponse
 
 def englishIntentAdd(request):
     status = updateEnglishIntents()
-    return render(request, 'chatbot/intentSuccess.html', {'status': status})
+    return render(request, 'chatbot/intentSuccess.html', {'status': status, 'language': "english"})
 
 
 def banglaIntentAdd(request):
-    return render(request, 'chatbot/intentSuccess.html')
+    status = updateBanglaIntents()
+    return render(request, 'chatbot/intentSuccess.html', {'status': status, 'language': "bangla"})
+
+def englishIntentDownload(request):
+    path = os.path.join('chatbot', 'ContextualChatbotsWithTF',
+    'EnglishNLP', 'intents.json')
+    file_path = path
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type='application/json')
+            response['Content-Disposition'] = 'attachment; filename=intents.json'
+            return response
+    else:
+        return HttpResponse('<h1>File Does Not Exist</h1>')
+
+
+def banglaIntentDownload(request):
+    path = os.path.join('chatbot', 'ContextualChatbotsWithTF',
+    'BanglaNLP', 'banglaintents.json')
+    file_path = path
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type='application/json')
+            response['Content-Disposition'] = 'attachment; filename=banglaintents.json'
+            return response
+    else:
+        return HttpResponse('<h1>File Does Not Exist</h1>')

@@ -12,9 +12,16 @@
 <div class="container">
     {% if status == 0 %}
         <h1>Intent Update Success</h1>
+        {% if language == "english" %}
+        <a href="{% url 'chatbot:englishIntDown' %}">Download English Intents</a>
+        {% elif language == 'bangla' %}
+        <a href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents</a>
+        {% endif %}
     {% else %}
         <h1>Intent Update Failed</h1>
     {% endif %}
+    <br><a href="{% url 'chatbot:modHome' %}">Home</a><br>
+    <a href="{% url 'chatbot:modLogout' %}">Logout</a>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>

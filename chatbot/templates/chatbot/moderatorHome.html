@@ -11,8 +11,10 @@
 {% if user.is_authenticated %}
 <div class="container">
     <h1>Moderator Home</h1>
-    <a href="{% url 'chatbot:englishIntentsAdd' %}">Update English Intents Database</a><br>
-    <a href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database</a><br>
+    <a href="{% url 'chatbot:englishIntentsAdd' %}">Update English Intents Database From Json File</a><br>
+    <a href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
+    <a href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database From Json File</a><br>
+    <a href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents Json File</a><br>
     <a href="{% url 'chatbot:modComplaints' %}">Complaints</a><br>
     <a href="{% url 'chatbot:modLogout' %}">Logout</a>
 </div>
