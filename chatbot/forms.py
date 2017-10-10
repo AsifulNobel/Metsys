@@ -15,5 +15,5 @@ class BanglaTagForm(forms.Form):
     tag = forms.CharField(widget=forms.Select(choices=tag_choices))
 
 class NewTagForm(forms.Form):
-    tag = forms.CharField()
+    new_tag = forms.CharField()
     response = forms.CharField()

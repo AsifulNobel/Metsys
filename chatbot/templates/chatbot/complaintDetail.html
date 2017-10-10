@@ -18,24 +18,26 @@
             <li>Created At: {{ complaint.created }}</li>
             <li><a href="{% url 'chatbot:complainWithdraw' complaint.id %}">Delete Complaint</a></li>
         </ul>
-        <form class="" action="" method="post">
-            {% csrf_token %}
-            {% if eForm %}
-                {{ eForm.as_p }}
-                <input type="submit" name="SubmitTag" value="Resolve">
-            {% elif bForm %}
-                {{ bForm.as_p }}
-                <input type="submit" name="SubmitTag" value="Resolve">
-            {% endif %}
-        </form>
-        <div style="height:20px;"></div>
-        <form class="" action="" method="post">
-            {% csrf_token %}
-            {% if newForm %}
-                {{ newForm.as_p }}
-                <input type="submit" name="SubmitBundle" value="Resolve">
-            {% endif %}
-        </form>
+        <div class="text-center" style="border:2px solid black;">
+            <form class="" action="" method="post">
+                {% csrf_token %}
+                {% if eForm %}
+                    {{ eForm.as_p }}
+                    <input type="submit" name="SubmitTag" value="Resolve">
+                {% elif bForm %}
+                    {{ bForm.as_p }}
+                    <input type="submit" name="SubmitTag" value="Resolve">
+                {% endif %}
+            </form>
+            <div style="height:50px;" class="text-center"><h3>Or</h3></div>
+            <form class="" action="" method="post">
+                {% csrf_token %}
+                {% if newForm %}
+                    {{ newForm.as_p }}
+                    <input type="submit" name="SubmitBundle" value="Resolve">
+                {% endif %}
+            </form>
+        </div>
     {% else %}
         <h3>Fake Complaint</h3>
     {% endif %}

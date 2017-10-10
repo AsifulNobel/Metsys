@@ -157,7 +157,7 @@ def complaintDetail(request, complaint_id):
                 newTagForm = NewTagForm(request.POST)
 
                 if newTagForm.is_valid():
-                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['tag'])
+                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['new_tag'])
                     newMessage, _ = EnglishResponses.objects.get_or_create(responseMessage=newTagForm.cleaned_data['response'], tag=tag)
                     newPattern, _ = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
 
@@ -176,7 +176,7 @@ def complaintDetail(request, complaint_id):
                 newTagForm = NewTagForm(request.POST)
 
                 if newTagForm.is_valid():
-                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['tag'])
+                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['new_tag'])
                     newMessage, _ = BanglaResponses.objects.get_or_create(responseMessage=newTagForm.cleaned_data['response'], tag=tag)
                     newPattern, _ = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
 
