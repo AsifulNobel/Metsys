@@ -21,9 +21,15 @@ class EnglishResponses(models.Model):
     responseMessage = models.CharField(max_length=2000)
     tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.responseMessage
+
 class BanglaResponses(models.Model):
     responseMessage = models.CharField(max_length=2000)
     tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.responseMessage
 
 class Complaints(models.Model):
     requestMessage = models.CharField(max_length=500)

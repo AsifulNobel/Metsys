@@ -28,9 +28,18 @@
                 <input type="submit" name="SubmitTag" value="Resolve">
             {% endif %}
         </form>
+        <div style="height:20px;"></div>
+        <form class="" action="" method="post">
+            {% csrf_token %}
+            {% if newForm %}
+                {{ newForm.as_p }}
+                <input type="submit" name="SubmitBundle" value="Resolve">
+            {% endif %}
+        </form>
     {% else %}
         <h3>Fake Complaint</h3>
     {% endif %}
+    <div style="height:20px;"></div>
     <a href="{% url 'chatbot:modHome' %}">Home</a><br>
     <a href="{% url 'chatbot:modLogout' %}">Logout</a>
 </div>
