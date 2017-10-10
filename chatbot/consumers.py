@@ -2,8 +2,7 @@ import json
 from channels import Channel
 from channels.sessions import enforce_ordering
 
-from .views import (respond_to_websockets, saveFeedback, saveComplaint,
-    deleteComplaint)
+from .views import (respond_to_websockets, saveFeedback, saveComplaint)
 
 
 @enforce_ordering
@@ -58,14 +57,6 @@ def feedback_send(feedbackMessage):
 
 def complaint_save(complaintMessage):
     response = saveComplaint(complaintMessage['messagePair'])
-
-    complaintMessage.reply_channel.send({
-        'text': json.dumps(response)
-    })
-
-
-def complaint_delete(complaintMessage):
-    response = deleteComplaint(complaintMessage['messagePair'])
 
     complaintMessage.reply_channel.send({
         'text': json.dumps(response)

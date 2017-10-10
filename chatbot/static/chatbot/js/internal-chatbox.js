@@ -132,9 +132,6 @@ function complaint(element) {
 	if ($(element).children().first().hasClass("fa-times-circle-o")) {
 		makeComplaint(element)
 	}
-	else {
-		deleteComplaint(element)
-	}
 }
 
 
@@ -146,18 +143,6 @@ function makeComplaint(element) {
 	complaint_message = {}
 	complaint_message.messagePair = messagePair
 	complaint_message.command = "complain"
-
-	chatsock.send(JSON.stringify(complaint_message))
-}
-
-function deleteComplaint(element) {
-	$(element).children().addClass('fa-times-circle-o')
-	$(element).children().removeClass('fa-times-circle')
-
-	messagePair = getMessagePair(element)
-	complaint_message = {}
-	complaint_message.messagePair = messagePair
-	complaint_message.command = "complainWithdraw"
 
 	chatsock.send(JSON.stringify(complaint_message))
 }

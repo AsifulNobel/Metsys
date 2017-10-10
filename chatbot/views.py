@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from chatbot.serializers import (MessageSerializer,
     FeedbackSerializer, ComplaintSerializer)
-from .models import Feedbacks, Complaints
+from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses)
 from django.shortcuts import render, redirect
 from .ContextualChatbotsWithTF.responderInterface import response_message
 
@@ -37,19 +37,6 @@ def saveComplaint(complaintMessage):
         result_message['text'] = 'exists'
     else:
         result_message['text'] = 'success'
-
-    return result_message
-
-def deleteComplaint(complaintMessage):
-    result_message = {}
-    result_message['type'] = 'complaintDeleteStatus'
-    try:
-        complaint = Complaints.objects.get(requestMessage=complaintMessage['userMessageText'], responseMessage=complaintMessage['botMessageText'])
-
-        complaint.delete()
-        result_message['text'] = 'deleted'
-    except Complaints.DoesNotExist:
-        result_message['text'] = 'does not exist'
 
     return result_message
 
@@ -98,33 +85,12 @@ def complaint_save(request):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'POST'])
-def complaint_delete(request):
-    if request.method == 'GET':
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-    elif request.method == 'POST':
-        serializer = ComplaintSerializer(data=request.data)
-
-        if serializer.is_valid():
-            try:
-                complaint = Complaints.objects.get(
-                requestMessage=request.data['requestMessage'],
-                responseMessage=request.data['responseMessage'])
-
-                complaint.delete()
-            except Complaints.DoesNotExist:
-                return Response(status=status.HTTP_204_NO_CONTENT)
-
-            return Response(status=status.HTTP_202_ACCEPTED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
 # Authentication
 from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.views import generic
 from django.utils import timezone
-from .forms import LoginForm
+from .forms import LoginForm, EnglishTagForm
 
 def moderator_login(request):
     if request.method == 'POST':
@@ -149,7 +115,10 @@ def moderator_login(request):
         else:
             form = LoginForm()
     else:
-        form = LoginForm()
+        if request.user.is_authenticated():
+            return redirect('chatbot:modHome')
+        else:
+            form = LoginForm()
     return render(request, 'chatbot/login.html', {'form': form})
 
 
@@ -166,8 +135,42 @@ class ComplaintsView(generic.ListView):
 
 def complaintDetail(request, complaint_id):
     complaint = Complaints.objects.filter(pk=complaint_id).first()
-    context = {'complaint': complaint}
+    context = {}
+
+    try:
+        complaint.requestMessage.encode(encoding='utf-8').decode('ascii')
+        language = 0
+    except UnicodeDecodeError:
+        language = 1
+
+    if request.method == 'POST':
+        if language == 0:
+            englishForm = EnglishTagForm(request.POST)
+
+            if englishForm.is_valid:
+                tag = ClassTag.objects.get(tagName=englishForm.data['tag'])
+                pattern, created = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
+                complaint.delete()
+                return redirect('chatbot:modComplaints')
+        elif language == 1:
+            pass
+    else:
+        if language == 0:
+            englishForm = EnglishTagForm(request.POST)
+            context['eForm'] = englishForm
+        elif language == 1:
+            pass
+    context['complaint'] = complaint
     return render(request, 'chatbot/complaintDetail.html', context)
+
+def complaint_delete(request, complaint_id):
+    complaint = Complaints.objects.get(pk=complaint_id)
+
+    if complaint:
+        complaint.delete()
+        return redirect('chatbot:modComplaints')
+    else:
+        return HttpResponse("<h1>Why u tryna delete what's not there!</h1>")
 
 
 # Intents

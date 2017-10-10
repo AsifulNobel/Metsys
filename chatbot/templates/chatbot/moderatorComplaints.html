@@ -14,7 +14,7 @@
     <div class="list-style">
         {% for complaint in complaints_list %}
         <ul>
-            <li><a href="{% url 'chatbot:complaintDetails' complaint.id %}" target="_blank">{{ complaint.created }}</a></li>
+            <li><a href="{% url 'chatbot:complaintDetails' complaint.id %}">{{ complaint.created }}</a></li>
         </ul>
         {% empty %}
             <div class="row">

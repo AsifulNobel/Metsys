@@ -16,7 +16,15 @@
             <li>User Question: {{ complaint.requestMessage }}</li>
             <li>Bot Answer: {{ complaint.responseMessage }}</li>
             <li>Created At: {{ complaint.created }}</li>
+            <li><a href="{% url 'chatbot:complainWithdraw' complaint.id %}">Delete Complaint</a></li>
         </ul>
+        <form class="" action="" method="post">
+            {% csrf_token %}
+            {% if eForm %}
+                {{ eForm.as_p }}
+                <input type="submit" name="SubmitTag" value="Resolve">
+            {% endif %}
+        </form>
     {% else %}
         <h3>Fake Complaint</h3>
     {% endif %}
