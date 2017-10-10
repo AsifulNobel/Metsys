@@ -171,9 +171,10 @@ def complaintDetail(request, complaint_id):
 
 
 # Intents
-from .intents import updateBanglaIntents, updateEnglishIntents
+from .intents import (updateBanglaIntents, updateEnglishIntents,
+generateBanglaIntents, generateEnglishIntents)
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 def englishIntentAdd(request):
     status = updateEnglishIntents()
@@ -185,28 +186,23 @@ def banglaIntentAdd(request):
     return render(request, 'chatbot/intentSuccess.html', {'status': status, 'language': "bangla"})
 
 def englishIntentDownload(request):
-    path = os.path.join('chatbot', 'ContextualChatbotsWithTF',
-    'EnglishNLP', 'intents.json')
-    file_path = path
+    data = generateEnglishIntents()
 
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type='application/json')
-            response['Content-Disposition'] = 'attachment; filename=intents.json'
-            return response
+    if data:
+        response = JsonResponse(data, json_dumps_params={'indent': 4})
+        response['Content-Disposition'] = 'attachment; filename=intents.json'
+        return response
     else:
-        return HttpResponse('<h1>File Does Not Exist</h1>')
+        return HttpResponse('<h1>Data Does Not Exist</h1>')
 
 
 def banglaIntentDownload(request):
-    path = os.path.join('chatbot', 'ContextualChatbotsWithTF',
-    'BanglaNLP', 'banglaintents.json')
-    file_path = path
+    data = generateBanglaIntents()
 
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type='application/json')
-            response['Content-Disposition'] = 'attachment; filename=banglaintents.json'
-            return response
+    if data:
+        response = JsonResponse(data, json_dumps_params={'indent': 4,
+        'ensure_ascii': False}) # For Unicode Preservation
+        response['Content-Disposition'] = 'attachment; filename=banglaintents.json'
+        return response
     else:
-        return HttpResponse('<h1>File Does Not Exist</h1>')
+        return HttpResponse('<h1>Data Does Not Exist</h1>')

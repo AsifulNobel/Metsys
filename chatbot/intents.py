@@ -6,7 +6,54 @@ EnglishResponses, ClassTag)
 DIR_NAME = os.path.dirname(os.path.abspath(__file__))
 suffix_dir = 'ContextualChatbotsWithTF'
 
+def generateBanglaIntents():
+    """Generate Bangla Intents from database and return a dict"""
+    data = {'intents': []}
+
+    tags = ClassTag.objects.all()
+
+    for tag in tags:
+        temp = {}
+        temp['tag'] = tag.tagName
+        temp['patterns'] = []
+        temp['responses'] = []
+
+        for pattern in BanglaRequests.objects.filter(tag=tag):
+            temp['patterns'].append(pattern.requestMessage)
+
+        for response in BanglaResponses.objects.filter(tag=tag):
+            temp['responses'].append(response.responseMessage)
+
+        if len(temp['patterns']) > 0 and len(temp['responses']) > 0:
+            data['intents'].append(temp)
+    return data
+
+
+def generateEnglishIntents():
+    """Generate English Intents from database and return a dict"""
+    data = {'intents': []}
+
+    tags = ClassTag.objects.all()
+
+    for tag in tags:
+        temp = {}
+        temp['tag'] = tag.tagName
+        temp['patterns'] = []
+        temp['responses'] = []
+
+        for pattern in EnglishRequests.objects.filter(tag=tag):
+            temp['patterns'].append(pattern.requestMessage)
+
+        for response in EnglishResponses.objects.filter(tag=tag):
+            temp['responses'].append(response.responseMessage)
+
+        if len(temp['patterns']) > 0 and len(temp['responses']) > 0:
+            data['intents'].append(temp)
+    return data
+
+
 def updateBanglaIntents():
+    """Update database from banglaintents.json"""
     try:
         with open(os.path.join(DIR_NAME, suffix_dir, 'BanglaNLP', 'banglaintents.json'), 'r') as f:
             data = json.load(f)
