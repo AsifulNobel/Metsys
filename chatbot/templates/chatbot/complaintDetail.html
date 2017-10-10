@@ -23,6 +23,9 @@
             {% if eForm %}
                 {{ eForm.as_p }}
                 <input type="submit" name="SubmitTag" value="Resolve">
+            {% elif bForm %}
+                {{ bForm.as_p }}
+                <input type="submit" name="SubmitTag" value="Resolve">
             {% endif %}
         </form>
     {% else %}

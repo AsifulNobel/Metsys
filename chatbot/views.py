@@ -90,7 +90,7 @@ from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.views import generic
 from django.utils import timezone
-from .forms import LoginForm, EnglishTagForm
+from .forms import (LoginForm, EnglishTagForm, BanglaTagForm)
 
 def moderator_login(request):
     if request.method == 'POST':
@@ -153,13 +153,20 @@ def complaintDetail(request, complaint_id):
                 complaint.delete()
                 return redirect('chatbot:modComplaints')
         elif language == 1:
-            pass
+            banglaForm = BanglaTagForm(request.POST)
+
+            if banglaForm.is_valid:
+                tag = ClassTag.objects.get(tagName=banglaForm.data['tag'])
+                pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
+                complaint.delete()
+                return redirect('chatbot:modComplaints')
     else:
         if language == 0:
             englishForm = EnglishTagForm(request.POST)
             context['eForm'] = englishForm
         elif language == 1:
-            pass
+            banglaForm = BanglaTagForm(request.POST)
+            context['bForm'] = banglaForm
     context['complaint'] = complaint
     return render(request, 'chatbot/complaintDetail.html', context)
 
