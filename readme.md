@@ -35,7 +35,7 @@
     - ~~If complaint already exists, fill icon and log error in console~~
     - ~~The message and the request message before it can be deleted from database~~
 
-+ Design Admin panel with login for complaints
++ ~~Design Admin panel with login for complaints~~
     - ~~Design Login Page~~
 
 + ~~Feedback Option~~
@@ -52,21 +52,11 @@
     - ~~Delete complaint from chat window~~
     - ~~Implement rest api~~
 + ~~Show complaints to admins~~
-    - Collapsible complaints for better loading performance, so
-    that tags, responses and contexts are loaded later
-    - At first only tag and context should be choice, only if
-    new tag then show option to add response and context
-    - Tie context with ClassTag
-    - Must add tags or choose existing one
-    - Must add response, if new tag
-    - Must add context or choose existing one
-        * When add option is chosen, pop-up may be used to add
-        option and added option will be added to choices
-    - can delete complaint
-    - can save complaint as intent
-+ Can delete complaints in bulk
-+ A option to generate new `intents.json`
-    - Option to download that file
+    - ~~Must add tags or choose existing one~~
+    - ~~Must add response, if new tag~~
+    - ~~can delete complaint~~
++ ~~A option to generate new `intents.json`~~
+    - ~~Option to download that file~~
 + ~~Feedback option~~
     - ~~Add rest api for feedbacks~~
     - ~~Give users option to make comments about the chatbot or web app~~
