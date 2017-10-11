@@ -23,12 +23,31 @@
 <div class="container">
     <div class="buttons btn-group btn-group-lg">
         <a class="btn btn-success" href="{% url 'chatbot:englishIntentsAdd' %}">Update English Intents Database From Json File</a><br>
-        <a class="btn btn-primary" href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
         <a class="btn btn-success" href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database From Json File</a><br>
+        <a class="btn btn-primary" href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
         <a class="btn btn-primary" href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents Json File</a><br>
+        <a class="btn btn-warning trainer" href="{% url 'chatbot:trainEnglish' %}">Train English Chatbot</a><br>
+        <a class="btn btn-warning" href="{% url 'chatbot:trainBangla' %}">Train Bangla Chatbot</a><br>
+        <a class="btn btn-danger" href="{% url 'chatbot:updateEnglishFile' %}">Update English Intents Json</a><br>
+        <a class="btn btn-danger" href="{% url 'chatbot:updateBanglaFile' %}">Update Bangla Intents Json</a><br>
     </div>
+    <div class="" id="loader"></div>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>
 {% endif %}
+{% endblock %}
+
+
+{% block script %}
+$('.trainer').on('click', function() {
+    $('#loader').addClass('loading')
+})
+
+$('body').keyup(function(e) {
+    var key = e.which;
+    if (key == 27) {
+        $('#loader').removeClass('loading')
+    }
+})
 {% endblock %}

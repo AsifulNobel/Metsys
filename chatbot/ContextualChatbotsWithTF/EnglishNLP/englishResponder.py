@@ -151,7 +151,7 @@ def train():
     model = tflearn.DNN(net, tensorboard_dir=os.path.join(DIR_NAME, 'tflearn_logs'))
     # Start training (apply gradient descent algorithm)
     model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
-    model.save('model.tflearn')  ##save the tensorflow model
+    model.save(os.path.join(DIR_NAME, 'model.tflearn'))  ##save the tensorflow model
     logger.info('Saving model...')
 
     import pickle

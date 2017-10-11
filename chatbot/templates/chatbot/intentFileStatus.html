@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
 {% endblock %}
 
-{% block title %}Intents{% endblock %}
+{% block title %}Intent File Status{% endblock %}
 
 {% block navigation%}
 <li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
@@ -22,14 +22,9 @@
 {% if user.is_authenticated %}
 <div class="container">
     {% if status == 0 %}
-        <h1 class="text-center text-success">Intent Update Success</h1>
-        {% if language == "english" %}
-        <a class="btn btn-primary"  href="{% url 'chatbot:englishIntDown' %}">Download English Intents</a>
-        {% elif language == 'bangla' %}
-        <a class="btn btn-primary"  href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents</a>
-        {% endif %}
-    {% else %}
-        <h1 class="text-center text-danger">Intent Update Failed</h1>
+        <h1 class="text-center text-success">Json File Update Success</h1>
+    {% elif status == 1 %}
+        <h1 class="text-center text-danger">Json File Update Failed</h1>
     {% endif %}
     <div style="height:1.2rem;"></div>
 </div>

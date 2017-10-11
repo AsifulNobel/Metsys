@@ -6,7 +6,7 @@ from chatbot.serializers import (MessageSerializer,
 from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses)
 from django.shortcuts import render, redirect
 from .ContextualChatbotsWithTF.responderInterface import (response_message,
-initAgents, trainEnglish, trainBangla)
+initAgents, trainEnglishAgent, trainBanglaAgent)
 
 # Initialize Chatbots
 initAgents()
@@ -222,7 +222,7 @@ def complaint_delete(request, complaint_id):
 # Intents
 from .intents import (updateBanglaIntents, updateEnglishIntents,
 generateBanglaIntents, generateEnglishIntents)
-import os
+import os, json
 from django.http import HttpResponse, JsonResponse
 
 def englishIntentAdd(request):
@@ -255,3 +255,46 @@ def banglaIntentDownload(request):
         return response
     else:
         return HttpResponse('<h1>Data Does Not Exist</h1>')
+
+def updateEnglishFile(request):
+    data = generateEnglishIntents()
+    path = os.path.dirname(os.path.abspath('__file__'))
+    path = os.path.join(path, 'chatbot', 'ContextualChatbotsWithTF', 'EnglishNLP', 'intents.json')
+
+    try:
+        with open(path, 'w') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        raise e
+        return render(request, 'chatbot/intentFileStatus.html', {'status': 1})
+    return render(request, 'chatbot/intentFileStatus.html', {'status': 0})
+
+def updateBanglaFile(request):
+    data = generateBanglaIntents()
+    path = os.path.dirname(os.path.abspath('__file__'))
+    path = os.path.join(path, 'chatbot', 'ContextualChatbotsWithTF', 'BanglaNLP', 'banglaintents.json')
+
+    try:
+        with open(path, 'w') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+    except Exception:
+        return render(request, 'chatbot/intentFileStatus.html', {'status': 1})
+    return render(request, 'chatbot/intentFileStatus.html', {'status': 0})
+
+
+# Training
+def train_english(request):
+    try:
+        trainEnglishAgent()
+    except Exception:
+        return render(request, 'chatbot/trainStatus.html', {'status': 1})
+    return render(request, 'chatbot/trainStatus.html', {'status': 0})
+
+
+
+def train_bangla(request):
+    try:
+        trainBanglaAgent()
+    except Exception:
+        return render(request, 'chatbot/trainStatus.html', {'status': 1})
+    return render(request, 'chatbot/trainStatus.html', {'status': 0})
