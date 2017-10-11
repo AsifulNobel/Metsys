@@ -89,6 +89,7 @@ def complaint_save(request):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 # Authentication
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.views import generic
@@ -128,13 +129,21 @@ def moderator_login(request):
 def moderator_home(request):
     return render(request, 'chatbot/moderatorHome.html', {'user': request.user})
 
-class ComplaintsView(generic.ListView):
-    template_name = 'chatbot/moderatorComplaints.html'
-    context_object_name = 'complaints_list'
+def complaintList(request):
+    complaint_list = Complaints.objects.all()
+    paginator = Paginator(complaint_list, 10)
 
-    def get_queryset(self):
-        """Return all complaints."""
-        return Complaints.objects.all()
+    page = request.GET.get('page')
+    try:
+        complaints = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        complaints = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        complaints = paginator.page(paginator.num_pages)
+
+    return render(request, 'chatbot/moderatorComplaints.html', {'complaint_list': complaints})
 
 def complaintDetail(request, complaint_id):
     complaint = Complaints.objects.filter(pk=complaint_id).first()
@@ -218,6 +227,21 @@ def complaint_delete(request, complaint_id):
     else:
         return HttpResponse("<h1>Why u tryna delete what's not there!</h1>")
 
+def feedbackView(request):
+    feedback_list = Feedbacks.objects.all()
+    paginator = Paginator(feedback_list, 5)
+
+    page = request.GET.get('page')
+    try:
+        feedback = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        feedback = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        feedback = paginator.page(paginator.num_pages)
+
+    return render(request, 'chatbot/feedbackList.html', {'feedbacks': feedback})
 
 # Intents
 from .intents import (updateBanglaIntents, updateEnglishIntents,

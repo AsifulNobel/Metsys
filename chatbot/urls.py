@@ -17,9 +17,9 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from .views import (chat, message_api, feedback_api,
 complaint_save, complaint_delete, moderator_login, moderator_home,
-ComplaintsView, complaintDetail, englishIntentAdd, banglaIntentAdd,
+complaintList, complaintDetail, englishIntentAdd, banglaIntentAdd,
 englishIntentDownload, banglaIntentDownload, train_english, train_bangla,
-updateEnglishFile, updateBanglaFile)
+updateEnglishFile, updateBanglaFile, feedbackView)
 
 app_name = 'chatbot'
 
@@ -33,7 +33,8 @@ urlpatterns = [
     url(r'^admin/home', moderator_home, name='modHome'),
     url(r'^admin/train-english$', train_english, name='trainEnglish'),
     url(r'^admin/train-bangla$', train_bangla, name='trainBangla'),
-    url(r'^admin/complaints$', ComplaintsView.as_view(), name='modComplaints'),
+    url(r'^admin/complaints$', complaintList, name='modComplaints'),
+    url(r'^admin/feedbacks$', feedbackView, name='modFeedbacks'),
     url(r'^admin/complaint/(?P<complaint_id>\d+)$', complaintDetail, name='complaintDetails'),
     url(r'^admin/complaint/(?P<complaint_id>\d+)/delete/$', complaint_delete, name='complainWithdraw'),
     url(r'^admin/intents/english$', englishIntentAdd, name='englishIntentsAdd'),

@@ -10,6 +10,7 @@
 {% block navigation %}
 <li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
 <li class="active"><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
+<li><a href="{% url 'chatbot:modFeedbacks' %}">Feedbacks</a></li>
 {% endblock %}
 
 {% block logout %}
@@ -22,16 +23,28 @@
 {% if user.is_authenticated %}
 <div class="container">
     <div class="list-style">
-        {% for complaint in complaints_list %}
+        {% for complaint in complaint_list %}
         <ul class="list-group">
             <li class="list-group-item"><a href="{% url 'chatbot:complaintDetails' complaint.id %}">Complaint Posted at: {{ complaint.created }}</a></li>
         </ul>
         {% empty %}
-            <div class="row">
+            <div class="well">
                 <p>No complaints</p>
             </div>
         {% endfor %}
     </div>
+    <nav aria-label="Page navigation" class="text-center">
+        <ul class="pager">
+            <li class="previous">{% if complaint_list.has_previous %}
+                <a href="?page={{ complaint_list.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a>
+            {% endif %}
+            </li>
+            <li class="next">{% if complaint_list.has_next %}
+                <a href="?page={{ complaint_list.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a>
+            {% endif %}
+            </li>
+         </ul>
+    </nav>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>

@@ -43,6 +43,7 @@ class Complaints(models.Model):
 class Feedbacks(models.Model):
     name = models.CharField(max_length=50, default='anonymous')
     comment = models.CharField(max_length=3000)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "Feedback posted on: " + self.created
+        return "Feedback posted on: " + (self.created+timezone.timedelta(hours=6)).strftime("%Y-%b-%d %I:%M:%S %p")

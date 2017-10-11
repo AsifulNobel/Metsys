@@ -1,0 +1,58 @@
+{% extends 'chatbot/base.html' %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
+{% endblock %}
+
+{% block title %}Feedbacks{% endblock %}
+
+{% block navigation %}
+<li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
+<li><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
+<li class="active"><a href="{% url 'chatbot:modFeedbacks' %}">Feedbacks</a></li>
+{% endblock %}
+
+{% block logout %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'chatbot:modLogout' %}">Logout</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="list-style">
+        {% for feedback in feedbacks %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Feedback Posted by: {{ feedback.name }}</h3>
+            </div>
+            <div class="panel-body">
+                <p><strong>Comment: </strong>{{ feedback.comment }}</p>
+                <p><strong>Posted on: </strong>{{ feedback.created }}</p>
+            </div>
+        </div>
+        {% empty %}
+            <div class="well">
+                <p>No Feedbacks</p>
+            </div>
+        {% endfor %}
+    </div>
+    <nav aria-label="Page navigation" class="text-center">
+        <ul class="pager">
+            <li class="previous">{% if feedbacks.has_previous %}
+                <a href="?page={{ feedbacks.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a>
+            {% endif %}
+            </li>
+            <li class="next">{% if feedbacks.has_next %}
+                <a href="?page={{ feedbacks.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a>
+            {% endif %}
+            </li>
+         </ul>
+    </nav>
+</div>
+{% else %}
+<h1>You are not Authenticated</h1>
+{% endif %}
+{% endblock %}
