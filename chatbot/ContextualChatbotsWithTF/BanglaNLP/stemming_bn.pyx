@@ -1,15 +1,10 @@
 import csv
 import os
-from libc.stddef cimport wchar_t
-from cpython.mem cimport PyMem_Malloc, PyMem_Free
 
 try:
     from timethis import timethis
 except ModuleNotFoundError:
     from .timethis import timethis
-
-cdef extern from "Python.h":
-    wchar_t* PyUnicode_AsWideCharString(object, Py_ssize_t *)
 
 class Node:
     def __init__(self, label=None, data=None):
@@ -151,7 +146,7 @@ def loadWords(csvfile):
 @timethis
 def loadFile():
     DIR_NAME = os.path.dirname(os.path.abspath('__file__'))
-    DIR_NAME_FIX = "/BanglaNLP"
+    DIR_NAME_FIX = "/chatbot//ContextualChatbotsWithTF/BanglaNLP"
 
     try:
         with open(os.path.join(DIR_NAME, 'splittedDictionary.csv'), 'r') as csvfile:

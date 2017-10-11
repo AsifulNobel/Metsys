@@ -7,40 +7,157 @@ import json
 import os
 import logging
 import nltk
-from .stemming_bn import isEnglish, stemBanglaWord
+from .stemming_bn import isEnglish, stemBanglaWord, loadFile, buildTree
 from .timethis import timethis
 
 DIR_NAME = os.path.dirname(os.path.abspath(__file__))
 logger = logging.getLogger(__name__)
 
-data = pickle.load(open(os.path.join(DIR_NAME, "training_data"), "rb"))
-words = data['words']
-classes = data['classes']
-train_x = data['train_x']
-train_y = data['train_y']
+context = None
+ERROR_THRESHOLD = 0
+model = None
+words = None
+classes = None
+train_x = None
+train_y = None
+intents = None
 
-with open(os.path.join(DIR_NAME, 'banglaintents.json')) as json_data:
-    logger.info("Loading Intents...")
-    intents = json.load(json_data)
 
-# load our saved model
-logger.info("Loading Model...")
+def initialize():
+    loadFile()
+    buildTree()
+    loadData()
+    buildNN()
+    loadModel()
 
-# Clears the default graph stack and resets the global default graph
-tf.reset_default_graph()
-net = tflearn.input_data(shape=[None, len(train_x[0])])
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
-net = tflearn.regression(net)
-model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
+def buildNN():
+    """Builds neural network graph and sets it to global model handler"""
+    global model
+    # Clears the default graph stack and resets the global default graph
+    tf.reset_default_graph()
 
-DIR_NAME_MODEL = os.path.dirname(os.path.abspath('__file__'))
-model.load(DIR_NAME_MODEL+'/chatbot/ContextualChatbotsWithTF/BanglaNLP/model.tflearn')
-# model.load('model.tflearn')
-# model.load('./chatbot/ContextualChatbotsWithTF/BanglaNLP/model.tflearn')
+    net = tflearn.input_data(shape=[None, len(train_x[0])])
+    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
+    net = tflearn.regression(net)
+    model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
 
-ERROR_THRESHOLD = 0.25
+
+def loadData():
+    global context
+    global ERROR_THRESHOLD
+    global words
+    global classes
+    global train_x
+    global train_y
+    global intents
+
+    context = {}
+    ERROR_THRESHOLD = 0.25
+
+    data = pickle.load(open(os.path.join(DIR_NAME, "training_data"), "rb"))
+    words = data['words']
+    classes = data['classes']
+    train_x = data['train_x']
+    train_y = data['train_y']
+
+    with open(os.path.join(DIR_NAME, 'banglaintents.json')) as json_data:
+        logger.info("Loading Intents...")
+        intents = json.load(json_data)
+
+
+def loadModel():
+    """Loads training data for Neural Network"""
+    global model
+
+    logger.info("Loading Model...")
+    model.load(DIR_NAME + '/model.tflearn')
+
+
+def train():
+    """Train a neural network on the fly"""
+    words = []
+    classes = []
+    documents = []
+    ignore_words = ['?']
+    intents = None
+
+    with open(os.path.join(DIR_NAME, 'banglaintents.json')) as json_data:
+        logger.info("Loading Intents...")
+        intents = json.load(json_data)
+
+    # loop through each sentence in our intents patterns
+    for intent in intents['intents']:
+        for pattern in intent['patterns']:
+            # tokenize each word in the sentence
+            w = nltk.word_tokenize(pattern)
+            # add to our words list
+            words.extend(w)
+            # add to documents in our corpus
+            documents.append((w, intent['tag']))
+            # add to our classes list
+            if intent['tag'] not in classes:
+                classes.append(intent['tag'])
+
+    # stem and lower each word and remove duplicates
+    loadFile()
+    buildTree()
+    words = [stemBanglaWord(w) for w in words if w not in ignore_words]
+
+    # remove duplicates
+    classes = sorted(list(set(classes)))
+
+    training = []
+    output_empty = [0] * len(classes)
+
+    # training set, bag of words for each sentence
+    for doc in documents:
+        # initialize our bag of words
+        bag = []
+        # list of tokenized words for the pattern
+        pattern_words = doc[0]
+        # stem each word
+        # Used custom function stemBanglaWord() here
+        pattern_words = [stemBanglaWord(word) for word in pattern_words]
+        # create our bag of words array
+        for w in words:
+            bag.append(1) if w in pattern_words else bag.append(0)
+
+        # output is a '0' for each tag and '1' for current tag
+        output_row = list(output_empty)
+        output_row[classes.index(doc[1])] = 1
+
+        training.append([bag, output_row])
+
+    # shuffle our features and turn into np.array
+    random.shuffle(training)
+    training = np.array(training)
+
+    # create train and test lists
+    train_x = list(training[:, 0])
+    train_y = list(training[:, 1])
+    # notice that our data is shuffled. Tensorflow will take some of this and use it as test data to gauge accuracy for a newly fitted model.
+
+    tf.reset_default_graph()
+    # Build neural network
+
+    net = tflearn.input_data(shape=[None, len(train_x[0])])
+    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
+    net = tflearn.regression(net)
+
+    # Define model and setup tensorboard
+    model = tflearn.DNN(net, tensorboard_dir=os.path.join(DIR_NAME, 'tflearn_logs'))
+    # Start training (apply gradient descent algorithm)
+    model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
+    model.save('model.tflearn')  ##save the tensorflow model
+    logger.info('Saving model...')
+
+    import pickle
+    pickle.dump({'words': words, 'classes': classes, 'train_x': train_x, 'train_y': train_y},
+                open(os.path.join(DIR_NAME, "training_data"), "wb"))
 
 @timethis
 def clean_up_sentence(sentence):

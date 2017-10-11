@@ -5,8 +5,11 @@ from chatbot.serializers import (MessageSerializer,
     FeedbackSerializer, ComplaintSerializer)
 from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses)
 from django.shortcuts import render, redirect
-from .ContextualChatbotsWithTF.responderInterface import response_message
+from .ContextualChatbotsWithTF.responderInterface import (response_message,
+initAgents, trainEnglish, trainBangla)
 
+# Initialize Chatbots
+initAgents()
 
 def chat(request):
     context = {}
