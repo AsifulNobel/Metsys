@@ -153,6 +153,9 @@ def complaintDetail(request, complaint_id):
                     pattern, created = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
+                else:
+                    englishForm = EnglishTagForm()
+                    context['eForm'] = englishForm
             elif "SubmitBundle" in request.POST:
                 newTagForm = NewTagForm(request.POST)
 
@@ -163,6 +166,9 @@ def complaintDetail(request, complaint_id):
 
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
+                else:
+                    newTagForm = NewTagForm()
+                    context['newForm'] = newTagForm
         elif language == 1:
             banglaForm = BanglaTagForm(request.POST)
 
@@ -172,6 +178,9 @@ def complaintDetail(request, complaint_id):
                     pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
+                else:
+                    banglaForm = BanglaTagForm()
+                    context['bForm'] = banglaForm
             elif "SubmitBundle" in request.POST:
                 newTagForm = NewTagForm(request.POST)
 
@@ -182,6 +191,9 @@ def complaintDetail(request, complaint_id):
 
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
+                else:
+                    newTagForm = NewTagForm()
+                    context['newForm'] = newTagForm
     else:
         if language == 0:
             englishForm = EnglishTagForm()
