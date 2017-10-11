@@ -41,10 +41,10 @@
 + ~~Feedback Option~~
     - ~~Make a popup with animation for feedback~~
 
-+ Help Option
++ ~~Help Option~~
     - ~~Make a popup with animation for instructions about using the chatbot web
     app~~
-    - Add instructions
+    - ~~Add instructions~~
 
 ### Backend
 + ~~Complaints operations~~
