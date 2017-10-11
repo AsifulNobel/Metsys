@@ -7,14 +7,24 @@
 
 {% block title %}Complaints{% endblock %}
 
+{% block navigation %}
+<li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
+<li class="active"><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
+{% endblock %}
+
+{% block logout %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'chatbot:modLogout' %}">Logout</a></li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
-    <h1>Complaints</h1>
     <div class="list-style">
         {% for complaint in complaints_list %}
-        <ul>
-            <li><a href="{% url 'chatbot:complaintDetails' complaint.id %}">{{ complaint.created }}</a></li>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{% url 'chatbot:complaintDetails' complaint.id %}">Complaint Posted at: {{ complaint.created }}</a></li>
         </ul>
         {% empty %}
             <div class="row">
@@ -22,8 +32,6 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{% url 'chatbot:modHome' %}">Home</a><br>
-    <a href="{% url 'chatbot:modLogout' %}">Logout</a>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>

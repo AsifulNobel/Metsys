@@ -7,21 +7,35 @@
 
 {% block title %}Intents{% endblock %}
 
+{% block navigation%}
+<li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
+<li><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
+{% endblock %}
+
+{% block logout %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'chatbot:modLogout' %}">Logout</a></li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
     {% if status == 0 %}
         <h1>Intent Update Success</h1>
         {% if language == "english" %}
-        <a href="{% url 'chatbot:englishIntDown' %}">Download English Intents</a>
+        <a class="btn btn-primary"  href="{% url 'chatbot:englishIntDown' %}">Download English Intents</a>
         {% elif language == 'bangla' %}
-        <a href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents</a>
+        <a class="btn btn-primary"  href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents</a>
         {% endif %}
     {% else %}
         <h1>Intent Update Failed</h1>
     {% endif %}
-    <br><a href="{% url 'chatbot:modHome' %}">Home</a><br>
-    <a href="{% url 'chatbot:modLogout' %}">Logout</a>
+    <div style="height:1.2rem;"></div>
+    <div class="buttons">
+        <a class="btn btn-default" href="{% url 'chatbot:modHome' %}">Home</a><br>
+        <a class="btn btn-default" href="{% url 'chatbot:modLogout' %}">Logout</a>
+    </div>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>

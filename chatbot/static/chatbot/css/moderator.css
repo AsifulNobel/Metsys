@@ -2,6 +2,31 @@ html, body {
     font-size: 16px;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.buttons a {
+    margin-bottom: 1rem;
+    margin-right: 0.8rem;
+    flex-grow: 1;
+}
+
+#id_new_tag, #id_response, #id_tag {
+    width: 25rem;
+    display: inline;
+}
+
+@media screen and (max-width: 760px) {
+    #id_new_tag, #id_response, #id_tag {
+        width: 100%;
+        display: block;
+    }
+}
+
 @media screen and (min-width: 1400px) {
     html, body {
         font-size: 19px;

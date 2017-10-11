@@ -7,16 +7,26 @@
 
 {% block title %}Moderator Home{% endblock %}
 
+{% block navigation %}
+<li class="active"><a href="{% url 'chatbot:modHome' %}">Home</a></li>
+<li><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
+{% endblock %}
+
+{% block logout %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'chatbot:modLogout' %}">Logout</a></li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
-    <h1>Moderator Home</h1>
-    <a href="{% url 'chatbot:englishIntentsAdd' %}">Update English Intents Database From Json File</a><br>
-    <a href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
-    <a href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database From Json File</a><br>
-    <a href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents Json File</a><br>
-    <a href="{% url 'chatbot:modComplaints' %}">Complaints</a><br>
-    <a href="{% url 'chatbot:modLogout' %}">Logout</a>
+    <div class="buttons btn-group btn-group-lg">
+        <a class="btn btn-success" href="{% url 'chatbot:englishIntentsAdd' %}">Update English Intents Database From Json File</a><br>
+        <a class="btn btn-primary" href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
+        <a class="btn btn-success" href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database From Json File</a><br>
+        <a class="btn btn-primary" href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents Json File</a><br>
+    </div>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>

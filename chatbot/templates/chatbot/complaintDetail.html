@@ -5,45 +5,56 @@
 <link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
 {% endblock %}
 
-{% block title %}Complaints{% endblock %}
+{% block title %}Complaint Detail{% endblock %}
+
+{% block navigation%}
+<li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
+<li><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
+{% endblock %}
+
+{% block logout %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'chatbot:modLogout' %}">Logout</a></li>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
-    <h1>Complaint Detail View</h1>
     {% if complaint %}
-        <ul>
-            <li>User Question: {{ complaint.requestMessage }}</li>
-            <li>Bot Answer: {{ complaint.responseMessage }}</li>
-            <li>Created At: {{ complaint.created }}</li>
-            <li><a href="{% url 'chatbot:complainWithdraw' complaint.id %}">Delete Complaint</a></li>
+        <ul class="list-group">
+            <li class="list-group-item">User Question: {{ complaint.requestMessage }}</li>
+            <li class="list-group-item">Bot Answer: {{ complaint.responseMessage }}</li>
+            <li class="list-group-item">Created At: {{ complaint.created }}</li>
         </ul>
-        <div class="text-center" style="border:2px solid black;">
-            <form class="" action="" method="post">
+        <a class="btn btn-danger" href="{% url 'chatbot:complainWithdraw' complaint.id %}">Delete Complaint</a>
+        <div style="height:1.5rem"></div>
+        <div class="text-center well" style="border:1px solid grey;">
+            <form class="form-group" action="" method="post">
                 {% csrf_token %}
                 {% if eForm %}
                     {{ eForm.as_p }}
-                    <input type="submit" name="SubmitTag" value="Resolve">
+                    <input class="btn btn-primary" type="submit" name="SubmitTag" value="Resolve">
                 {% elif bForm %}
                     {{ bForm.as_p }}
-                    <input type="submit" name="SubmitTag" value="Resolve">
+                    <input class="btn btn-primary" type="submit" name="SubmitTag" value="Resolve">
                 {% endif %}
             </form>
-            <div style="height:50px;" class="text-center"><h3>Or</h3></div>
-            <form class="" action="" method="post">
-                {% csrf_token %}
-                {% if newForm %}
-                    {{ newForm.as_p }}
-                    <input type="submit" name="SubmitBundle" value="Resolve">
-                {% endif %}
+            <div style="height:5rem;" class="text-center"><hr><h3>Or</h3><hr></div>
+            <form class="form-horizontal" action="" method="post">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {% if newForm %}
+                        {{ newForm.as_p }}
+                        <input class="btn btn-primary" type="submit" name="SubmitBundle" value="Resolve">
+                    {% endif %}
+                </div>
             </form>
         </div>
     {% else %}
         <h3>Fake Complaint</h3>
     {% endif %}
-    <div style="height:20px;"></div>
-    <a href="{% url 'chatbot:modHome' %}">Home</a><br>
-    <a href="{% url 'chatbot:modLogout' %}">Logout</a>
+    <div style="height:10rem;"></div>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>

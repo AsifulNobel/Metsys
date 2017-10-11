@@ -22,7 +22,7 @@ html, body {
 
 .flex-item:hover {
     background-color: #653073;
-    animation: fade 2s linear;
+    animation: fade 1s linear;
     text-decoration: none;
     color: white;
 }
