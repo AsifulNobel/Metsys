@@ -7,7 +7,9 @@
                 "How are you",
                 "Is anyone there?",
                 "Hello",
-                "Good day"
+                "Good day",
+                "hellow",
+                "hey"
             ],
             "responses": [
                 "Hello, welcome to Chowdhury Electronics. How can I help you?"
@@ -21,9 +23,9 @@
                 "Goodbye"
             ],
             "responses": [
-                "See you later, thanks for visiting",
+                "Bye! Come back again soon.",
                 "Have a nice day",
-                "Bye! Come back again soon."
+                "See you later, thanks for visiting"
             ]
         },
         {
@@ -34,9 +36,9 @@
                 "That's helpful"
             ],
             "responses": [
-                "Happy to help!",
+                "My pleasure",
                 "Any time!",
-                "My pleasure"
+                "Happy to help!"
             ]
         },
         {
@@ -47,8 +49,8 @@
                 "When are you open?"
             ],
             "responses": [
-                "We're open every day 9am-9pm",
-                "Our hours are 9am-9pm every day"
+                "Our hours are 9am-9pm every day",
+                "We're open every day 9am-9pm"
             ]
         },
         {
@@ -59,8 +61,8 @@
                 "What do you sell?"
             ],
             "responses": [
-                "We sell Television and Home Theater Systems",
-                "We have Television and Home Theater Systems"
+                "We have Television and Home Theater Systems",
+                "We sell Television and Home Theater Systems"
             ]
         },
         {
@@ -119,7 +121,8 @@
             "patterns": [
                 "Tell me about sony TV",
                 "Sony",
-                "Which sony tv do you guys have?"
+                "Which sony tv do you guys have?",
+                "what sony models do you guys have?"
             ],
             "responses": [
                 "We have Sony TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
@@ -452,7 +455,8 @@
                 "Tell me more",
                 "Can you give me more info?",
                 "Can you give me detailed info?",
-                "contact info"
+                "contact info",
+                "do you guys have home delivery"
             ],
             "responses": [
                 "For more information please call 01752508980"
@@ -463,11 +467,12 @@
             "patterns": [
                 "Do you take credit cards?",
                 "Do you accept Mastercard?",
-                "Are you cash only?"
+                "Are you cash only?",
+                "can I pay with card"
             ],
             "responses": [
-                "We accept Nexus, VISA, Mastercard and AMEX",
-                "We accept most major credit cards"
+                "We accept most major credit cards",
+                "We accept Nexus, VISA, Mastercard and AMEX"
             ]
         },
         {
@@ -488,8 +493,8 @@
                 "What are your hours today?"
             ],
             "responses": [
-                "We're open every day from 9am-9pm",
-                "Our hours are 9am-9pm every day"
+                "Our hours are 9am-9pm every day",
+                "We're open every day from 9am-9pm"
             ]
         }
     ]

@@ -1,2 +1,2 @@
-model_checkpoint_path: "/home/nobel/DevBox/Senior_Design_Project/nlp/Senior-Design-Project/ContextualChatbotsWithTF/EnglishNLP/model.tflearn"
-all_model_checkpoint_paths: "/home/nobel/DevBox/Senior_Design_Project/nlp/Senior-Design-Project/ContextualChatbotsWithTF/EnglishNLP/model.tflearn"
+model_checkpoint_path: "/home/ubuntu/Metsys/chatbot/ContextualChatbotsWithTF/EnglishNLP/model.tflearn"
+all_model_checkpoint_paths: "/home/ubuntu/Metsys/chatbot/ContextualChatbotsWithTF/EnglishNLP/model.tflearn"
