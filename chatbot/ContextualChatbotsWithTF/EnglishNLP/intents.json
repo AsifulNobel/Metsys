@@ -23,9 +23,9 @@
                 "Goodbye"
             ],
             "responses": [
-                "Bye! Come back again soon.",
+                "See you later, thanks for visiting",
                 "Have a nice day",
-                "See you later, thanks for visiting"
+                "Bye! Come back again soon."
             ]
         },
         {
@@ -36,9 +36,9 @@
                 "That's helpful"
             ],
             "responses": [
-                "My pleasure",
+                "Happy to help!",
                 "Any time!",
-                "Happy to help!"
+                "My pleasure"
             ]
         },
         {
@@ -49,8 +49,8 @@
                 "When are you open?"
             ],
             "responses": [
-                "Our hours are 9am-9pm every day",
-                "We're open every day 9am-9pm"
+                "We're open every day 9am-9pm",
+                "Our hours are 9am-9pm every day"
             ]
         },
         {
@@ -61,8 +61,8 @@
                 "What do you sell?"
             ],
             "responses": [
-                "We have Television and Home Theater Systems",
-                "We sell Television and Home Theater Systems"
+                "We sell Television and Home Theater Systems",
+                "We have Television and Home Theater Systems"
             ]
         },
         {
@@ -456,7 +456,9 @@
                 "Can you give me more info?",
                 "Can you give me detailed info?",
                 "contact info",
-                "do you guys have home delivery"
+                "do you guys have home delivery",
+                "what is your contact number",
+                "can i get your contact info"
             ],
             "responses": [
                 "For more information please call 01752508980"
@@ -471,8 +473,8 @@
                 "can I pay with card"
             ],
             "responses": [
-                "We accept most major credit cards",
-                "We accept Nexus, VISA, Mastercard and AMEX"
+                "We accept Nexus, VISA, Mastercard and AMEX",
+                "We accept most major credit cards"
             ]
         },
         {
@@ -493,8 +495,110 @@
                 "What are your hours today?"
             ],
             "responses": [
-                "Our hours are 9am-9pm every day",
-                "We're open every day from 9am-9pm"
+                "We're open every day from 9am-9pm",
+                "Our hours are 9am-9pm every day"
+            ]
+        },
+        {
+            "tag": "general_payment",
+            "patterns": [
+                "how can i pay?",
+                "what payment methods are available"
+            ],
+            "responses": [
+                "You can pay with credit card or bKash"
+            ]
+        },
+        {
+            "tag": "Address",
+            "patterns": [
+                "what is your address?"
+            ],
+            "responses": [
+                "Our address is Shop-425, 426, 427, Level-4, 3rd Floor Alpana Plaza, 51 New Elephant Road, Dhaka, Bangladesh"
+            ]
+        },
+        {
+            "tag": "home_delivery",
+            "patterns": [
+                "can I get the product by Home Delivery ?",
+                "do you guys have home delivery facilities?"
+            ],
+            "responses": [
+                "Yes, you can get the product through our home delivery service, but it costs extra 300 taka"
+            ]
+        },
+        {
+            "tag": "warranty",
+            "patterns": [
+                "do I get any warranty with the TV?",
+                "what about warrenty?"
+            ],
+            "responses": [
+                "Yes, all our products have 2 Years Service warranty"
+            ]
+        },
+        {
+            "tag": "discount",
+            "patterns": [
+                "is there any discount?"
+            ],
+            "responses": [
+                "At the moment, we are not giving any amount of discount on  any of our products"
+            ]
+        },
+        {
+            "tag": "tv_accessories",
+            "patterns": [
+                "does the tv come with any stand?"
+            ],
+            "responses": [
+                "No, but you can buy a TV stand or a wall-mounting bracket for 1500 taka"
+            ]
+        },
+        {
+            "tag": "buying_procedure",
+            "patterns": [
+                "how do i buy a product?"
+            ],
+            "responses": [
+                "You can chat with me for product information. If you find a product you like, you can place the order with your phone number and choose a payment option. A verification message will be sent to your number and you must send that to me to finalize your order."
+            ]
+        },
+        {
+            "tag": "return_policy",
+            "patterns": [
+                "how can i return a product?"
+            ],
+            "responses": [
+                "We are extremely sorry, but we do not have any option for return, refund or exchange of our any product once delivered. So it is recommended to check your product properly while taking the delivery"
+            ]
+        },
+        {
+            "tag": "shipment_outside",
+            "patterns": [
+                "do you ship outside of dhaka?"
+            ],
+            "responses": [
+                "We do not delivery outside of Dhaka by ourselves. But we can sent any product via courier service any where in Bangladesh. In that case, customer is liable for carrying charge and liability"
+            ]
+        },
+        {
+            "tag": "shipment_outside_price",
+            "patterns": [
+                "how much for shipping outside of dhaka"
+            ],
+            "responses": [
+                "Minimum 5000 taka advance payment is required for an order from outside of Dhaka"
+            ]
+        },
+        {
+            "tag": "delivery_time",
+            "patterns": [
+                "how long will it take to get my product?"
+            ],
+            "responses": [
+                "It usually takes around 48 hours to transport the product from our warehouse. Upon arrival of the product, we will immediately contact you via you provided contact number during order placement"
             ]
         }
     ]
