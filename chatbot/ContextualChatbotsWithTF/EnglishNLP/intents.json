@@ -600,6 +600,15 @@
             "responses": [
                 "It usually takes around 48 hours to transport the product from our warehouse. Upon arrival of the product, we will immediately contact you via you provided contact number during order placement"
             ]
+        },
+        {
+            "tag": "Chatbot_Capacity",
+            "patterns": [
+                "what can you do?", "how can you help me?"
+            ],
+            "responses": [
+                "I can give you info about products and services. You can also place order for products through me."
+            ]
         }
     ]
 }
