@@ -1,3 +1,6 @@
+#This is example of Contextual Chatbots with Tensorflow taken from here - https://chatbotsmagazine.com/contextual-chat-bots-with-tensorflow-4391749d0077
+#added comment for better understanding
+
 ##############################    STEP 1    ################################
 #things we need for NLP
 import nltk
@@ -96,7 +99,6 @@ train_y = list(training[:,1])
 # reset underlying graph data
 tf.reset_default_graph()
 # Build neural network
-
 net = tflearn.input_data(shape=[None, len(train_x[0])])
 net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, 8)
@@ -244,7 +246,8 @@ print (bow("is your shop open today?", words))
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.25
+
+ERROR_THRESHOLD = 0.10
 def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
@@ -258,9 +261,34 @@ def classify(sentence):
     # return tuple of intent and probability
     return return_list
 
-def response(sentence, userID='123', show_details=False):
+
+#######################################################
+
+#WARNING WARNING WARNING !!!
+#NEW CHANGES ARE MADE HERE (response function) BY ANIRUDHA ON 12 October 2017
+
+#######################################################
+context['123'] = ""
+
+def response(sentence, userID='123', show_details=True):
+    #print("Current Context = ")
+    #print(context[userID])
     results = classify(sentence)
     # if we have a classification then find the matching intent tag
+    #print("Before result")
+    print(results)
+    #print("result[0][0]")
+    #print(results[0][0])
+
+    contextual_result = ""
+    contextual_result_context = ""
+    contextual_result_probablility = 0.0
+    non_contextual_result = ""
+    non_contextual_result_context = ""
+    non_contextual_result_probability = 0.0
+
+
+
     if results:
         # loop as long as there are matches to process
         while results:
@@ -268,19 +296,63 @@ def response(sentence, userID='123', show_details=False):
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
                     # set context for this intent if necessary
-                    if 'context_set' in i:
-                        if show_details: print ('context:', i['context_set'])
-                        context[userID] = i['context_set']
+                    # if 'context_set' in i:
+                    #     if show_details: print ('context:', i['context_set'])
+                    #     context[userID] = i['context_set']
+
+                    #if no context filter set in intent i
+                    if non_contextual_result == "":
+                        if not 'context_filter' in i:
+                            non_contextual_result = random.choice(i['responses'])
+                            non_contextual_result_probability = results[0][1]
+                            #if the new context set in intent i
+                            if 'context_set' in i:
+                                if show_details: print ('context:', i['context_set'])
+                                non_contextual_result_context = i['context_set']
 
                     # check if this intent is contextual and applies to this user's conversation
-                    if not 'context_filter' in i or \
-                        (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
-                        if show_details: print ('tag:', i['tag'])
-                        # a random response from the intent
-                        return print(random.choice(i['responses']))
+                    # if no context filter set in intent i
+                    if contextual_result == "":
+                        #if (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
+                        if (userID in context and 'context_filter' in i and (context[userID] in i['context_filter'])):
+                            if show_details: print ('tag:', i['tag'])
+                            # a random response from the intent
+                            contextual_result = random.choice(i['responses'])
+                            contextual_result_probablility = results[0][1]
+                            if 'context_set' in i:
+                                if show_details: print ('context:', i['context_set'])
+                                contextual_result_context = i['context_set']
 
             results.pop(0)
 
+        # print("Contextual Result = ")
+        # print(contextual_result)
+        # print("Contextual result context = ")
+        # print(contextual_result_context)
+        # print("Contextual Result Probability = ")
+        # print(contextual_result_probablility)
+        #
+        # print("Non Contextual Result = ")
+        # print(non_contextual_result)
+        # print("Non Contextual result context = ")
+        # print(non_contextual_result_context)
+        # print("Non Contextual Result Probability = ")
+        # print(non_contextual_result_probability)
+
+        #print("BOT ANSWER = ")
+        if(contextual_result != ""):
+            return print(contextual_result)
+            if(contextual_result_context != ""):
+                context[userID] = contextual_result_context
+        elif(non_contextual_result != ""):
+            return print(non_contextual_result)
+            if (non_contextual_result_context != ""):
+                context[userID] = non_contextual_result_context
+        else:
+            return print("Sorry I can't understand your question. Can you specify more?")
+    else:
+        #print("BOT ANSWER = ")
+        return print("Sorry I don't have answer for your question. Please contact 01752-509890")
 
 # Our context state is a dictionary, it will contain state for each user.
 # We’ll use some unique identified for each user (eg. cell #).
@@ -290,5 +362,12 @@ def response(sentence, userID='123', show_details=False):
 #In this way, if a user just typed ‘today’ out of the blue (no context), our ‘today’ intent won’t be processed.
 # If they enter ‘today’ as a response to our clarification question (intent tag:‘rental’) then the intent is processed.
 
-response('we want to rent a moped')
-response('today')
+
+#this is for debug purpose
+# while True:
+#     print("Query = ")
+#     user_input = input()
+#
+#     if (input == 'quit'):
+#         break;
+#     else: response(user_input)

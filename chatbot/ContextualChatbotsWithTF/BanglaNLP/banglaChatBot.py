@@ -5,7 +5,10 @@ import csv
 import json
 # import trie
 import nltk
-from stemming_bn import isEnglish, stemBanglaWord
+from stemming_bn import isEnglish, stemBanglaWord, loadFile , buildTree
+loadFile()
+buildTree()
+#print(stemBanglaWord("আমার"))
 
 with open('./banglaintents.json') as json_data:
     intents = json.load(json_data)
@@ -159,7 +162,7 @@ def bow(sentence, words, show_details=False):
 
     return(np.array(bag))
 
-print (bow("is your shop open today?", words))
+#print (bow("is your shop open today?", words))
 
 
 
@@ -169,7 +172,78 @@ print (bow("is your shop open today?", words))
 
 ##############################    STEP 10    ################################
 #building th response processor
-ERROR_THRESHOLD = 0.25
+# ERROR_THRESHOLD = 0.25
+# def classify(sentence):
+#     # generate probabilities from the model
+#     results = model.predict([bow(sentence, words)])[0]
+#     # filter out predictions below a threshold
+#     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
+#     # sort by strength of probability
+#     results.sort(key=lambda x: x[1], reverse=True)
+#     return_list = []
+#     for r in results:
+#         return_list.append((classes[r[0]], r[1]))
+#     # return tuple of intent and probability
+#     return return_list
+#
+# def response(sentence, userID='123', show_details=False):
+#     results = classify(sentence)
+#     # if we have a classification then find the matching intent tag
+#     if results:
+#         # loop as long as there are matches to process
+#         while results:
+#             for i in intents['intents']:
+#                 # find a tag matching the first result
+#                 if i['tag'] == results[0][0]:
+#                     # a random response from the intent
+#                     return print(random.choice(i['responses']))
+#
+#             results.pop(0)
+#
+
+
+#Each sentence passed to response() is classified.
+# Our classifier uses model.predict() and is lighting fast.
+# The probabilities returned by the model are lined-up with our intents definitions to produce a list of potential responses.
+#If one or more classifications are above a threshold, we see if a tag matches an intent and then process that.
+# We’ll treat our classification list as a stack and pop off the stack looking for a suitable match until we find one, or it’s empty.
+
+
+# ##############################    STEP 11    ################################
+# #testing our classify and response function
+# #remember this a context free response
+# #Contextualization has not been included yet
+#
+# print(classify('is your shop open today?'))
+# response('is your shop open today?')
+# print(classify('do you take cash?'))
+# response('do you take cash?')
+# print(classify('what kind of mopeds do you rent?'))
+# response('what kind of mopeds do you rent?')
+# print(classify('Goodbye, see you later'))
+# response('Goodbye, see you later')
+
+
+
+##############################    STEP 12    ################################
+#we are now moving towards the final step of our program
+# which is the bot can answer the question based on the context of whole conversation
+
+#We want to handle a question about renting a moped and ask if the rental is for today.
+# That clarification question is a simple contextual response.
+# If the user responds ‘today’ and the context is the rental timeframe then it’s best they call the rental company’s 1–800 #.
+# No time to waste.
+#To achieve this we will add the notion of ‘state’ to our framework. T
+# his is comprised of a data-structure to maintain state and specific code to manipulate it while processing intents.
+#Because the state of our state-machine needs to be easily persisted, restored, copied, etc.
+# it’s important to keep it all in a data structure such as a dictionary.
+
+
+# create a data structure to hold user context
+context = {}
+
+
+ERROR_THRESHOLD = 0.10
 def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
@@ -183,39 +257,112 @@ def classify(sentence):
     # return tuple of intent and probability
     return return_list
 
-def response(sentence, userID='123', show_details=False):
+
+#######################################################
+
+#WARNING WARNING WARNING !!!
+#NEW CHANGES ARE MADE HERE (response function) BY ANIRUDHA ON 12 October 2017
+
+#######################################################
+context['123'] = ""
+
+def response(sentence, userID='123', show_details=True):
+    #print("Current Context = ")
+    #print(context[userID])
     results = classify(sentence)
     # if we have a classification then find the matching intent tag
+    #print("Before result")
+    print(results)
+    #print("result[0][0]")
+    #print(results[0][0])
+
+    contextual_result = ""
+    contextual_result_context = ""
+    contextual_result_probablility = 0.0
+    non_contextual_result = ""
+    non_contextual_result_context = ""
+    non_contextual_result_probability = 0.0
+
+
+
     if results:
         # loop as long as there are matches to process
         while results:
             for i in intents['intents']:
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
-                    # a random response from the intent
-                    return print(random.choice(i['responses']))
+                    # set context for this intent if necessary
+                    # if 'context_set' in i:
+                    #     if show_details: print ('context:', i['context_set'])
+                    #     context[userID] = i['context_set']
+
+                    #if no context filter set in intent i
+                    if non_contextual_result == "":
+                        if not 'context_filter' in i:
+                            non_contextual_result = random.choice(i['responses'])
+                            non_contextual_result_probability = results[0][1]
+                            #if the new context set in intent i
+                            if 'context_set' in i:
+                                if show_details: print ('context:', i['context_set'])
+                                non_contextual_result_context = i['context_set']
+
+                    # check if this intent is contextual and applies to this user's conversation
+                    # if no context filter set in intent i
+                    if contextual_result == "":
+                        #if (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
+                        if (userID in context and 'context_filter' in i and (context[userID] in i['context_filter'])):
+                            if show_details: print ('tag:', i['tag'])
+                            # a random response from the intent
+                            contextual_result = random.choice(i['responses'])
+                            contextual_result_probablility = results[0][1]
+                            if 'context_set' in i:
+                                if show_details: print ('context:', i['context_set'])
+                                contextual_result_context = i['context_set']
 
             results.pop(0)
 
+        # print("Contextual Result = ")
+        # print(contextual_result)
+        # print("Contextual result context = ")
+        # print(contextual_result_context)
+        # print("Contextual Result Probability = ")
+        # print(contextual_result_probablility)
+        #
+        # print("Non Contextual Result = ")
+        # print(non_contextual_result)
+        # print("Non Contextual result context = ")
+        # print(non_contextual_result_context)
+        # print("Non Contextual Result Probability = ")
+        # print(non_contextual_result_probability)
 
+        #print("BOT ANSWER = ")
+        if(contextual_result != ""):
+            return print(contextual_result)
+            if(contextual_result_context != ""):
+                context[userID] = contextual_result_context
+        elif(non_contextual_result != ""):
+            return print(non_contextual_result)
+            if (non_contextual_result_context != ""):
+                context[userID] = non_contextual_result_context
+        else:
+            return print("Sorry I can't understand your question. Can you specify more?")
+    else:
+        #print("BOT ANSWER = ")
+        return print("Sorry I don't have answer for your question. Please contact 01752-509890")
 
-#Each sentence passed to response() is classified.
-# Our classifier uses model.predict() and is lighting fast.
-# The probabilities returned by the model are lined-up with our intents definitions to produce a list of potential responses.
-#If one or more classifications are above a threshold, we see if a tag matches an intent and then process that.
-# We’ll treat our classification list as a stack and pop off the stack looking for a suitable match until we find one, or it’s empty.
+# Our context state is a dictionary, it will contain state for each user.
+# We’ll use some unique identified for each user (eg. cell #).
+# This allows our framework and state-machine to maintain state for multiple users simultaneously.
+# create a data structure to hold user context
+# context = {}
+#In this way, if a user just typed ‘today’ out of the blue (no context), our ‘today’ intent won’t be processed.
+# If they enter ‘today’ as a response to our clarification question (intent tag:‘rental’) then the intent is processed.
 
-
-##############################    STEP 11    ################################
-#testing our classify and response function
-#remember this a context free response
-#Contextualization has not been included yet
-
-print(classify('আপনাদের দোকান কি আজকে খোলা থাকবে '))
-response('আপনাদের দোকান কি আজকে খোলা থাকবে ?')
-print(classify('আপনারা কি টাকা একসেপ্ট করেন?'))
-response('আপনারা কি টাকা একসেপ্ট করেন?')
-print(classify('আপনারা কীরকম গাড়ি ভাড়া '))
-response('আপনারা কীরকম গাড়ি ভাড়া দেন?')
-print(classify('ধন্যবাদ'))
-response('ধন্যবাদ')
+#this is for debuging purpose
+# while True:
+#     print("Query = ")
+#     user_input = input()
+#
+#     if (input == 'quit'):
+#         break;
+#     else: response(user_input)

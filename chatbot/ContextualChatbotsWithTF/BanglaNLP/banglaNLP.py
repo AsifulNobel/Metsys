@@ -62,7 +62,7 @@ def stemBanglaWord(s):
 ######PREVIOUS CODE SECTIONS STARTS HERE###################
 
 import json
-import trie
+#import trie
 import nltk
 
 with open('./banglaintents.json') as json_data:
