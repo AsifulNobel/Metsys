@@ -23,9 +23,9 @@
                 "Goodbye"
             ],
             "responses": [
-                "See you later, thanks for visiting",
+                "Bye! Come back again soon.",
                 "Have a nice day",
-                "Bye! Come back again soon."
+                "See you later, thanks for visiting"
             ]
         },
         {
@@ -36,9 +36,9 @@
                 "That's helpful"
             ],
             "responses": [
-                "Happy to help!",
+                "My pleasure",
                 "Any time!",
-                "My pleasure"
+                "Happy to help!"
             ]
         },
         {
@@ -46,11 +46,12 @@
             "patterns": [
                 "What hours are you open?",
                 "What are your hours?",
-                "When are you open?"
+                "When are you open?",
+                "Opening time?"
             ],
             "responses": [
-                "We're open every day 9am-9pm",
-                "Our hours are 9am-9pm every day"
+                "Our hours are 9am-9pm every day",
+                "We're open every day 9am-9pm"
             ]
         },
         {
@@ -61,8 +62,8 @@
                 "What do you sell?"
             ],
             "responses": [
-                "We sell Television and Home Theater Systems",
-                "We have Television and Home Theater Systems"
+                "We have Television and Home Theater Systems",
+                "We sell Television and Home Theater Systems"
             ]
         },
         {
@@ -71,11 +72,14 @@
                 "Which Home Theater System do you guys sell?",
                 "Which Home Theater System brand you guys sell",
                 "I want to buy a Home Theater System",
-                "Tell me about Home Theater System"
+                "Tell me about Home Theater System",
+                "Home theater",
+                "Hometheater"
             ],
             "responses": [
                 "We sell Home Theater System only from Sony"
-            ]
+            ],
+            "context_set": "hometheater"
         },
         {
             "tag": "Sony_Hometheater",
@@ -86,7 +90,21 @@
             ],
             "responses": [
                 "We have Sony home theater systems with compact satellite speakers, tall boy speakers, floor standing speakers with subwoofers and 5-master digital amplifiers"
-            ]
+            ],
+            "context_set":"Sony_Hometheater"
+        },
+        {
+            "tag": "Sony_Hometheater_WC",
+            "patterns": [
+                "Tell me about sony",
+                "Sony",
+                "Which sony models do you guys have?"
+            ],
+            "responses": [
+                "We have Sony home theater systems with compact satellite speakers, tall boy speakers, floor standing speakers with subwoofers and 5-master digital amplifiers"
+            ],
+            "context_filter": ["hometheater"],
+            "context_set":"Sony_Hometheater"
         },
         {
             "tag": "Sony_Hometheater_Price",
@@ -99,6 +117,18 @@
             "responses": [
                 "Sony compact satellite speakers will cost 27 thousand taka, tall boy speakers will cost 34 thousand taka, floor standing speakers with subwoofers will cost 40 thousand taka and 5-master digital amplifiers will cost 62 thousand taka"
             ]
+        },
+        {
+            "tag": "Sony_Hometheater_Price_WC",
+            "patterns": [
+                "Price ?",
+                "How much?",
+                "What is the cost?"
+            ],
+            "responses": [
+                "Sony compact satellite speakers will cost 27 thousand taka, tall boy speakers will cost 34 thousand taka, floor standing speakers with subwoofers will cost 40 thousand taka and 5-master digital amplifiers will cost 62 thousand taka"
+            ],
+            "context_filter": ["Sony_Hometheater", "hometheater"]
         },
         {
             "tag": "television",
@@ -114,19 +144,36 @@
             ],
             "responses": [
                 "We sell television from Samsung,Sony,LG,and Toshiba"
-            ]
+            ],
+            "context_set" : "television"
+
         },
         {
             "tag": "Sony_TV",
             "patterns": [
                 "Tell me about sony TV",
-                "Sony",
                 "Which sony tv do you guys have?",
-                "what sony models do you guys have?"
+                "what sony television models do you guys have?",
+                "what sony television models do you guys have?"
             ],
             "responses": [
                 "We have Sony TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
-            ]
+            ],
+            "context_set":"Sony_TV"
+        },
+        {
+            "tag": "Sony_TV_WC",
+            "patterns": [
+                "Tell me about sony",
+                "Which sony models do you guys have?",
+                "what sony models do you guys have?",
+                "sony"
+            ],
+            "responses": [
+                "We have Sony TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
+            ],
+            "context_filter": ["television"],
+            "context_set":"Sony_TV"
         },
         {
             "tag": "Sony_TV_Price",
@@ -138,7 +185,22 @@
             ],
             "responses": [
                 "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
-            ]
+            ],
+            "context_set":"Sony_TV"
+        },
+        {
+            "tag": "Sony_TV_Price_WC",
+            "patterns": [
+                "Price ?",
+                "How much?",
+                "What is the cost?",
+                "Price of sony"
+            ],
+            "responses": [
+                "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
+            ],
+            "context_filter": ["television", "Sony_TV"],
+            "context_set":"Sony_TV"
         },
         {
             "tag": "Sony_TV_24",
@@ -149,20 +211,46 @@
                 "how much for 24 inch sony tv?"
             ],
             "responses": [
-                "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
+                "Sony 24 inch TV costs 22 thousand taka. It has only 720p screen. You should consider it if you have small room"
             ]
+        },
+        {
+            "tag": "Sony_TV_24_WC",
+            "patterns": [
+                "Tell me about 24 inch",
+                "24 inch",
+                "What is the price of 24 inch?",
+                "how much for 24 inch?"
+            ],
+            "responses": [
+                "Sony 24 inch TV costs 22 thousand taka. It has only 720p screen. You should consider it if you have small room"
+            ],
+            "context_filter": ["television", "Sony_TV"]
         },
         {
             "tag": "Sony_TV_32",
             "patterns": [
-                "Tell me about sony 32 inch TV",
+                "Tell me about Sony 32 inch TV",
                 "Sony 32 inch tv",
                 "What is the price of 32 inch sony tv?",
                 "how much for 32 inch sony tv?"
             ],
             "responses": [
-                "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
+                "Sony 32 inch TV costs 27 thousand taka. It has 1080p but no internet. But nice choice in budget"
             ]
+        },
+        {
+            "tag": "Sony_TV_32_WC",
+            "patterns": [
+                "Tell me about 32 inch",
+                "32 inch",
+                "What is the price of 32 inch?",
+                "how much for 32 inch?"
+            ],
+            "responses": [
+                "Sony 32 inch TV costs 27 thousand taka. It has 1080p but no internet. But nice choice in budget"
+            ],
+            "context_filter": ["television", "Sony_TV"]
         },
         {
             "tag": "Sony_TV_40",
@@ -173,8 +261,21 @@
                 "how much for 40 inch sony tv?"
             ],
             "responses": [
-                "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
+                "Sony 40 inch TV costs 34 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
             ]
+        },
+        {
+            "tag": "Sony_TV_40_WC",
+            "patterns": [
+                "Tell me about 40 inch",
+                "40 inch",
+                "What is the price of 40 inch?",
+                "how much for 40 inch?"
+            ],
+            "responses": [
+                "Sony 40 inch TV costs 34 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
+            ],
+            "context_filter": ["television", "Sony_TV"]
         },
         {
             "tag": "Sony_TV_55",
@@ -185,8 +286,21 @@
                 "how much for 55 inch sony tv?"
             ],
             "responses": [
-                "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
+                "Sony 55 inch TV costs 80 thousand taka with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
             ]
+        },
+        {
+            "tag": "Sony_TV_55_WC",
+            "patterns": [
+                "Tell me about 55 inch",
+                "55 inch",
+                "What is the price of 55 inch?",
+                "how much for 55 inch?"
+            ],
+            "responses": [
+                "Sony 55 inch TV costs 80 thousand taka with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
+            ],
+            "context_filter": ["television", "Sony_TV"]
         },
         {
             "tag": "Sony_TV_60",
@@ -194,22 +308,49 @@
                 "Tell me about sony 60 inch TV",
                 "Sony 60 inch tv",
                 "What is the price of 60 inch sony tv?",
-                "how much for 24 inch sony tv?"
+                "how much for 60 inch sony tv?"
             ],
             "responses": [
-                "Sony 24 inch TV costs 22 thousand taka, Sony 32 inch TV costs 27 thousand taka, Sony 40 inch TV costs 34 thousand taka, Sony 55 inch TV costs 80 thousand taka and Sony 60 inch TV costs 97 thousand taka"
+                "Sony 60 inch TV costs 97 thousand taka. It has a really beautiful 4k display with all the best features Sony can provide right now"
             ]
+        },
+        {
+            "tag": "Sony_TV_60_WC",
+            "patterns": [
+                "Tell me about 60 inch",
+                "60 inch",
+                "What is the price of 60 inch?",
+                "how much for 60 inch?"
+            ],
+            "responses": [
+                "Sony 60 inch TV costs 97 thousand taka. It has a really beautiful 4k display with all the best features Sony can provide right now"
+            ],
+            "context_filter": ["television", "Sony_TV"]
         },
         {
             "tag": "Samsung_TV",
             "patterns": [
                 "Tell me about Samsung TV",
-                "Samsung",
+                "tell me about Samsung television",
                 "Which Samsung tv do you guys have?"
             ],
             "responses": [
                 "We have Samsung TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
-            ]
+            ],
+            "context_set":"Samsung_TV"
+        },
+        {
+            "tag": "Samsung_TV_WC",
+            "patterns": [
+                "Tell me about Samsung",
+                "Samsung",
+                "Which Samsung models do you guys have?"
+            ],
+            "responses": [
+                "We have Samsung TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
+            ],
+            "context_filter": ["television"],
+            "context_set": "Samsung_TV"
         },
         {
             "tag": "Samsung_TV_Price",
@@ -221,20 +362,48 @@
             ],
             "responses": [
                 "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
-            ]
+            ],
+            "context_set":"Samsung_TV"
+        },
+        {
+            "tag": "Samsung_TV_Price_WC",
+            "patterns": [
+                "Price ?",
+                "How much?",
+                "What is the cost?"
+            ],
+            "responses": [
+                "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
+            ],
+            "context_filter": ["television", "Samsung_TV"],
+            "context_set":"Samsung_TV"
         },
         {
             "tag": "Samsung_TV_24",
             "patterns": [
-                "Tell me about Samsung 24 inch TV",
-                "Samsung 24 inch tv",
+                "Tell me about samsung 24 inch TV",
+                "samsung 24 inch tv",
                 "What is the price of 24 inch samsung tv?",
                 "how much for 24 inch samsung tv?"
             ],
             "responses": [
-                "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
+                "Samsung 24 inch TV costs 21 thousand taka. It has only 720p screen. You should consider it if you have small room"
             ]
         },
+        {
+            "tag": "Samsung_TV_24_WC",
+            "patterns": [
+                "Tell me about 24 inch",
+                "24 inch",
+                "What is the price of 24 inch?",
+                "how much for 24 inch?"
+            ],
+            "responses": [
+                "Samsung 24 inch TV costs 21 thousand taka. It has only 720p screen. You should consider it if you have small room"
+            ],
+            "context_filter": ["television", "Samsung_TV"]
+        },
+
         {
             "tag": "samsung_TV_32",
             "patterns": [
@@ -244,8 +413,21 @@
                 "how much for 32 inch samsung tv?"
             ],
             "responses": [
-                "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
+                "Samsung 32 inch TV costs 26 thousand taka. It has 1080p but no internet. But nice choice in budget"
             ]
+        },
+        {
+            "tag": "samsung_TV_32_WC",
+            "patterns": [
+                "Tell me about 32 inch",
+                "32 inch",
+                "What is the price of 32 inch?",
+                "how much for 32 inch?"
+            ],
+            "responses": [
+                "Samsung 32 inch TV costs 26 thousand taka. It has 1080p but no internet. But nice choice in budget"
+            ],
+            "context_filter": ["television", "Samsung_TV"]
         },
         {
             "tag": "samsung_TV_40",
@@ -256,8 +438,21 @@
                 "how much for 40 inch samsung tv?"
             ],
             "responses": [
-                "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
+                "Samsung 40 inch TV costs 31 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
             ]
+        },
+        {
+            "tag": "samsung_TV_40_WC",
+            "patterns": [
+                "Tell me about 40 inch",
+                "40 inch",
+                "What is the price of 40 inch?",
+                "how much for 40 inch?"
+            ],
+            "responses": [
+                "Samsung 40 inch TV costs 31 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
+            ],
+            "context_filter": ["television", "Samsung_TV"]
         },
         {
             "tag": "samsung_TV_55",
@@ -268,8 +463,21 @@
                 "how much for 55 inch samsung tv?"
             ],
             "responses": [
-                "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
+                "Samsung 55 inch TV costs 81 thousand taka with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
             ]
+        },
+        {
+            "tag": "samsung_TV_55_WC",
+            "patterns": [
+                "Tell me about samsung 55 inch",
+                "55 inch",
+                "What is the price of 55 inch?",
+                "how much for 55 inch?"
+            ],
+            "responses": [
+                "Samsung 55 inch TV costs 81 thousand taka with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
+            ],
+            "context_filter": ["television", "Samsung_TV"]
         },
         {
             "tag": "samsung_TV_60",
@@ -277,11 +485,24 @@
                 "Tell me about samsung 60 inch TV",
                 "samsung 60 inch tv",
                 "What is the price of 60 inch samsung tv?",
-                "how much for 24 inch samsung tv?"
+                "how much for 60 inch samsung tv?"
             ],
             "responses": [
-                "Samsung 24 inch TV costs 21 thousand taka, Samsung 25 inch TV costs 27 thousand taka, Samsung 40 inch TV costs 31 thousand taka, Samsung 55 inch TV costs 81 thousand taka and Samsung 60 inch TV costs 94 thousand taka"
+                "Samsung 60 inch TV costs 94 thousand taka. It has a really beautiful 4k display with all the best features Samsung can provide right now"
             ]
+        },
+        {
+            "tag": "samsung_TV_60_WC",
+            "patterns": [
+                "Tell me about 60 inch",
+                "60 inch",
+                "What is the price of 60 inch?",
+                "how much for 60 inch?"
+            ],
+            "responses": [
+                "Samsung 60 inch TV costs 94 thousand taka. It has a really beautiful 4k display with all the best features Samsung can provide right now"
+            ],
+            "context_filter": ["television", "Samsung_TV"]
         },
         {
             "tag": "Toshiba_TV",
@@ -292,7 +513,21 @@
             ],
             "responses": [
                 "We have Toshiba TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
-            ]
+            ],
+            "context_set":"Toshiba_TV"
+        },
+        {
+            "tag": "Toshiba_TV_WC",
+            "patterns": [
+                "Tell me about Toshiba",
+                "Toshiba",
+                "Which Toshiba models do you guys have?"
+            ],
+            "responses": [
+                "We have Toshiba TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
+            ],
+            "context_set":"Toshiba_TV",
+            "context_filter": ["television"]
         },
         {
             "tag": "Toshiba_TV_Price",
@@ -304,7 +539,21 @@
             ],
             "responses": [
                 "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
-            ]
+            ],
+            "context_set":"Toshiba_TV"
+        },
+        {
+            "tag": "Toshiba_TV_Price_WC",
+            "patterns": [
+                "Price ?",
+                "How much?",
+                "What is the cost?"
+            ],
+            "responses": [
+                "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
+            ],
+            "context_filter": ["television", "Toshiba_TV"],
+            "context_set":"Toshiba_TV"
         },
         {
             "tag": "toshiba_TV_24",
@@ -315,8 +564,21 @@
                 "how much for 24 inch toshiba tv?"
             ],
             "responses": [
-                "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
+                "Toshiba 24 inch TV costs 17 thousand taka. It has only 720p screen. You should consider it if you have small room"
             ]
+        },
+        {
+            "tag": "toshiba_TV_24_WC",
+            "patterns": [
+                "Tell me about 24 inch",
+                "24 inch",
+                "What is the price of 24 inch?",
+                "how much for 24 inch?"
+            ],
+            "responses": [
+                "Toshiba 24 inch TV costs 17 thousand taka. It has only 720p screen. You should consider it if you have small room"
+            ],
+            "context_filter": ["television", "Toshiba_TV"]
         },
         {
             "tag": "toshiba_TV_32",
@@ -327,8 +589,21 @@
                 "how much for 32 inch toshiba tv?"
             ],
             "responses": [
-                "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
+                "Toshiba 32 inch TV costs 21 thousand taka. It has 1080p but no internet. But nice choice in budget"
             ]
+        },
+        {
+            "tag": "toshiba_TV_32_WC",
+            "patterns": [
+                "Tell me about 32 inch",
+                "32 inch",
+                "What is the price of 32 inch?",
+                "how much for 32 inch?"
+            ],
+            "responses": [
+                "Toshiba 32 inch TV costs 21 thousand taka. It has 1080p but no internet. But nice choice in budget"
+            ],
+            "context_filter": ["television", "Toshiba_TV"]
         },
         {
             "tag": "toshiba_TV_40",
@@ -339,8 +614,21 @@
                 "how much for 40 inch toshiba tv?"
             ],
             "responses": [
-                "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
+                "Toshiba 40 inch TV costs 30 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
             ]
+        },
+        {
+            "tag": "toshiba_TV_40_WC",
+            "patterns": [
+                "Tell me about 40 inch",
+                "40 inch",
+                "What is the price of 40 inch?",
+                "how much for 40 inch?"
+            ],
+            "responses": [
+                "Toshiba 40 inch TV costs 30 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
+            ],
+            "context_filter": ["television", "Toshiba_TV"]
         },
         {
             "tag": "toshiba_TV_55",
@@ -351,8 +639,21 @@
                 "how much for 55 inch toshiba tv?"
             ],
             "responses": [
-                "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
+                "Toshiba 55 inch TV costs 73 thousand taka with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
             ]
+        },
+        {
+            "tag": "toshiba_TV_55_WC",
+            "patterns": [
+                "Tell me about 55 inch",
+                "55 inch",
+                "What is the price of 55 inch?",
+                "how much for 55 inch?"
+            ],
+            "responses": [
+                "Toshiba 55 inch TV costs 73 thousand taka with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
+            ],
+            "context_filter": ["television", "Toshiba_TV"]
         },
         {
             "tag": "toshiba_TV_60",
@@ -360,22 +661,48 @@
                 "Tell me about toshiba 60 inch TV",
                 "toshiba 60 inch tv",
                 "What is the price of 60 inch toshiba tv?",
-                "how much for 24 inch toshiba tv?"
+                "how much for 60 inch toshiba tv?"
             ],
             "responses": [
-                "Toshiba 24 inch TV costs 17 thousand taka, Toshiba 25 inch TV costs 21 thousand taka, Toshiba 40 inch TV costs 30 thousand taka, Toshiba 55 inch TV costs 73 thousand taka and Toshiba 60 inch TV costs 91 thousand taka"
+                "Toshiba 60 inch TV costs 91 thousand taka . It has a really beautiful 4k display with all the best features Toshiba can provide right now"
             ]
+        },
+        {
+            "tag": "toshiba_TV_60_WC",
+            "patterns": [
+                "Tell me about 60 inch",
+                "60 inch",
+                "What is the price of 60 inch?",
+                "how much for 60 inch?"
+            ],
+            "responses": [
+                "Toshiba 60 inch TV costs 91 thousand taka . It has a really beautiful 4k display with all the best features Toshiba can provide right now"
+            ],
+            "context_filter": ["television", "Toshiba_TV"]
         },
         {
             "tag": "LG_TV",
             "patterns": [
                 "Tell me about LG TV",
-                "LG",
                 "Which LG tv do you guys have?"
             ],
             "responses": [
                 "We have LG TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
-            ]
+            ],
+            "context_set":"LG_TV"
+        },
+        {
+            "tag": "LG_TV_WC",
+            "patterns": [
+                "Tell me about LG",
+                "LG",
+                "Which LG models do you guys have?"
+            ],
+            "responses": [
+                "We have LG TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
+            ],
+            "context_set":"LG_TV",
+            "context_filter": ["television"]
         },
         {
             "tag": "LG_TV_Price",
@@ -387,7 +714,21 @@
             ],
             "responses": [
                 "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
-            ]
+            ],
+            "context_set":"LG_TV"
+        },
+        {
+            "tag": "LG_TV_Price_WC",
+            "patterns": [
+                "Price ?",
+                "How much?",
+                "What is the cost?"
+            ],
+            "responses": [
+                "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
+            ],
+            "context_filter": ["television", "LG_TV"],
+            "context_set":"LG_TV"
         },
         {
             "tag": "lg_TV_24",
@@ -398,8 +739,21 @@
                 "how much for 24 inch lg tv?"
             ],
             "responses": [
-                "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
+                "LG 24 inch TV costs 20 thousand taka. It has only 720p screen. You should consider it if you have small room"
             ]
+        },
+        {
+            "tag": "lg_TV_24_WC",
+            "patterns": [
+                "Tell me about 24 inch",
+                "24 inch",
+                "What is the price of 24 inch?",
+                "how much for 24 inch?"
+            ],
+            "responses": [
+                "LG 24 inch TV costs 20 thousand taka. It has only 720p screen. You should consider it if you have small room"
+            ],
+            "context_filter": ["television", "LG_TV"]
         },
         {
             "tag": "lg_TV_32",
@@ -410,8 +764,21 @@
                 "how much for 32 inch lg tv?"
             ],
             "responses": [
-                "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
+                "LG 32 inch TV costs 25 thousand taka. It has 1080p but no internet. But nice choice in budget"
             ]
+        },
+        {
+            "tag": "lg_TV_32_WC",
+            "patterns": [
+                "Tell me about 32 inch",
+                "32 inch",
+                "What is the price of 32 inch?",
+                "how much for 32 inch?"
+            ],
+            "responses": [
+                "LG 32 inch TV costs 25 thousand taka. It has 1080p but no internet. But nice choice in budget"
+            ],
+            "context_filter": ["television", "LG_TV"]
         },
         {
             "tag": "lg_TV_40",
@@ -422,8 +789,21 @@
                 "how much for 40 inch lg tv?"
             ],
             "responses": [
-                "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
+                "LG 40 inch TV costs 32 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
             ]
+        },
+        {
+            "tag": "lg_TV_40_WC",
+            "patterns": [
+                "Tell me about 40 inch",
+                "40 inch",
+                "What is the price of 40 inch?",
+                "how much for 40 inch?"
+            ],
+            "responses": [
+                "LG 40 inch TV costs 32 thousand taka. The screen is 1080p but the IPS panel makes it a really good choice in this price"
+            ],
+            "context_filter": ["television", "LG_TV"]
         },
         {
             "tag": "lg_TV_55",
@@ -434,8 +814,21 @@
                 "how much for 55 inch lg tv?"
             ],
             "responses": [
-                "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
+                "LG 55 inch TV costs 78 thousand taka  with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
             ]
+        },
+        {
+            "tag": "lg_TV_55_WC",
+            "patterns": [
+                "Tell me about 55 inch",
+                "55 inch",
+                "What is the price of 55 inch?",
+                "how much for 55 inch?"
+            ],
+            "responses": [
+                "LG 55 inch TV costs 78 thousand taka  with a 4k display It has all the smart features with built in WIFI. A very elegent choice"
+            ],
+            "context_filter": ["television", "LG_TV"]
         },
         {
             "tag": "lg_TV_60",
@@ -443,11 +836,24 @@
                 "Tell me about lg 60 inch TV",
                 "lg 60 inch tv",
                 "What is the price of 60 inch lg tv?",
-                "how much for 24 inch lg tv?"
+                "how much for 60 inch lg tv?"
             ],
             "responses": [
-                "LG 24 inch TV costs 20 thousand taka, LG 25 inch TV costs 25 thousand taka, LG 40 inch TV costs 32 thousand taka, LG 55 inch TV costs 78 thousand taka and LG 60 inch TV costs 95 thousand taka"
+                "LG 60 inch TV costs 95 thousand taka. It has a really beautiful 4k display with all the best features LG can provide right now"
             ]
+        },
+        {
+            "tag": "lg_TV_60_WC",
+            "patterns": [
+                "Tell me about 60 inch",
+                "60 inch",
+                "What is the price of 60 inch?",
+                "how much for 60 inch?"
+            ],
+            "responses": [
+                "LG 60 inch TV costs 95 thousand taka. It has a really beautiful 4k display with all the best features LG can provide right now"
+            ],
+            "context_filter": ["television", "LG_TV"]
         },
         {
             "tag": "details",
@@ -456,7 +862,6 @@
                 "Can you give me more info?",
                 "Can you give me detailed info?",
                 "contact info",
-                "do you guys have home delivery",
                 "what is your contact number",
                 "can i get your contact info"
             ],
@@ -503,16 +908,21 @@
             "tag": "general_payment",
             "patterns": [
                 "how can i pay?",
-                "what payment methods are available"
+                "what payment methods are available",
+                "What are the payment options"
             ],
             "responses": [
-                "You can pay with credit card or bKash"
+                "You can pay with cash, credit card or bKash"
             ]
         },
         {
             "tag": "Address",
             "patterns": [
-                "what is your address?"
+                "what is your address ?",
+                "Tell me your address ?",
+                "Where your shop is located ?",
+                "What is the address of your shop?",
+                "Can you give me your address?"
             ],
             "responses": [
                 "Our address is Shop-425, 426, 427, Level-4, 3rd Floor Alpana Plaza, 51 New Elephant Road, Dhaka, Bangladesh"
@@ -532,7 +942,9 @@
             "tag": "warranty",
             "patterns": [
                 "do I get any warranty with the TV?",
-                "what about warrenty?"
+                "what about warrenty?",
+                "what is your warrnty policy?",
+                "how about warrenty?"
             ],
             "responses": [
                 "Yes, all our products have 2 Years Service warranty"
@@ -541,7 +953,9 @@
         {
             "tag": "discount",
             "patterns": [
-                "is there any discount?"
+                "is there any discount?",
+                "are you currently giving any discount?",
+                "can I get a discount?"
             ],
             "responses": [
                 "At the moment, we are not giving any amount of discount on  any of our products"
@@ -550,7 +964,8 @@
         {
             "tag": "tv_accessories",
             "patterns": [
-                "does the tv come with any stand?"
+                "does the tv come with any stand?",
+                "Do you provide wall mount?"
             ],
             "responses": [
                 "No, but you can buy a TV stand or a wall-mounting bracket for 1500 taka"
@@ -559,25 +974,32 @@
         {
             "tag": "buying_procedure",
             "patterns": [
-                "how do i buy a product?"
+                "how do i buy a product?",
+                "I want to place an order"
             ],
             "responses": [
-                "You can chat with me for product information. If you find a product you like, you can place the order with your phone number and choose a payment option. A verification message will be sent to your number and you must send that to me to finalize your order."
+                "You can chat with me for product information. But for placing order you must call our shop at 01752509890"
             ]
         },
         {
             "tag": "return_policy",
             "patterns": [
-                "how can i return a product?"
+                "how can i return a product?",
+                "What is your return policy?",
+                "What if I don't like the product?",
+                "What if there is a defect?"
             ],
             "responses": [
-                "We are extremely sorry, but we do not have any option for return, refund or exchange of our any product once delivered. So it is recommended to check your product properly while taking the delivery"
+                "We are extremely sorry, but we do not have any option for return, refund or exchange of our any product once delivered. So it is recommended to check your product properly while taking the delivery. If the defect is covered by warranty we will change it"
             ]
         },
         {
             "tag": "shipment_outside",
             "patterns": [
-                "do you ship outside of dhaka?"
+                "do you ship outside of dhaka?",
+                "Can you send the product outside Dhaka?",
+                "I live outside Dhaka."
+
             ],
             "responses": [
                 "We do not delivery outside of Dhaka by ourselves. But we can sent any product via courier service any where in Bangladesh. In that case, customer is liable for carrying charge and liability"
@@ -586,28 +1008,51 @@
         {
             "tag": "shipment_outside_price",
             "patterns": [
-                "how much for shipping outside of dhaka"
+                "how much for shipping outside of dhaka",
+                "what is the charge for shipping outside of dhaka",
+                "What is the shipping charge?"
             ],
             "responses": [
-                "Minimum 5000 taka advance payment is required for an order from outside of Dhaka"
+                "Minimum 5000 taka advance payment is required for an order from outside of Dhaka but shipping charge is as per courier service you want to take"
             ]
         },
         {
             "tag": "delivery_time",
             "patterns": [
-                "how long will it take to get my product?"
+                "how long will it take to get my product?",
+                "How much time it will take you to deliver",
+                "How much time is required for delivery",
+                "Tell me about the time required for delivery"
             ],
             "responses": [
                 "It usually takes around 48 hours to transport the product from our warehouse. Upon arrival of the product, we will immediately contact you via you provided contact number during order placement"
             ]
         },
         {
-            "tag": "Chatbot_Capacity",
+            "tag": "default",
             "patterns": [
-                "what can you do?", "how can you help me?"
+                ""
             ],
             "responses": [
-                "I can give you info about products and services. You can also place order for products through me."
+                "I can't understand your question? FYI you can only ask me about the products, payment and general inquery about Chowdhury Electronics"
+            ]
+        },
+        {
+            "tag": "inappropritate",
+            "patterns": [
+                "Hi Sexy",
+                "I want to have sex",
+                "Where I can find whore",
+                "Fuck you",
+                "Bitch",
+                "Hi nigga",
+                "Hi beautiful",
+                "Appi nyc lagsa",
+                "halka mutay shuye poro",
+                "send nudes"
+            ],
+            "responses": [
+                "That is very inappropriate! Sorry I can't co operate with you. I only give answers about the products, payment and general inquery about Chowdhury Electronics"
             ]
         }
     ]
