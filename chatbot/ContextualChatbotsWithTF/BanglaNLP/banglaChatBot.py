@@ -345,10 +345,10 @@ def response(sentence, userID='123', show_details=True):
             if (non_contextual_result_context != ""):
                 context[userID] = non_contextual_result_context
         else:
-            return print("Sorry I can't understand your question. Can you specify more?")
+            return print("দুঃখিত! আমি আপনার প্রশ্ন বুঝতে পারিনি। আপনি কী আরেকটু বিস্তারিত বলবেন?")
     else:
         #print("BOT ANSWER = ")
-        return print("Sorry I don't have answer for your question. Please contact 01752-509890")
+        return print("দুঃখিত! আমার কাছে আপনার প্রশ্নের উত্তর নেই। আপনার প্রশ্নের উত্তর জানতে, আপনি আমাদের হেল্পলাইন ০১৭৫২-৫০৯৮৯০ নাম্বারে যোগাযোগ করুন।")
 
 # Our context state is a dictionary, it will contain state for each user.
 # We’ll use some unique identified for each user (eg. cell #).
