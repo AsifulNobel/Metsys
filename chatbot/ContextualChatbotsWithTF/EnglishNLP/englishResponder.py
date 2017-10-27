@@ -55,7 +55,7 @@ def loadData():
 
     stemmer = LancasterStemmer()
     context = {}
-    ERROR_THRESHOLD = 0.25
+    ERROR_THRESHOLD = 0.10
 
     data = pickle.load(open(os.path.join(DIR_NAME, "training_data"), "rb"))
     words = data['words']
@@ -207,11 +207,39 @@ def classify(sentence):
     logger.debug("Intent and probability: {}".format(return_list))
     return return_list
 
+def addUserContext(userID):
+    """Adds user id to context dictionary"""
+    if userID not in context.keys():
+        context[userID] = ""
+    return
+
+
+def removeUserContext(userID):
+    """Removes user id to context dictionary"""
+    if userID in context.keys():
+        context.pop(userID)
+    return
+
 def response_message(sentence, userID='123', show_details=False):
     global intents
     global model
 
+    failedResponse = "Sorry I don't have answer for your question. Please contact 01752-509890"
+    cannotEvenResponse = "Sorry I can't understand your question. Can you specify more?"
+
+    previousContext = context.get(userID, None)
+
+    if not previousContext:
+        addUserContext(userID)
+
     results = classify(sentence)
+
+    contextual_result = ""
+    contextual_result_context = ""
+    contextual_result_probablility = 0.0
+    non_contextual_result = ""
+    non_contextual_result_context = ""
+    non_contextual_result_probability = 0.0
 
     # if we have a classification then find the matching intent tag
     if results:
@@ -220,9 +248,45 @@ def response_message(sentence, userID='123', show_details=False):
             for i in intents['intents']:
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
-                    # a random response from the intent
-                    return random.choice(i['responses'])
+                    if non_contextual_result == "":
+                        if not 'context_filter' in i:
+                            non_contextual_result = random.choice(i['responses'])
+                            non_contextual_result_probability = results[0][1]
+                            #if the new context set in intent i
+                            if 'context_set' in i:
+                                if show_details:
+                                    print ('context:', i['context_set'])
+                                non_contextual_result_context = i['context_set']
+                    if contextual_result == "":
+                        if (userID in context and 'context_filter' in i and (context[userID] in i['context_filter'])):
+                            if show_details:
+                                print ('tag:', i['tag'])
+                            # a random response from the intent
+                            contextual_result = random.choice(i['responses'])
+                            contextual_result_probablility = results[0][1]
+                            if 'context_set' in i:
+                                if show_details:
+                                    print ('context:', i['context_set'])
+                                contextual_result_context = i['context_set']
 
             results.pop(0)
+
+        if(contextual_result != ""):
+            logger.debug(contextual_result)
+            return contextual_result
+
+            if(contextual_result_context != ""):
+                context[userID] = contextual_result_context
+
+        elif(non_contextual_result != ""):
+            logger.debug(non_contextual_result)
+            return non_contextual_result
+
+            if (non_contextual_result_context != ""):
+                context[userID] = non_contextual_result_context
+        else:
+            logger.debug(cannotEvenResponse)
+            return cannotEvenResponse
     else:
-        return 'I did not get that. Can you tell me more?'
+        logger.debug(failedResponse)
+        return failedResponse

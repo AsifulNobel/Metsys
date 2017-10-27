@@ -224,6 +224,9 @@ def response_message(sentence, userID='123', show_details=False):
     global intents
     global model
 
+    failedResponse = "দুঃখিত! আমার কাছে আপনার প্রশ্নের উত্তর নেই। আপনার প্রশ্নের উত্তর জানতে, আপনি আমাদের হেল্পলাইন ০১৭৫২-৫০৯৮৯০ নাম্বারে যোগাযোগ করুন।"
+    cannotEvenResponse = "দুঃখিত! আমি আপনার প্রশ্ন বুঝতে পারিনি। আপনি কী আরেকটু বিস্তারিত বলবেন?"
+
     previousContext = context.get(userID, None)
 
     if not previousContext:
@@ -282,8 +285,8 @@ def response_message(sentence, userID='123', show_details=False):
             if (non_contextual_result_context != ""):
                 context[userID] = non_contextual_result_context
         else:
-            logger.debug("দুঃখিত! আমি আপনার প্রশ্ন বুঝতে পারিনি। আপনি কী আরেকটু বিস্তারিত বলবেন?")
-            return "দুঃখিত! আমি আপনার প্রশ্ন বুঝতে পারিনি। আপনি কী আরেকটু বিস্তারিত বলবেন?"
+            logger.debug(cannotEvenResponse)
+            return cannotEvenResponse
     else:
-        logger.debug("দুঃখিত! আমার কাছে আপনার প্রশ্নের উত্তর নেই। আপনার প্রশ্নের উত্তর জানতে, আপনি আমাদের হেল্পলাইন ০১৭৫২-৫০৯৮৯০ নাম্বারে যোগাযোগ করুন।")
-        return "দুঃখিত! আমার কাছে আপনার প্রশ্নের উত্তর নেই। আপনার প্রশ্নের উত্তর জানতে, আপনি আমাদের হেল্পলাইন ০১৭৫২-৫০৯৮৯০ নাম্বারে যোগাযোগ করুন।"
+        logger.debug(failedResponse)
+        return failedResponse
