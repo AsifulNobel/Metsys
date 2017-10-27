@@ -220,7 +220,7 @@ def removeUserContext(userID):
         context.pop(userID)
     return
 
-def response_message(sentence, userID='123', show_details=False):
+def response_message(sentence, userID='123', show_details=True):
     global intents
     global model
 
@@ -255,35 +255,34 @@ def response_message(sentence, userID='123', show_details=False):
                             #if the new context set in intent i
                             if 'context_set' in i:
                                 if show_details:
-                                    print ('context:', i['context_set'])
+                                    logger.debug('context:' + i['context_set'])
                                 non_contextual_result_context = i['context_set']
                     if contextual_result == "":
                         if (userID in context and 'context_filter' in i and (context[userID] in i['context_filter'])):
                             if show_details:
-                                print ('tag:', i['tag'])
+                                logger.debug('tag:' + i['tag'])
                             # a random response from the intent
                             contextual_result = random.choice(i['responses'])
                             contextual_result_probablility = results[0][1]
                             if 'context_set' in i:
                                 if show_details:
-                                    print ('context:', i['context_set'])
+                                    logger.debug('context:' + i['context_set'])
                                 contextual_result_context = i['context_set']
 
             results.pop(0)
 
         if(contextual_result != ""):
             logger.debug(contextual_result)
-            return contextual_result
 
             if(contextual_result_context != ""):
                 context[userID] = contextual_result_context
-
+            return contextual_result
         elif(non_contextual_result != ""):
             logger.debug(non_contextual_result)
-            return non_contextual_result
 
             if (non_contextual_result_context != ""):
                 context[userID] = non_contextual_result_context
+            return non_contextual_result
         else:
             logger.debug(cannotEvenResponse)
             return cannotEvenResponse

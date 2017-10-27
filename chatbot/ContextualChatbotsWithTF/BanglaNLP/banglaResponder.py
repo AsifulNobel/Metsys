@@ -220,7 +220,7 @@ def removeUserContext(userID):
         context.pop(userID)
     return
 
-def response_message(sentence, userID='123', show_details=False):
+def response_message(sentence, userID='123', show_details=True):
     global intents
     global model
 
