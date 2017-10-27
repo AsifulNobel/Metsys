@@ -105,7 +105,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Help!</h3>
+                        <h3 class="modal-title">Welcome to Metsys Public Alpha Testing <i class="fa fa-smile-o" aria-hidden="true"></i></h3>
                     </div>
                     <div class="modal-body">
                         <h4>About</h4>
@@ -267,7 +267,8 @@
             }
 
             $(document).ready(function() {
-                $("#body-container").scrollTop( $('#body-container')[0].scrollHeight );
+                $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
+                $('#helpModal').modal('show');
             });
 
 
