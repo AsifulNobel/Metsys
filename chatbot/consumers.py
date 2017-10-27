@@ -1,11 +1,8 @@
 import json
 from channels import Channel
 from channels.sessions import enforce_ordering, channel_session
-from django.utils.crypto import get_random_string
 from .views import (respond_to_websockets, saveFeedback, saveComplaint,
-deleteUserContext)
-
-users = []
+deleteUserContext, getUniqueUser, removeUserId)
 
 @channel_session
 @enforce_ordering
@@ -70,16 +67,6 @@ def complaint_save(complaintMessage):
         'text': json.dumps(response)
     })
 
-def getUniqueUser():
-    global users
-
-    unique_id = get_random_string(length=32)
-
-    while unique_id in users:
-        unique_id = get_random_string(length=32)
-    users.append(unique_id)
-    return unique_id
-
 def removeUser(userId):
-    users.remove(userId)
+    removeUserId(userId)
     deleteUserContext(userId)

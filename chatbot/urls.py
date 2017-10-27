@@ -19,13 +19,14 @@ from .views import (chat, message_api, feedback_api,
 complaint_save, complaint_delete, moderator_login, moderator_home,
 complaintList, complaintDetail, englishIntentAdd, banglaIntentAdd,
 englishIntentDownload, banglaIntentDownload, train_english, train_bangla,
-updateEnglishFile, updateBanglaFile, feedbackView)
+updateEnglishFile, updateBanglaFile, feedbackView, terminate_api)
 
 app_name = 'chatbot'
 
 urlpatterns = [
 	url(r'^$', chat, name='chat'),
-    url(r'^message/', message_api, name='chat_api_message'),
+    url(r'^message$', message_api, name='chat_api_message'),
+    url(r'^message/terminate$', terminate_api, name='chat_api_terminate'),
     url(r'^feedback/', feedback_api, name='chat_api_feedback'),
     url(r'^complain-make/', complaint_save, name='chat_api_complain'),
     url(r'^admin/login', moderator_login, name='modLogin'),

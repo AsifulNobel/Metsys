@@ -5,11 +5,46 @@ from chatbot.serializers import (MessageSerializer,
     FeedbackSerializer, ComplaintSerializer)
 from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses)
 from django.shortcuts import render, redirect
+from django.utils.crypto import get_random_string
 from .ContextualChatbotsWithTF.responderInterface import (response_message,
 initAgents, trainEnglishAgent, trainBanglaAgent ,removeUser)
 
 # Initialize Chatbots
 initAgents()
+users = []
+
+def addUserId(userID):
+    global users
+
+    if userID not in users:
+        users.append(userID)
+
+def removeUserId(userID):
+    global users
+
+    if userID in users:
+        users.remove(userID)
+
+def userIdExists(userID):
+    global users
+
+    if userID in users:
+        return True
+    return False
+
+def getUsers():
+    global users
+    return users
+
+def getUniqueUser():
+    users = getUsers()
+
+    unique_id = get_random_string(length=32)
+
+    while unique_id in users:
+        unique_id = get_random_string(length=32)
+    addUserId(unique_id)
+    return unique_id
 
 def chat(request):
     context = {}
@@ -54,15 +89,40 @@ def message_api(request):
 
     if request.method == 'GET':
         query_response['message'] = response_message('Hi')
+        query_response['userId'] = getUniqueUser()
 
         return Response(query_response)
     elif request.method == 'POST':
         serializer = MessageSerializer(data=request.data)
 
         if serializer.is_valid():
-            query_response['message'] = response_message(serializer.get_message())
+            if userIdExists(serializer.get_userId()):
+                query_response['message'] = response_message(serializer.get_message(), serializer.get_userId())
+            else:
+                query_response['message'] = 'Incorrect user credential'
 
             return Response(query_response, status=status.HTTP_202_ACCEPTED)
+
+@api_view(['GET', 'POST'])
+def terminate_api(request):
+    query_response = {'message': ''}
+
+    if request.method == 'GET':
+        return Response(query_response, status=status.HTTP_204_NO_CONTENT)
+    elif request.method == 'POST':
+        serializer = MessageSerializer(data=request.data)
+
+        if serializer.is_valid():
+            if userIdExists(serializer.get_userId()):
+                removeUserId(serializer.get_userId())
+                query_response['message'] = 'Successful Termination'
+            else:
+                query_response['message'] = 'Unsuccessful Termination'
+
+            return Response(query_response, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(query_response, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 @api_view(['GET', 'POST'])
 def feedback_api(request):
