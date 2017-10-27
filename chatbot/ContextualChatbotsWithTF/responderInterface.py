@@ -1,9 +1,11 @@
 from .BanglaNLP.banglaResponder import response_message as banglaMessage
 from .BanglaNLP.banglaResponder import initialize as initBangla
 from .BanglaNLP.banglaResponder import train as trainBangla
+from .BanglaNLP.banglaResponder import removeUserContext as rmBanglaUser
 from .EnglishNLP.englishResponder import response_message as englishMessage
 from .EnglishNLP.englishResponder import initialize as initEnglish
 from .EnglishNLP.englishResponder import train as trainEnglish
+from .EnglishNLP.englishResponder import removeUserContext as rmEnglishUser
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,13 +18,13 @@ def isEnglish(s):
     else:
         return True
 
-def response_message(message):
+def response_message(message, userID='123'):
     if isEnglish(message):
         logger.debug("English Message found, passing to english agent")
-        return englishMessage(message)
+        return englishMessage(message, userID)
     else:
         logger.debug("Bangla Message found, passing to bangla agent")
-        return banglaMessage(message)
+        return banglaMessage(message, userID)
 
 def initAgents():
     initEnglish()
@@ -35,3 +37,7 @@ def trainEnglishAgent():
 def trainBanglaAgent():
     trainBangla()
     initBangla()
+
+def removeUser(userID):
+    rmBanglaUser(userID)
+    rmEnglishUser(userID)

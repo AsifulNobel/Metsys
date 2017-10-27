@@ -193,6 +193,7 @@
         <script src="{% static 'chatbot/js/internal-chatbox.js' %}" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript">
+            var user;
             $("#messageToSend").focusin(function() {
                 $("#send-box").animate({"border-radius": "1px"});
             });
@@ -230,6 +231,7 @@
                 $('.error-notification').hide();
                 $('.non-error').show();
                 $('#messages-container').html('<div  class="empty-div"></div>');
+
                 message = {}
                 message.command= 'start'
                 chatsock.send(JSON.stringify(message)); // START TALKING!
@@ -247,6 +249,11 @@
             };
 
             chatsock.onclose = function(message){
+                message = {}
+                message.command= 'leave';
+                message.userid = user;
+
+                chatsock.send(JSON.stringify(message));
                 console.log("connection lost ... ");
             }
 

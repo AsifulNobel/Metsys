@@ -6,7 +6,7 @@ from chatbot.serializers import (MessageSerializer,
 from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses)
 from django.shortcuts import render, redirect
 from .ContextualChatbotsWithTF.responderInterface import (response_message,
-initAgents, trainEnglishAgent, trainBanglaAgent)
+initAgents, trainEnglishAgent, trainBanglaAgent ,removeUser)
 
 # Initialize Chatbots
 initAgents()
@@ -15,12 +15,16 @@ def chat(request):
     context = {}
     return render(request, 'chatbot/chatbot.html', context)
 
+def deleteUserContext(userID):
+    removeUser(userID)
+
+    return
 
 def respond_to_websockets(message):
     result_message = {
         'type': 'text'
     }
-    result_message['text'] = response_message(message['text'])
+    result_message['text'] = response_message(message['text'], message['username'])
 
     return result_message
 

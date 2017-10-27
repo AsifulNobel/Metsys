@@ -1,21 +1,28 @@
 import json
 from channels import Channel
-from channels.sessions import enforce_ordering
+from channels.sessions import enforce_ordering, channel_session
+from django.utils.crypto import get_random_string
+from .views import (respond_to_websockets, saveFeedback, saveComplaint,
+deleteUserContext)
 
-from .views import (respond_to_websockets, saveFeedback, saveComplaint)
+users = []
 
-
+@channel_session
 @enforce_ordering
 def ws_connect(message):
     # Initialise their session
-    message.reply_channel.send({
-        'accept': True
-    })
+    payload = {
+        'accept': True,
+    }
+
+    message.channel_session['username'] = getUniqueUser()
+    message.reply_channel.send(payload)
 
 
 # Unpacks the JSON in the received WebSocket frame and puts it onto a channel
 # of its own with a few attributes extra so we can route it
 # we preserve message.reply_channel (which that's based on)
+@channel_session
 @enforce_ordering
 def ws_receive(message):
     # All WebSocket frames have either a text or binary payload; we decode the
@@ -25,23 +32,24 @@ def ws_receive(message):
     # for you as well as handling common errors.
     payload = json.loads(message['text'])
     payload['reply_channel'] = message.content['reply_channel']
+    payload['username'] = message.channel_session['username']
     Channel("chat.receive").send(payload)
 
-
+@channel_session
 @enforce_ordering
 def ws_disconnect(message):
     # Unsubscribe from any connected rooms
-    pass
+    print(message.channel_session['username'])
+    removeUser(message.channel_session['username'])
+    print(users)
 
 
 # Chat channel handling ###
 def chat_start(message):
     pass
 
-
 def chat_leave(message):
     pass
-
 
 def chat_send(message):
     response = respond_to_websockets(message)
@@ -61,3 +69,17 @@ def complaint_save(complaintMessage):
     complaintMessage.reply_channel.send({
         'text': json.dumps(response)
     })
+
+def getUniqueUser():
+    global users
+
+    unique_id = get_random_string(length=32)
+
+    while unique_id in users:
+        unique_id = get_random_string(length=32)
+    users.append(unique_id)
+    return unique_id
+
+def removeUser(userId):
+    users.remove(userId)
+    deleteUserContext(userId)
