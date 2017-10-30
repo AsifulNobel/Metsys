@@ -38,7 +38,6 @@ def ws_disconnect(message):
     # Unsubscribe from any connected rooms
     print(message.channel_session['username'])
     removeUser(message.channel_session['username'])
-    print(users)
 
 
 # Chat channel handling ###
