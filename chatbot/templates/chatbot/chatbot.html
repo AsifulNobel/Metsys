@@ -298,6 +298,16 @@
                 });
             });
 
+            $('#helpModal').on('show.bs.modal', function() {
+                var status = Cookies.get('help_dismiss');
+
+                // Omitted domain for local development use
+                // If ever used in production, use domain specific cookie
+                if (status == 'true') {
+                    $("input[name=neverHelp]", this).attr("checked", "checked");
+                }
+            });
+
 
             $(document).ready(function() {
                 $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
