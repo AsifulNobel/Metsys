@@ -16,6 +16,7 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
         <base target="_blank"/>
         <title>Metsys Bot</title>
 
@@ -129,6 +130,7 @@
                             You can provide your name or remain anonymous.</p>
                     </div>
                     <div class="modal-footer">
+                        <label class="pull-left" for="neverHelp"><input type="checkbox" name="neverHelp"> Don't show this again</label>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -284,12 +286,26 @@
                 $("#feedbackClose").trigger('click');
             }
 
-            $(document).ready(function() {
-                $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
-                $('#helpModal').modal('show');
+            // Don't show this again functionality for #helpModal
+            $('#helpModal').on('hidden.bs.modal', function() {
+                var status = $("input[name=neverHelp]", this).is(":checked");
+
+                // Omitted domain for local development use
+                // If ever used in production, use domain specific cookie
+                Cookies.set('help_dismiss', status, {
+                    expires: 7,
+                    path: ''
+                });
             });
 
 
+            $(document).ready(function() {
+                $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
+
+                if(!Cookies.get('help_dismiss')) {
+                    $('#helpModal').modal('show');
+                }
+            });
         </script>
 
 </body>
