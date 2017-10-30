@@ -20,13 +20,14 @@
         <div class="container">
             <div class="emptyDiv"></div>
             <div class="boxOfThree text-center">
-                <a class="flex-item" href="{% url 'products:index' %}" target="_blank"><div>Metsys Bazar
+                <a class="flex-item" href="{% url 'products:index' %}" target="_blank"><div><span>Metsys Bazar</span>
                 </div></a>
-                <a class="flex-item" href="{% url 'chatbot:chat' %}" target="_blank"><div>Metsys Chatbot
+                <a class="flex-item" href="{% url 'chatbot:chat' %}" target="_blank"><div><span>Metsys Chatbot</span>
                 </div></a>
-                <a class="flex-item" href="{% url 'chatbot:modLogin' %}" target="_blank"><div>Moderator Login
+                <a class="flex-item" href="{% url 'chatbot:modLogin' %}" target="_blank"><div><span>Moderator Login</span>
                 </div></a>
             </div>
         </div>
+        <script src="{% static 'metsys/js/home.js' %}"></script>
     </body>
 </html>

@@ -22,9 +22,17 @@ html, body {
 
 .flex-item:hover {
     background-color: #653073;
-    animation: fade 1s linear;
+    animation: fade 0.5s linear;
     text-decoration: none;
     color: white;
+}
+
+.boxOfThree > a:hover > div::before {
+    content: "Visit This Page";
+}
+
+.boxOfThree > a:hover > div > span {
+    display: none;
 }
 
 @keyframes fade {

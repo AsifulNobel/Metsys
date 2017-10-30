@@ -3,6 +3,23 @@ html, body {
     font-family: 'Ubuntu', sans-serif;
 }
 
+#topNavbar {
+    border-radius: 1px;
+}
+
+.complaintList > a:hover {
+    text-decoration: none;
+}
+
+.complaintList > a:hover > li::before {
+    content: "Show Complaint Details";
+    color: blue;
+}
+
+.complaintList > a:hover > li > span {
+    display: none;
+}
+
 .buttons {
     display: flex;
     flex-flow: column wrap;

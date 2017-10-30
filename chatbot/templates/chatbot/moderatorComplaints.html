@@ -24,8 +24,8 @@
 <div class="container">
     <div class="list-style">
         {% for complaint in complaint_list %}
-        <ul class="list-group">
-            <li class="list-group-item"><a href="{% url 'chatbot:complaintDetails' complaint.id %}">Complaint Posted at: {{ complaint.created }}</a></li>
+        <ul class="list-group complaintList">
+            <a class="text-primary" href="{% url 'chatbot:complaintDetails' complaint.id %}"><li class="list-group-item"><span>Complaint Posted at: {{ complaint.created }}</span></li></a>
         </ul>
         {% empty %}
             <div class="well">
