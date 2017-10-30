@@ -1,32 +1,57 @@
 from django.db import models
 from django.utils import timezone
 
+class Agent(models.Model):
+    """Stores Chatbot identification properties"""
+    name = models.CharField(max_length=50, unique=True)
 
-# Create your models here.
+    def __str__(self):
+        return self.name
+
 class ClassTag(models.Model):
     tagName = models.CharField(max_length=255, unique=True)
+    agentId = models.ForeignKey(Agent, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.tagName
 
+class ContextMethod(models.Model):
+    methodName = models.CharField(max_length=10, unique=True)
+
+    def __str__(self):
+        return self.methodName
+
+class Context(models.Model):
+    contextClass = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
+    contextMethod = models.ForeignKey(ContextMethod, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "Tag={}, Method={}".format(self.contextClass, self.contextMethod)
+
 class EnglishRequests(models.Model):
     requestMessage = models.CharField(max_length=500)
-    tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
+    tag = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "Tag={}, Message={:.10}".format(self.tag, self.requestMessage)
 
 class BanglaRequests(models.Model):
     requestMessage = models.CharField(max_length=500)
-    tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
+    tag = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "Tag={}, Message={:.10}".format(self.tag, self.requestMessage)
 
 class EnglishResponses(models.Model):
     responseMessage = models.CharField(max_length=2000)
-    tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
+    tag = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.responseMessage
 
 class BanglaResponses(models.Model):
     responseMessage = models.CharField(max_length=2000)
-    tag = models.ForeignKey(ClassTag, on_delete=models.SET_NULL, null=True)
+    tag = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.responseMessage
