@@ -302,7 +302,7 @@
             $(document).ready(function() {
                 $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
 
-                if(!Cookies.get('help_dismiss')) {
+                if(Cookies.get('help_dismiss') == 'false') {
                     $('#helpModal').modal('show');
                 }
             });
