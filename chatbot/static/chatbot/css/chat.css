@@ -16,6 +16,11 @@ body {
     outline: none;
 }
 
+#bottom-bar {
+    background-color: transparent;
+    border-top: transparent;
+}
+
 #nav-feedback {
     color: #e7edf2;
     outline: none;
@@ -103,6 +108,7 @@ body {
     left:0;
     top:50px;
     overflow-y:auto;
+    border-bottom: transparent;
 }
 
 #sub-body-container{
