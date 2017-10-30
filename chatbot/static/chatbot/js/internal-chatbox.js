@@ -129,8 +129,14 @@ function getMessagePair(element) {
 
 function complaint(element) {
 	// Creates complaint or deletes complaint based on state
+	var confirmation = false;
 	if ($(element).children().first().hasClass("fa-times-circle-o")) {
-		makeComplaint(element)
+		confirmation = confirm("Are you sure that is an incorrect response from the chatbot?");
+
+		if (confirmation == true) {
+			makeComplaint(element);
+		}
+		else {}
 	}
 }
 
