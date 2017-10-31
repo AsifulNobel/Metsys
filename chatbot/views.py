@@ -405,7 +405,7 @@ def viewLog(request):
     except Exception as e:
         content = 'No file found!'
         print("{}".format(e))
-    return HttpResponse(content, content_type='text/plain')
+    return HttpResponse(content, content_type='text/plain; charset=utf-8')
 
 def downloadLog(request):
     path = os.path.dirname(os.path.abspath('__file__'))
@@ -416,7 +416,7 @@ def downloadLog(request):
     try:
         with open(path, 'r') as f:
             content = f.read()
-            response = HttpResponse(content, content_type='text/plain')
+            response = HttpResponse(content, content_type='text/plain; charset=utf-8')
             response['Content-Disposition'] = 'attachment; filename=nohup.out'
 
         return response
