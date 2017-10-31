@@ -241,6 +241,8 @@ def response_message(sentence, userID='123', show_details=True):
     non_contextual_result_context = ""
     non_contextual_result_probability = 0.0
 
+    responseTag = ""
+
     # if we have a classification then find the matching intent tag
     if results:
         # loop as long as there are matches to process
@@ -251,6 +253,7 @@ def response_message(sentence, userID='123', show_details=True):
                     if non_contextual_result == "":
                         if not 'context_filter' in i:
                             non_contextual_result = random.choice(i['responses'])
+                            responseTag = 'bangla_'+i['tag']
                             non_contextual_result_probability = results[0][1]
                             #if the new context set in intent i
                             if 'context_set' in i:
@@ -263,6 +266,7 @@ def response_message(sentence, userID='123', show_details=True):
                                 print ('tag:', i['tag'])
                             # a random response from the intent
                             contextual_result = random.choice(i['responses'])
+                            responseTag = 'bangla_'+i['tag']
                             contextual_result_probablility = results[0][1]
                             if 'context_set' in i:
                                 if show_details:
@@ -276,16 +280,16 @@ def response_message(sentence, userID='123', show_details=True):
 
             if(contextual_result_context != ""):
                 context[userID] = contextual_result_context
-            return contextual_result
+            return (contextual_result, responseTag)
         elif(non_contextual_result != ""):
             logger.debug(non_contextual_result)
 
             if (non_contextual_result_context != ""):
                 context[userID] = non_contextual_result_context
-            return non_contextual_result
+            return (non_contextual_result, responseTag)
         else:
             logger.debug(cannotEvenResponse)
-            return cannotEvenResponse
+            return (cannotEvenResponse, responseTag)
     else:
         logger.debug(failedResponse)
-        return failedResponse
+        return (failedResponse, responseTag)

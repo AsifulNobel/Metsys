@@ -1,4 +1,8 @@
 var user;
+var accessTopicsEn = 0;
+var totalTopicsEn = 0;
+var accessTopicsBn = 0;
+var totalTopicsBn = 0;
 
 $("#messageToSend").focusin(function() {
     $("#send-box").animate({"border-radius": "1px"});
@@ -48,6 +52,7 @@ chatsock.onmessage = function(message){
 
     if (content_data['type'] == 'text') {
         processAndDisplayChatMessage(message);
+        checkTag(content_data['tag']);
     }
     else if (content_data['type'] == 'complaintSaveStatus') {
         console.log(content_data['text'])
@@ -94,6 +99,71 @@ $('#helpModal').on('show.bs.modal', function() {
     }
 });
 
+function updateTopicNumbers() {
+    banglaElems = $('.bangla-topics');
+    englishElems = $('.english-topics');
+    totalTopicsBn = banglaElems.length;
+    totalTopicsEn = englishElems.length;
+    accessTopicsBn = 0;
+    accessTopicsEn = 0;
+
+    for(var i=0; i < totalTopicsEn; i++) {
+        if (englishElems[i].className.indexOf('fa-check-circle-o') != -1) {
+            accessTopicsEn++;
+        }
+    }
+
+    for(var i=0; i < totalTopicsBn; i++) {
+        if (banglaElems[i].className.indexOf('fa-check-circle-o') != -1) {
+            accessTopicsBn++;
+        }
+    }
+
+    $('#bangla-stat').html('Accessed Topics:  '.concat(accessTopicsBn.toString()).concat(' Total Topics: ').concat(totalTopicsBn.toString()));
+    $('#english-stat').html('Accessed Topics:  '.concat(accessTopicsEn.toString()).concat(' Total Topics: ').concat(totalTopicsEn.toString()));
+}
+
+$('#banglaTopic').on('show.bs.modal', updateTopicNumbers);
+$('#englishTopic').on('show.bs.modal', updateTopicNumbers);
+
+function checkTag(tag) {
+    var en = 'english';
+    var bn = 'bangla';
+    var language;
+    var actualTag;
+    var message;
+    var funnyMessage = [
+        '10 Points to Gryffindor',
+        'Keep going, bruh. You are killing it!',
+        'What are you on tonight? Whatever it is, please send a kilo of it to my address',
+        'First Rule of Alpha Testing, don\'t talk about Alpha Testing',
+        'Work it like you mean it',
+        'They said it was a team project. It is a team of one, they never said',
+        'Friends?',
+        'Thousand Points to Gryffindor',
+    ];
+    var randomNumber = Math.floor(Math.random()*funnyMessage.length);
+
+    if (tag.length) {
+        if (tag.indexOf(en) != -1) {
+            language = en.toUpperCase();
+        }
+        else {
+            language = bn.toUpperCase();
+        }
+        actualTag = tag.slice((tag.indexOf('_')+1), );
+
+        message = language.concat(' Agent\'s "'.concat(actualTag)).concat('" topic');
+    }
+
+    if (tag != "") {
+        if (!$('#'.concat(tag)).hasClass('fa-check-circle-o')) {
+            $('#'.concat(tag)).addClass('fa-check-circle-o').removeClass('fa-circle-o');
+            toastr.info(funnyMessage[randomNumber]);
+            toastr.success('You have accessed '.concat(message));
+        }
+    }
+}
 
 $(document).ready(function() {
     $("#body-container").scrollTop( $('#body-container')[0].scrollHeight);
@@ -101,4 +171,8 @@ $(document).ready(function() {
     if(Cookies.get('help_dismiss') != 'true') {
         $('#helpModal').modal('show');
     }
+
+    toastr.options.closeButton = true;
+
+    updateTopicNumbers();
 });

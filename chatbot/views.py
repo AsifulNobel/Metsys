@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from chatbot.serializers import (MessageSerializer,
     FeedbackSerializer, ComplaintSerializer)
-from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses)
+from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses, Agent)
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from .ContextualChatbotsWithTF.responderInterface import (response_message,
@@ -48,6 +48,12 @@ def getUniqueUser():
 
 def chat(request):
     context = {}
+    banglaAgent, _ = Agent.objects.get_or_create(name="Bangla Chowdhury")
+    englishAgent, _ = Agent.objects.get_or_create(name="English Chowdhury")
+
+    context['bangla_topics'] = list(banglaAgent.classtag_set.values_list('tagName',flat=True))
+    context['english_topics'] = list(englishAgent.classtag_set.values_list('tagName',flat=True))
+
     return render(request, 'chatbot/chatbot.html', context)
 
 def deleteUserContext(userID):
@@ -59,7 +65,7 @@ def respond_to_websockets(message):
     result_message = {
         'type': 'text'
     }
-    result_message['text'] = response_message(message['text'], message['username'])
+    result_message['text'], result_message['tag'] = response_message(message['text'], message['username'])
 
     return result_message
 
