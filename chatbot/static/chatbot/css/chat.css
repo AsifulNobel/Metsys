@@ -21,16 +21,27 @@ body {
     border-top: transparent;
 }
 
-#nav-feedback {
+#nav-feedback, #nav-help {
     color: #e7edf2;
+    outline: none;
+    font-size:1.3rem;
+}
+
+#nav-topic > a {
+    color: #e7edf2;
+    background-color: #291b37;
     outline: none;
     font-size:1.5rem;
 }
 
-#nav-contact {
+#nav-topic > a:hover {
+    background-color: #e7edf2;
+    color: #291b37;
+}
+
+#nav-topic > a:visited, #nav-topic > a:focus {
+    background-color: #291b37;
     color: #e7edf2;
-    outline: none;
-    font-size:1.5rem;
 }
 
 #wrap {
