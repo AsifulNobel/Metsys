@@ -9,7 +9,7 @@ class Agent(models.Model):
         return self.name
 
 class ClassTag(models.Model):
-    tagName = models.CharField(max_length=255, unique=True)
+    tagName = models.CharField(max_length=255)
     agentId = models.ForeignKey(Agent, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -22,8 +22,9 @@ class ContextMethod(models.Model):
         return self.methodName
 
 class Context(models.Model):
-    contextClass = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
+    contextClass = models.ForeignKey(ClassTag, related_name='others', on_delete=models.CASCADE, null=True)
     contextMethod = models.ForeignKey(ContextMethod, on_delete=models.CASCADE, null=True)
+    contextParent = models.ForeignKey(ClassTag, related_name='parent', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "Tag={}, Method={}".format(self.contextClass, self.contextMethod)
