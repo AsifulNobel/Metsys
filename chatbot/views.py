@@ -417,11 +417,10 @@ def downloadLog(request):
             response = HttpResponse(content, content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename=nohup.out'
 
-            return response
+        return response
     except Exception as e:
         content = 'No file found!'
 
-        print("{}".format(e))
     return HttpResponse(content, content_type='text/plain')
 
 def tail(f, lines=100, _buffer=4098):
