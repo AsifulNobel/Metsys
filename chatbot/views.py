@@ -229,9 +229,10 @@ def complaintDetail(request, complaint_id):
         if language == 0:
             if "SubmitTag" in request.POST:
                 englishForm = EnglishTagForm(request.POST)
+                agent = Agent.objects.get(name="English Chowdhury")
 
                 if englishForm.is_valid:
-                    tag = ClassTag.objects.get(tagName=englishForm.data['tag'])
+                    tag = ClassTag.objects.get(tagName=englishForm.data['tag'], agentId=agent)
                     pattern, created = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
@@ -253,10 +254,11 @@ def complaintDetail(request, complaint_id):
                     context['newForm'] = newTagForm
         elif language == 1:
             banglaForm = BanglaTagForm(request.POST)
+            agent = Agent.objects.get(name="Bangla Chowdhury")
 
             if "SubmitTag" in request.POST:
                 if banglaForm.is_valid:
-                    tag = ClassTag.objects.get(tagName=banglaForm.data['tag'])
+                    tag = ClassTag.objects.get(tagName=banglaForm.data['tag'], agentId=agent)
                     pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
