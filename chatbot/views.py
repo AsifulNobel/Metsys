@@ -392,3 +392,59 @@ def train_bangla(request):
     except Exception:
         return render(request, 'chatbot/trainStatus.html', {'status': 1})
     return render(request, 'chatbot/trainStatus.html', {'status': 0})
+
+def viewLog(request):
+    path = os.path.dirname(os.path.abspath('__file__'))
+    path = os.path.join(path, 'nohup.out')
+    content = ''
+    try:
+        with open(path, 'r') as f:
+            content = tail(f, 300)
+    except Exception as e:
+        content = 'No file found!'
+        print("{}".format(e))
+    return HttpResponse(content, content_type='text/plain')
+
+def downloadLog(request):
+    path = os.path.dirname(os.path.abspath('__file__'))
+    path = os.path.join(path, 'nohup.out')
+    content = ''
+    response = None
+
+    try:
+        with open(path, 'r') as f:
+            content = f.read()
+            response = HttpResponse(content, content_type='text/plain')
+            response['Content-Disposition'] = 'attachment; filename=nohup.out'
+
+            return response
+    except Exception as e:
+        content = 'No file found!'
+
+        print("{}".format(e))
+    return HttpResponse(content, content_type='text/plain')
+
+def tail(f, lines=100, _buffer=4098):
+    """Tail a file and get X lines from the end"""
+    # place holder for the lines found
+    lines_found = []
+
+    # block counter will be multiplied by buffer
+    # to get the block size from the end
+    block_counter = -1
+
+    # loop until we find X lines
+    while len(lines_found) < lines:
+        try:
+            f.seek(block_counter * _buffer, os.SEEK_END)
+        except IOError:  # either file is too small, or too many lines requested
+            f.seek(0)
+            lines_found = f.readlines()
+            break
+
+        lines_found = f.readlines()
+        # decrement the block counter to get the
+        # next X bytes
+        block_counter -= 1
+
+    return lines_found[-lines:]

@@ -19,7 +19,8 @@ from .views import (chat, message_api, feedback_api,
 complaint_save, complaint_delete, moderator_login, moderator_home,
 complaintList, complaintDetail, englishIntentAdd, banglaIntentAdd,
 englishIntentDownload, banglaIntentDownload, train_english, train_bangla,
-updateEnglishFile, updateBanglaFile, feedbackView, terminate_api)
+updateEnglishFile, updateBanglaFile, feedbackView, terminate_api, viewLog,
+downloadLog)
 
 app_name = 'chatbot'
 
@@ -32,6 +33,8 @@ urlpatterns = [
     url(r'^admin/login', moderator_login, name='modLogin'),
     url(r'^admin/logout', auth_views.logout, {'next_page': 'chatbot:modLogin'}, name='modLogout'),
     url(r'^admin/home', moderator_home, name='modHome'),
+    url(r'^admin/log/view$', viewLog, name='modLogView'),
+    url(r'^admin/log/download$', downloadLog, name='modLogDownload'),
     url(r'^admin/train-english$', train_english, name='trainEnglish'),
     url(r'^admin/train-bangla$', train_bangla, name='trainBangla'),
     url(r'^admin/complaints$', complaintList, name='modComplaints'),

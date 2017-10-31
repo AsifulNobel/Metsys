@@ -23,6 +23,8 @@
 {% if user.is_authenticated %}
 <div class="container">
     <div class="buttons btn-group btn-group-lg">
+        <a class="btn btn-primary" href="{% url 'chatbot:modLogView' %}">View Log File</a><br>
+        <a class="btn btn-primary" href="{% url 'chatbot:modLogDownload' %}">Download Log File</a><br>
         <a class="btn btn-success" href="{% url 'chatbot:englishIntentsAdd' %}">Update English Intents Database From Json File</a><br>
         <a class="btn btn-success" href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database From Json File</a><br>
         <a class="btn btn-primary" href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
