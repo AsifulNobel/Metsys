@@ -91,10 +91,13 @@ def saveComplaint(complaintMessage):
 
 @api_view(['GET', 'POST'])
 def message_api(request):
-    query_response = {'message': ''}
+    query_response = {'message': '',
+        'userId': '',
+        'tag': ''
+    }
 
     if request.method == 'GET':
-        query_response['message'] = response_message('Hi')
+        query_response['message'], query_response['tag'] = response_message('Hi')
         query_response['userId'] = getUniqueUser()
 
         return Response(query_response)
@@ -103,7 +106,7 @@ def message_api(request):
 
         if serializer.is_valid():
             if userIdExists(serializer.get_userId()):
-                query_response['message'] = response_message(serializer.get_message(), serializer.get_userId())
+                query_response['message'], query_response['tag'] = response_message(serializer.get_message(), serializer.get_userId())
             else:
                 query_response['message'] = 'Incorrect user credential'
 
