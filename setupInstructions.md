@@ -26,7 +26,8 @@
     ```
     - Create new database `CREATE DATABASE metsys OWNER nobel ENCODING 'UTF8';`
     - Quit from postgresql-cli `\q`
-    - Restore database `psql -U nobel -d metsys -1 metsysLatest.dump`
+    - Restore database `psql -U nobel -d metsys -f metsysLatest.dump`
+        * If peer authentication failure, then add '-h localhost'
 + Install redis `sudo apt-get install redis-server`
 + Install pip packages from requirements.txt
 + Run a python shell and download nltk package
