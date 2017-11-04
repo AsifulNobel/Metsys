@@ -25,7 +25,8 @@ var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 
 // Calls the websocket connect channel
 var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/stream/test-chat");
-
+chatsock.timeoutInterval = 3000;
+chatsock.reconnectInterval = 2000;
 
 $("#messageToSend").keypress(function (e) {
     var key = e.which;

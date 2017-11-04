@@ -36,7 +36,7 @@ def ws_receive(message):
 @enforce_ordering
 def ws_disconnect(message):
     # Unsubscribe from any connected rooms
-    print(message.channel_session['username'])
+    print('Disconnected:', message.channel_session['username'])
     removeUser(message.channel_session['username'])
 
 

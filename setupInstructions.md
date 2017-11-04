@@ -6,7 +6,7 @@
 + Install miniconda3-4.3.11 using pyenv: `pyenv install miniconda3-4.3.11`
     - Add conda-forge: `conda config --add channels conda-forge`
 + Create virtualenv with miniconda: `pyenv virtualenv miniconda3-4.3.11 Metsys`
-    - If metsysCondaRequirements.txt is available, create virtualenv with that: `conda create --name <env_name> --file <this file>`
+    - If metsysCondaRequirements.txt is available, install: `conda install --file metsysCondaRequirements.txt`
 + Install postgresql
     ```
     sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list';wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
