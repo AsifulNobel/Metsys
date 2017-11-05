@@ -236,7 +236,8 @@ def complaintDetail(request, complaint_id):
                 englishForm = EnglishTagForm(request.POST)
 
                 if englishForm.is_valid:
-                    tag = ClassTag.objects.get(tagName=englishForm.data['tag'], agentId=agent)
+                    print(englishForm.data['tag'])
+                    tag = ClassTag.objects.get(pk=englishForm.data['tag'])
                     pattern, created = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
