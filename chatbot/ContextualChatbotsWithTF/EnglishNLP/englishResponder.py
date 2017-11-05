@@ -173,8 +173,8 @@ def clean_up_sentence(sentence):
 
 @timethis
 def bow(sentence, words, show_details=False):
-    logger.debug("Training words: {}".format(words))
-    logger.debug("Classes: {}".format(classes))
+    # logger.debug("Training words: {}".format(words))
+    # logger.debug("Classes: {}".format(classes))
     # tokenize the pattern
     sentence_words = clean_up_sentence(sentence)
 
@@ -186,7 +186,7 @@ def bow(sentence, words, show_details=False):
                 bag[i] = 1
                 if show_details:
                     logger.debug("Found in bag: %s" % w)
-    logger.debug("BOW output: {}".format(np.array(bag)))
+    # logger.debug("BOW output: {}".format(np.array(bag)))
     return(np.array(bag))
 
 @timethis

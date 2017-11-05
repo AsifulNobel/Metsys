@@ -120,6 +120,14 @@ function getMessagePair(element) {
 	botMessageText = $(botMessageDiv).find('.message-text span').html()
 	userMessageText = $(userMessageDiv).find('.message-text span').html()
 
+	while (userMessageText.childElementCount) {
+		userMessageText = userMessageText.children[0].html()
+	}
+
+	while (userMessageText.indexOf('&nbsp' != -1)) {
+		userMessageText = userMessageText.replace('&nbsp;', '')
+	}
+
 	messagePair = {}
 	messagePair.userMessageText = userMessageText
 	messagePair.botMessageText = botMessageText

@@ -230,9 +230,10 @@ def complaintDetail(request, complaint_id):
 
     if request.method == 'POST':
         if language == 0:
+            agent = Agent.objects.get(name="English Chowdhury")
+
             if "SubmitTag" in request.POST:
                 englishForm = EnglishTagForm(request.POST)
-                agent = Agent.objects.get(name="English Chowdhury")
 
                 if englishForm.is_valid:
                     tag = ClassTag.objects.get(tagName=englishForm.data['tag'], agentId=agent)
@@ -246,7 +247,7 @@ def complaintDetail(request, complaint_id):
                 newTagForm = NewTagForm(request.POST)
 
                 if newTagForm.is_valid():
-                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['new_tag'])
+                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['new_tag'], agentId=agent)
                     newMessage, _ = EnglishResponses.objects.get_or_create(responseMessage=newTagForm.cleaned_data['response'], tag=tag)
                     newPattern, _ = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
 
@@ -256,10 +257,10 @@ def complaintDetail(request, complaint_id):
                     newTagForm = NewTagForm()
                     context['newForm'] = newTagForm
         elif language == 1:
-            banglaForm = BanglaTagForm(request.POST)
             agent = Agent.objects.get(name="Bangla Chowdhury")
 
             if "SubmitTag" in request.POST:
+                banglaForm = BanglaTagForm(request.POST)
                 if banglaForm.is_valid:
                     tag = ClassTag.objects.get(tagName=banglaForm.data['tag'], agentId=agent)
                     pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
@@ -272,7 +273,7 @@ def complaintDetail(request, complaint_id):
                 newTagForm = NewTagForm(request.POST)
 
                 if newTagForm.is_valid():
-                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['new_tag'])
+                    tag, _ = ClassTag.objects.get_or_create(tagName=newTagForm.cleaned_data['new_tag'], agentId=agent)
                     newMessage, _ = BanglaResponses.objects.get_or_create(responseMessage=newTagForm.cleaned_data['response'], tag=tag)
                     newPattern, _ = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
 
