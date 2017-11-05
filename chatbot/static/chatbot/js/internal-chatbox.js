@@ -54,12 +54,16 @@ function sendTextMessage() {
     }
 
     message = {}
-    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n").replace('&nbsp;', '');
+    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n");
 
 	if (message.text.indexOf('span') > -1) {
 		tempText = message.text.slice(message.text.indexOf('>')+1, message.text.indexOf('</'));
 
 		message.text = tempText;
+	}
+
+	while(message.text.indexOf('&nbsp;') != -1) {
+		message.text = message.text.replace('&nbsp;', '');
 	}
 
     message.command= 'send'
