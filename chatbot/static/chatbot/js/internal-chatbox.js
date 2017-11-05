@@ -54,7 +54,14 @@ function sendTextMessage() {
     }
 
     message = {}
-    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n");
+    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n").replace('&nbsp;', '');
+
+	if (message.text.indexOf('span') > -1) {
+		tempText = message.text.slice(message.text.indexOf('>')+1, message.text.indexOf('</'));
+
+		message.text = tempText;
+	}
+
     message.command= 'send'
     message.timestamp = new Date();
 
@@ -119,14 +126,6 @@ function getMessagePair(element) {
 	userMessageDiv = $(botMessageDiv).prev()
 	botMessageText = $(botMessageDiv).find('.message-text span').html()
 	userMessageText = $(userMessageDiv).find('.message-text span').html()
-
-	while (userMessageText.childElementCount) {
-		userMessageText = userMessageText.children[0].html()
-	}
-
-	while (userMessageText.indexOf('&nbsp' != -1)) {
-		userMessageText = userMessageText.replace('&nbsp;', '')
-	}
 
 	messagePair = {}
 	messagePair.userMessageText = userMessageText
