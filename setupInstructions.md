@@ -36,3 +36,49 @@
 + Run server `python manage.py runserver`
 
 ## Production Setup
++ Install gunicorn: `pip install gunicorn`
++ Make a gunicorn.service file in /etc/systemd/system:
+    - Write this in the file:
+    ```
+    [Unit]
+    Description=gunicorn daemon
+    After=network.target
+
+    [Service]
+    User=nobel
+    Group=www-data
+    WorkingDirectory=absolute_path_to_web_app_directory
+    ExecStart=/home/user_name/.pyenv/versions/Metsys/bin/gunicorn --access-logfile - --workers 4 --timeout 600 --bind unix:/absolute_path_to_web_app_directory/bazar.sock bazar.wsgi:application
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    - change directory names, where necessary
+    - Run gunicorn script: `sudo systemctl start gunicorn.service`
++ Install nginx: `sudo apt install nginx`
+    - Configure nginx
+        * Make a file named `metsys` in /etc/nginx/sites-available/
+        * Put configuration data in the file:
+        ```
+        server {
+            listen 80;
+            server_name domain_name_or_ip;
+
+            location = /favicon.ico { access_log off; log_not_found off; }
+            location /static/ {
+                alias absolute_path_to_app_directory/staticfiles/;
+            }
+
+            location / {
+                include proxy_params;
+                proxy_pass http://unix:/home/nobel/Devel/metsys/bazar.sock;
+            }
+        }
+        ```
+        * In the web app directory, run `python manage.py collectstatic`
+        * Then run: `sudo ln -s /etc/nginx/sites-available/metsys /etc/nginx/sites-enabled/`
+        * check configuration files: `sudo nginx -t`
+    - Restart nginx: `sudo systemctl restart nginx`
+    - If there is any firewall issue, run: `sudo ufw allow 'Nginx Full'`
++ If everything runs correctly, website homepage should be accessible by now.
+But channels app is still unaccessible
