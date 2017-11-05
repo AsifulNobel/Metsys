@@ -261,6 +261,7 @@ def complaintDetail(request, complaint_id):
 
             if "SubmitTag" in request.POST:
                 banglaForm = BanglaTagForm(request.POST)
+
                 if banglaForm.is_valid:
                     tag = ClassTag.objects.get(tagName=banglaForm.data['tag'], agentId=agent)
                     pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)

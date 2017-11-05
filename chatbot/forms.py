@@ -7,12 +7,10 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 class EnglishTagForm(forms.Form):
-    tag_choices = [(x.tagName, x.tagName.upper()) for x in ClassTag.objects.filter(agentId=Agent.objects.get(name='English Chowdhury'))]
-    tag = forms.CharField(widget=forms.Select(choices=tag_choices, attrs={'class':'form-control'}))
+    tag = forms.ModelChoiceField(queryset=ClassTag.objects.filter(agentId=Agent.objects.get(name='English Chowdhury')), empty_label=None)
 
 class BanglaTagForm(forms.Form):
-    tag_choices = [(x.tagName, x.tagName.upper()) for x in ClassTag.objects.filter(agentId=Agent.objects.get(name='Bangla Chowdhury'))]
-    tag = forms.CharField(widget=forms.Select(choices=tag_choices, attrs={'class':'form-control'}))
+    tag = forms.ModelChoiceField(queryset=ClassTag.objects.filter(agentId=Agent.objects.get(name='Bangla Chowdhury')), empty_label=None)
 
 class NewTagForm(forms.Form):
     new_tag = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
