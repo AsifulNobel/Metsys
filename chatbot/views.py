@@ -3,48 +3,69 @@ from rest_framework.response import Response
 from rest_framework import status
 from chatbot.serializers import (MessageSerializer,
     FeedbackSerializer, ComplaintSerializer)
-from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses, Agent)
+from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResponses, EnglishRequests, EnglishResponses, Agent, SessionTracker,
+Message, TagAccessHistory)
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from .ContextualChatbotsWithTF.responderInterface import (response_message,
-initAgents, trainEnglishAgent, trainBanglaAgent ,removeUser)
+initAgents, trainEnglishAgent, trainBanglaAgent ,removeUser, isEnglish)
+import logging
 
 # Initialize Chatbots
 initAgents()
-users = []
+
+logger = logging.getLogger(__name__)
 
 def addUserId(userID):
-    global users
-
-    if userID not in users:
-        users.append(userID)
+    temp = SessionTracker(text_id=userID)
+    temp.save()
 
 def removeUserId(userID):
-    global users
+    tempSessionObj = SessionTracker.objects.get(text_id=userID)
 
-    if userID in users:
-        users.remove(userID)
+    if not tempSessionObj.message_set.count() > 0:
+        tempSessionObj.delete()
 
 def userIdExists(userID):
-    global users
-
-    if userID in users:
+    if SessionTracker.objects.filter(text_id=userID).exists():
         return True
     return False
 
-def getUsers():
-    global users
-    return users
-
 def getUniqueUser():
-    users = getUsers()
-
     unique_id = get_random_string(length=32)
 
-    while unique_id in users:
+    while userIdExists(unique_id):
         unique_id = get_random_string(length=32)
     addUserId(unique_id)
     return unique_id
+
+def addMessage(text, sessionId):
+    if len(text) > 0:
+        if userIdExists(sessionId):
+            temp = Message(text=text, session_id=SessionTracker.objects.get(text_id=sessionId))
+            temp.save()
+
+def addTagAccess(tag, sessionId):
+    if len(tag) > 0:
+        en = 'english'
+        bn = 'bangla'
+        remove = ""
+
+        if en in tag:
+            remove= en
+            tempAgent = Agent.objects.get(name="English Chowdhury")
+        elif bn in tag:
+            remove= bn
+            tempAgent = Agent.objects.get(name="Bangla Chowdhury")
+        tagParts = tag.split('_')
+        removeIndex = tagParts.index(remove)
+        tag = "_".join(tagParts[removeIndex+1:])
+        tempTag = ClassTag.objects.get(tagName=tag, agentId=tempAgent)
+        tempSessionObj = SessionTracker.objects.get(text_id=sessionId)
+
+        tempAccess = TagAccessHistory(session_id=tempSessionObj, tag=tempTag)
+        tempAccess.save()
+
 
 def chat(request):
     context = {}
@@ -62,10 +83,19 @@ def deleteUserContext(userID):
     return
 
 def respond_to_websockets(message):
+    english = False
+    if isEnglish(message['text']):
+        english = True
+
+    addMessage(message['text'], message['username'])
+
     result_message = {
         'type': 'text'
     }
     result_message['text'], result_message['tag'] = response_message(message['text'], message['username'])
+
+    addMessage(result_message['text'], message['username'])
+    addTagAccess(result_message['tag'], message['username'])
 
     return result_message
 
@@ -105,12 +135,16 @@ def message_api(request):
         serializer = MessageSerializer(data=request.data)
 
         if serializer.is_valid():
-            if userIdExists(serializer.get_userId()):
-                query_response['message'], query_response['tag'] = response_message(serializer.get_message(), serializer.get_userId())
-            else:
-                query_response['message'] = 'Incorrect user credential'
+            addMessage(serializer.get_message(), serializer.get_userId())
 
-            return Response(query_response, status=status.HTTP_202_ACCEPTED)
+            query_response['message'], query_response['tag'] = response_message(serializer.get_message(), serializer.get_userId())
+
+            addMessage(query_response['message'], serializer.get_userId())
+            addTagAccess(query_response['tag'], serializer.get_userId())
+        else:
+            query_response['message'] = 'Incorrect user credential'
+
+    return Response(query_response, status=status.HTTP_202_ACCEPTED)
 
 @api_view(['GET', 'POST'])
 def terminate_api(request):
@@ -236,7 +270,6 @@ def complaintDetail(request, complaint_id):
                 englishForm = EnglishTagForm(request.POST)
 
                 if englishForm.is_valid:
-                    print(englishForm.data['tag'])
                     tag = ClassTag.objects.get(pk=englishForm.data['tag'])
                     pattern, created = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
@@ -410,7 +443,7 @@ def viewLog(request):
             content = tail(f, 300)
     except Exception as e:
         content = 'No file found!'
-        print("{}".format(e))
+        logger.debug("{}".format(e))
     return HttpResponse(content, content_type='text/plain; charset=utf-8')
 
 def downloadLog(request):

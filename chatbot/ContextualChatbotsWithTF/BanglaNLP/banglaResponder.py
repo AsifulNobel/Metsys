@@ -194,7 +194,7 @@ def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
 
-    logger.debug("Neural Net result: {}".format(results))
+    # logger.debug("Neural Net result: {}".format(results))
     # filter out predictions below a threshold
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
     # sort by strength of probability

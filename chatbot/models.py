@@ -77,7 +77,21 @@ class Feedbacks(models.Model):
 class SessionTracker(models.Model):
     text_id = models.CharField(max_length=32, null=False, blank=False)
 
+    def __str__(self):
+        return "ID={}".format(self.text_id)
+
 class Message(models.Model):
     text = models.CharField(max_length=1000, null=False, blank=False)
     session_id = models.ForeignKey(SessionTracker, on_delete=models.CASCADE, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{}, Created on={}".format(self.session_id, self.timestamp)
+
+class TagAccessHistory(models.Model):
+    session_id = models.ForeignKey(SessionTracker, on_delete=models.CASCADE, null=True)
+    tag = models.ForeignKey(ClassTag, on_delete=models.CASCADE, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{}, Created on={}".format(self.session_id, self.timestamp)
