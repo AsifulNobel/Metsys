@@ -73,3 +73,11 @@ class Feedbacks(models.Model):
 
     def __str__(self):
         return "Feedback posted on: " + (self.created+timezone.timedelta(hours=6)).strftime("%Y-%b-%d %I:%M:%S %p")
+
+class SessionTracker(models.Model):
+    text_id = models.CharField(max_length=32, null=False, blank=False)
+
+class Message(models.Model):
+    text = models.CharField(max_length=1000, null=False, blank=False)
+    session_id = models.ForeignKey(SessionTracker, on_delete=models.CASCADE, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
