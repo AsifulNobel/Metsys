@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Feedbacks, Complaints
+from .models import Feedbacks, Complaints, SessionTracker
 
 class MessageSerializer(serializers.Serializer):
     message = serializers.CharField()
@@ -16,15 +16,17 @@ class FeedbackSerializer(serializers.ModelSerializer):
         model = Feedbacks
         fields = ('name', 'comment')
 
-class ComplaintSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Complaints
-        exclude = ('created',)
+class ComplaintSerializer(serializers.Serializer):
+    requestMessage = serializers.CharField(label='RequestMessage', max_length=500)
+    responseMessage = serializers.CharField(label='ResponseMessage', max_length=2000)
+    session_id = serializers.CharField(required=True)
 
     def create(self, validated_data):
         # Does not create new complaint if already exists
+        sess = SessionTracker.objects.get(text_id=validated_data['session_id'])
+
         instance, created = Complaints.objects.get_or_create(requestMessage=validated_data['requestMessage'],\
         responseMessage=validated_data['responseMessage'],\
-        session_id=validated_data['session_id'])
+        session_id=sess)
 
         return instance
