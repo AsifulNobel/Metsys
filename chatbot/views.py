@@ -423,6 +423,22 @@ def feedbackView(request):
 
     return render(request, 'chatbot/feedbackList.html', {'feedbacks': feedback})
 
+def statsView(request):
+    context = {}
+    context['messageCount'] = Message.objects.all().count()
+    context['sessionCount'] = SessionTracker.objects.all().count()
+    context['complaintCount'] = Complaints.objects.all().count()
+
+    totalMessages = 0
+    totalComplaints = 0
+    for temp in SessionTracker.objects.all():
+        totalMessages += temp.message_set.count()
+        totalComplaints += temp.complaints_set.count()
+    context['averageMessageCount'] = totalMessages // context['sessionCount']
+    context['averageComplaintCount'] = totalComplaints // context['sessionCount']
+
+    return render(request, 'chatbot/moderatorStats.html', context)
+
 # Intents
 from .intents import (updateBanglaIntents, updateEnglishIntents,
 generateBanglaIntents, generateEnglishIntents)

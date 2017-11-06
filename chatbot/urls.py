@@ -20,7 +20,7 @@ complaint_save, complaint_delete, moderator_login, moderator_home,
 complaintList, complaintDetail, englishIntentAdd, banglaIntentAdd,
 englishIntentDownload, banglaIntentDownload, train_english, train_bangla,
 updateEnglishFile, updateBanglaFile, feedbackView, terminate_api, viewLog,
-downloadLog)
+downloadLog, statsView)
 
 app_name = 'chatbot'
 
@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^admin/train-bangla$', train_bangla, name='trainBangla'),
     url(r'^admin/complaints$', complaintList, name='modComplaints'),
     url(r'^admin/feedbacks$', feedbackView, name='modFeedbacks'),
+    url(r'^admin/stats$', statsView, name='modStats'),
     url(r'^admin/complaint/(?P<complaint_id>\d+)$', complaintDetail, name='complaintDetails'),
     url(r'^admin/complaint/(?P<complaint_id>\d+)/delete/$', complaint_delete, name='complainWithdraw'),
     url(r'^admin/intents/english$', englishIntentAdd, name='englishIntentsAdd'),

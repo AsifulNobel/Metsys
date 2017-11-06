@@ -5,13 +5,13 @@
 <link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
 {% endblock %}
 
-{% block title %}Intents{% endblock %}
+{% block title %}Feedbacks{% endblock %}
 
-{% block navigation%}
+{% block navigation %}
 <li><a href="{% url 'chatbot:modHome' %}">Home</a></li>
 <li><a href="{% url 'chatbot:modComplaints' %}">Complaints</a></li>
 <li><a href="{% url 'chatbot:modFeedbacks' %}">Feedbacks</a></li>
-<li><a href="{% url 'chatbot:modStats' %}">Stats</a></li>
+<li class="active"><a href="{% url 'chatbot:modStats' %}">Stats</a></li>
 {% endblock %}
 
 {% block logout %}
@@ -23,17 +23,15 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
-    {% if status == 0 %}
-        <h1 class="text-center text-success">Intent Update Success</h1>
-        {% if language == "english" %}
-        <a class="btn btn-primary"  href="{% url 'chatbot:englishIntDown' %}">Download English Intents</a>
-        {% elif language == 'bangla' %}
-        <a class="btn btn-primary"  href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents</a>
-        {% endif %}
-    {% else %}
-        <h1 class="text-center text-danger">Intent Update Failed</h1>
-    {% endif %}
-    <div style="height:1.2rem;"></div>
+    <div class="list-style">
+        <ul class="list-group">
+            <li>Total Messages (Sent and Received By Bot): {{ messageCount }}</li>
+            <li>Total Session Count: {{ sessionCount }}</li>
+            <li>Number of Unresolved Complaints: {{ complaintCount }}</li>
+            <li>Average Message/Session: {{ averageMessageCount }}</li>
+            <li>Average Unresolved Complaint/Session: {{ averageComplaintCount }}</li>
+        </ul>
+    </div>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>
