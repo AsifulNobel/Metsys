@@ -201,6 +201,7 @@ from django.shortcuts import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.views import generic
 from django.utils import timezone
+import datetime
 from .forms import (LoginForm, EnglishTagForm, BanglaTagForm, NewTagForm)
 
 def moderator_login(request):
@@ -254,7 +255,12 @@ def complaintList(request):
 
 def complaintDetail(request, complaint_id):
     complaint = Complaints.objects.filter(pk=complaint_id).first()
+    earlier = complaint.created-datetime.timedelta(minutes=3)
+    later = complaint.created-datetime.timedelta(seconds=1)
+    messageList = Message.objects.filter(timestamp__range=(earlier, later))
+
     context = {}
+    context['recentMessages'] = messageList
 
     try:
         complaint.requestMessage.encode(encoding='utf-8').decode('ascii')

@@ -17,7 +17,7 @@ function add_message_to_chat(data, formatted_div){
 		chat.append('<div class="msg-row"><div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 no-sides-padding msg-animate"><div class="panel message-panel bot-msg "><div class="panel-body bot-msg-body"><div><div class="message-text">'+formatted_div+'</div></div></div></div><div class="bot-msg-bubble">Bot</div></div><div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 no-sides-padding msg-animate complaint-mark" onclick="complaint(this)"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div></div>');
 	}else if(new_source == "CANDIDATE"){
 
-	var child = $('<div class="msg-row">');
+		var child = $('<div class="msg-row">');
 		$(child).append('<div class="row"><div class="col-xs-10 col-sm-10 col-md-10 col-lg-10  pull-right no-sides-padding msg-animate user-msg"><div class="panel message-panel"><div class="panel-body user-msg-body"><div class="message-text">'+formatted_div+'</div></div></div><div class="user-msg-bubble">you</div></div>');
 		chat.append(child);
 	}

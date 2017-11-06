@@ -3,6 +3,7 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'chatbot/css/moderator.css' %}">
+<link rel="stylesheet" href="{% static 'chatbot/css/chat.css' %}">
 {% endblock %}
 
 {% block title %}Complaint Detail{% endblock %}
@@ -23,13 +24,46 @@
 {% if user.is_authenticated %}
 <div class="container">
     {% if complaint %}
-        <ul class="list-group">
-            <li class="list-group-item">User Question: {{ complaint.requestMessage }}</li>
-            <li class="list-group-item">Bot Answer: {{ complaint.responseMessage }}</li>
-            <li class="list-group-item">Created At: {{ complaint.created }}</li>
-        </ul>
-        <a class="btn btn-danger" href="{% url 'chatbot:complainWithdraw' complaint.id %}">Delete Complaint</a>
-        <div style="height:1.5rem"></div>
+        <div><!-- Complaint Details -->
+            <ul class="list-group">
+                <li class="list-group-item">User Question: {{ complaint.requestMessage }}</li>
+                <li class="list-group-item">Bot Answer: {{ complaint.responseMessage }}</li>
+                <li class="list-group-item">Created At: {{ complaint.created }}</li>
+            </ul>
+            <a class="btn btn-danger" href="{% url 'chatbot:complainWithdraw' complaint.id %}">Delete Complaint</a>
+        </div><!-- Complaint Details -->
+        <div style="height:1.5rem"></div><!-- margin div -->
+
+        <!-- Message History -->
+        <h2>Complaint Specific Message History</h2>
+        <div id="messages-container">
+            {% for message in recentMessages %}
+                <div class="msg-row">
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 no-sides-padding msg-animate {% if forloop.counter|divisibleby:2 %}{% else %}pull-right{% endif %}">
+                        <div class="panel message-panel {% if forloop.counter|divisibleby:2 %}bot-msg{% else %}user-msg{% endif %}"><div class="panel-body  {% if forloop.counter|divisibleby:2 %}bot-msg-body{% else %}user-msg-body{% endif %}">
+                            <div>
+                                <div class="message-text">{{ message.text }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="bot-msg-bubble">Bot</div>
+                    {% else %}
+                        <div class="user-msg-bubble pull-right">User</div>
+                    {% endif %}
+                </div>
+                </div>
+                <div class="{% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
+                </div>
+            {% empty %}
+                <h3>Message History Not Available for this complaint</h3>
+            {% endfor %}
+        </div>
+        <!-- Message History -->
+
+        <div style="height:1.5rem"></div><!-- margin div -->
+
+        <!-- Forms -->
         <div class="text-center well" style="border:1px solid grey;">
             <form class="form-group" action="" method="post">
                 {% csrf_token %}
@@ -52,10 +86,11 @@
                 </div>
             </form>
         </div>
+        <!-- Forms -->
     {% else %}
         <h3>Fake Complaint</h3>
     {% endif %}
-    <div style="height:10rem;"></div>
+    <div style="height:10rem;"></div><!-- margin div -->
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>
