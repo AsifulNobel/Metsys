@@ -24,6 +24,7 @@ class ComplaintSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Does not create new complaint if already exists
         instance, created = Complaints.objects.get_or_create(requestMessage=validated_data['requestMessage'],\
-        responseMessage=validated_data['responseMessage'])
+        responseMessage=validated_data['responseMessage'],\
+        session_id=validated_data['session_id'])
 
         return instance

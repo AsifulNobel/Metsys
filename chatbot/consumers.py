@@ -59,7 +59,7 @@ def feedback_send(feedbackMessage):
     saveFeedback(feedbackMessage)
 
 def complaint_save(complaintMessage):
-    response = saveComplaint(complaintMessage['messagePair'])
+    response = saveComplaint(complaintMessage)
 
     complaintMessage.reply_channel.send({
         'text': json.dumps(response)

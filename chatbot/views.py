@@ -107,9 +107,11 @@ def saveFeedback(feedbackMessage):
     return
 
 def saveComplaint(complaintMessage):
+    logger.debug(complaintMessage.keys())
+
     result_message = {}
     result_message['type'] = 'complaintSaveStatus'
-    complaint, created = Complaints.objects.get_or_create(requestMessage=complaintMessage['userMessageText'], responseMessage=complaintMessage['botMessageText'])
+    complaint, created = Complaints.objects.get_or_create(requestMessage=complaintMessage['messagePair']['userMessageText'], responseMessage=complaintMessage['messagePair']['botMessageText'], session_id=SessionTracker.objects.get(text_id=complaintMessage['username']))
 
     if not created:
         result_message['text'] = 'exists'
@@ -270,10 +272,29 @@ def complaintDetail(request, complaint_id):
 
             if durationForm.is_valid:
                 duration = durationForm.data['duration']
+                duration = int(duration)
 
-                earlier = complaint.created-datetime.timedelta(minutes=int(duration))
-                later = complaint.created-datetime.timedelta(seconds=1)
-                messageList = Message.objects.filter(timestamp__range=(earlier, later))
+                messageList = Message.objects.filter(session_id=complaint.session_id)
+                listLength = len(messageList)
+                complaintMessageIndex = 0
+
+                if listLength > 6:
+                    for index, tempMessage in enumerate(messageList):
+                        if complaint.requestMessage == tempMessage.text:
+                            complaintMessageIndex = index
+
+                if not (complaintMessageIndex - duration > 0):
+                    duration += (complaintMessageIndex - duration)
+
+                if duration % 2 != 0:
+                    duration += 1
+
+                if complaintMessageIndex == 0:
+                    messageList = messageList[:2]
+                elif complaintMessageIndex >= 2 and complaintMessageIndex < 6:
+                    messageList = messageList[:6]
+                else:
+                    messageList = messageList[complaintMessageIndex-duration:complaintMessageIndex+2]
 
                 context['recentMessages'] = messageList
                 context['dForm'] = durationForm
@@ -346,9 +367,21 @@ def complaintDetail(request, complaint_id):
                 newTagForm = NewTagForm()
                 context['newForm'] = newTagForm
     else:
-        earlier = complaint.created-datetime.timedelta(minutes=3)
-        later = complaint.created-datetime.timedelta(seconds=1)
-        messageList = Message.objects.filter(timestamp__range=(earlier, later))
+        messageList = Message.objects.filter(session_id=complaint.session_id)
+        listLength = len(messageList)
+        complaintMessageIndex = 0
+
+        if listLength > 6:
+            for index, tempMessage in enumerate(messageList):
+                if complaint.requestMessage == tempMessage.text:
+                    complaintMessageIndex = index
+        if complaintMessageIndex == 0:
+            messageList = messageList[:2]
+        elif complaintMessageIndex >= 2 and complaintMessageIndex < 6:
+            messageList = messageList[:6]
+        else:
+            messageList = messageList[complaintMessageIndex-4:complaintMessageIndex+2]
+
         context['recentMessages'] = messageList
 
         if language == 0:

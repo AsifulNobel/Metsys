@@ -135,6 +135,7 @@ function getMessagePair(element) {
 	messagePair.userMessageText = userMessageText
 	messagePair.botMessageText = botMessageText
 
+	console.log(messagePair)
 	return messagePair
 }
 

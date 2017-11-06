@@ -17,4 +17,5 @@ class NewTagForm(forms.Form):
     response = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 
 class DurationForm(forms.Form):
-    duration = forms.IntegerField(label='Duration(in minutes)', required=True, min_value=0, max_value=180)
+    # Gets integer input and returns that number of messages
+    duration = forms.IntegerField(label='Response Count', required=True, min_value=0, max_value=180, initial=6)

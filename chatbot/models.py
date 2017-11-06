@@ -57,14 +57,6 @@ class BanglaResponses(models.Model):
     def __str__(self):
         return self.responseMessage
 
-class Complaints(models.Model):
-    requestMessage = models.CharField(max_length=500)
-    responseMessage = models.CharField(max_length=2000)
-    created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        # Adds 6 hours to UTC time
-        return "Complaint posted on: " + (self.created+timezone.timedelta(hours=6)).strftime("%Y-%b-%d %I:%M:%S %p")
 
 class Feedbacks(models.Model):
     name = models.CharField(max_length=50, default='anonymous')
@@ -95,3 +87,14 @@ class TagAccessHistory(models.Model):
 
     def __str__(self):
         return "{}, Created on={}".format(self.session_id, self.timestamp)
+
+
+class Complaints(models.Model):
+    requestMessage = models.CharField(max_length=500)
+    responseMessage = models.CharField(max_length=2000)
+    session_id = models.ForeignKey(SessionTracker, on_delete=models.CASCADE, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        # Adds 6 hours to UTC time
+        return "Complaint posted on: " + (self.created+timezone.timedelta(hours=6)).strftime("%Y-%b-%d %I:%M:%S %p")
