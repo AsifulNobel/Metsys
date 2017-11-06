@@ -202,7 +202,8 @@ from django.contrib.auth import authenticate, login
 from django.views import generic
 from django.utils import timezone
 import datetime
-from .forms import (LoginForm, EnglishTagForm, BanglaTagForm, NewTagForm)
+from .forms import (LoginForm, EnglishTagForm, BanglaTagForm, NewTagForm,
+DurationForm)
 
 def moderator_login(request):
     if request.method == 'POST':
@@ -255,12 +256,7 @@ def complaintList(request):
 
 def complaintDetail(request, complaint_id):
     complaint = Complaints.objects.filter(pk=complaint_id).first()
-    earlier = complaint.created-datetime.timedelta(minutes=3)
-    later = complaint.created-datetime.timedelta(seconds=1)
-    messageList = Message.objects.filter(timestamp__range=(earlier, later))
-
     context = {}
-    context['recentMessages'] = messageList
 
     try:
         complaint.requestMessage.encode(encoding='utf-8').decode('ascii')
@@ -269,6 +265,22 @@ def complaintDetail(request, complaint_id):
         language = 1
 
     if request.method == 'POST':
+        if "Duration" in request.POST:
+            durationForm = DurationForm(request.POST)
+
+            if durationForm.is_valid:
+                duration = durationForm.data['duration']
+
+                earlier = complaint.created-datetime.timedelta(minutes=int(duration))
+                later = complaint.created-datetime.timedelta(seconds=1)
+                messageList = Message.objects.filter(timestamp__range=(earlier, later))
+
+                context['recentMessages'] = messageList
+                context['dForm'] = durationForm
+            else:
+                durationForm = DurationForm()
+                context['dForm'] = durationForm
+
         if language == 0:
             agent = Agent.objects.get(name="English Chowdhury")
 
@@ -296,6 +308,11 @@ def complaintDetail(request, complaint_id):
                 else:
                     newTagForm = NewTagForm()
                     context['newForm'] = newTagForm
+            else:
+                englishForm = EnglishTagForm()
+                context['eForm'] = englishForm
+                newTagForm = NewTagForm()
+                context['newForm'] = newTagForm
         elif language == 1:
             agent = Agent.objects.get(name="Bangla Chowdhury")
 
@@ -323,7 +340,17 @@ def complaintDetail(request, complaint_id):
                 else:
                     newTagForm = NewTagForm()
                     context['newForm'] = newTagForm
+            else:
+                banglaForm = BanglaTagForm()
+                context['bForm'] = banglaForm
+                newTagForm = NewTagForm()
+                context['newForm'] = newTagForm
     else:
+        earlier = complaint.created-datetime.timedelta(minutes=3)
+        later = complaint.created-datetime.timedelta(seconds=1)
+        messageList = Message.objects.filter(timestamp__range=(earlier, later))
+        context['recentMessages'] = messageList
+
         if language == 0:
             englishForm = EnglishTagForm()
             context['eForm'] = englishForm
@@ -332,6 +359,9 @@ def complaintDetail(request, complaint_id):
             context['bForm'] = banglaForm
         newTagForm = NewTagForm()
         context['newForm'] = newTagForm
+        durationForm = DurationForm()
+        context['dForm'] = durationForm
+
     context['complaint'] = complaint
     return render(request, 'chatbot/complaintDetail.html', context)
 

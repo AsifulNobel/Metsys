@@ -37,6 +37,14 @@
         <!-- Message History -->
         <h2>Complaint Specific Message History</h2>
         <div id="messages-container">
+            {% if recentMessages %}
+                <form class="form-group" action="" method="post">
+                    {% csrf_token %}
+                    {{ dForm.as_p }}
+                    <input class="btn btn-primary" type="submit" name="Duration" value="Submit">
+                </form>
+            {% endif %}
+
             {% for message in recentMessages %}
                 <div class="msg-row">
                     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 no-sides-padding msg-animate {% if forloop.counter|divisibleby:2 %}{% else %}pull-right{% endif %}">

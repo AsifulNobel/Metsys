@@ -15,3 +15,6 @@ class BanglaTagForm(forms.Form):
 class NewTagForm(forms.Form):
     new_tag = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     response = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+
+class DurationForm(forms.Form):
+    duration = forms.IntegerField(label='Duration(in minutes)', required=True, min_value=0, max_value=180)
