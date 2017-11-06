@@ -30,7 +30,18 @@
             <li>Number of Unresolved Complaints: {{ complaintCount }}</li>
             <li>Average Message/Session: {{ averageMessageCount }}</li>
             <li>Average Unresolved Complaint/Session: {{ averageComplaintCount }}</li>
+            <li>Unique Tags Accessed: {{ uniqueTagAccessCount }}</li>
         </ul>
+    </div>
+    <div class="">
+        <h3>Tag Access List with Counts</h3>
+        <ol class="list-group">
+        {% for name, count, bot in tagAccess %}
+            <li>{{ bot }} : {{ name }} ---> {{ count }}</li>
+        {% empty %}
+            <h4 class="text-center">No List Found</h4>
+        {% endfor %}
+        </ol>
     </div>
 </div>
 {% else %}

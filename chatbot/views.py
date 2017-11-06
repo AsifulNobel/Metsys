@@ -301,6 +301,9 @@ def complaintDetail(request, complaint_id):
             else:
                 durationForm = DurationForm()
                 context['dForm'] = durationForm
+        else:
+            durationForm = DurationForm()
+            context['dForm'] = durationForm
 
         if language == 0:
             agent = Agent.objects.get(name="English Chowdhury")
@@ -428,6 +431,7 @@ def statsView(request):
     context['messageCount'] = Message.objects.all().count()
     context['sessionCount'] = SessionTracker.objects.all().count()
     context['complaintCount'] = Complaints.objects.all().count()
+    context['tagAccess'] = []
 
     totalMessages = 0
     totalComplaints = 0
@@ -436,6 +440,18 @@ def statsView(request):
         totalComplaints += temp.complaints_set.count()
     context['averageMessageCount'] = totalMessages // context['sessionCount']
     context['averageComplaintCount'] = totalComplaints // context['sessionCount']
+    context['uniqueTagAccessCount'] = 0
+
+    for tag in ClassTag.objects.all().order_by('tagName'):
+        tempCount = tag.tagaccesshistory_set.count()
+
+        if tag.agentId:
+            context['tagAccess'].append((tag.tagName, tempCount, tag.agentId.name))
+        else:
+            context['tagAccess'].append((tag.tagName, tempCount, 'Unreferenced'))
+
+        if tempCount > 0:
+            context['uniqueTagAccessCount'] += 1
 
     return render(request, 'chatbot/moderatorStats.html', context)
 
