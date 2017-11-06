@@ -344,7 +344,7 @@ def complaintDetail(request, complaint_id):
                 banglaForm = BanglaTagForm(request.POST)
 
                 if banglaForm.is_valid:
-                    tag = ClassTag.objects.get(tagName=banglaForm.data['tag'], agentId=agent)
+                    tag = ClassTag.objects.get(pk=banglaForm.data['tag'])
                     pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
