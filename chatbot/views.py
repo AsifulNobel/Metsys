@@ -241,7 +241,7 @@ def moderator_home(request):
     return render(request, 'chatbot/moderatorHome.html', {'user': request.user})
 
 def complaintList(request):
-    complaint_list = Complaints.objects.all()
+    complaint_list = Complaints.objects.all().order_by('-created')
     paginator = Paginator(complaint_list, 10)
 
     page = request.GET.get('page')
@@ -274,7 +274,7 @@ def complaintDetail(request, complaint_id):
                 duration = durationForm.data['duration']
                 duration = int(duration)
 
-                messageList = Message.objects.filter(session_id=complaint.session_id)
+                messageList = Message.objects.filter(session_id=complaint.session_id).order_by('timestamp')
                 listLength = len(messageList)
                 complaintMessageIndex = 0
 
@@ -367,7 +367,7 @@ def complaintDetail(request, complaint_id):
                 newTagForm = NewTagForm()
                 context['newForm'] = newTagForm
     else:
-        messageList = Message.objects.filter(session_id=complaint.session_id)
+        messageList = Message.objects.filter(session_id=complaint.session_id).order_by('timestamp')
         listLength = len(messageList)
         complaintMessageIndex = 0
 
@@ -378,7 +378,7 @@ def complaintDetail(request, complaint_id):
         if complaintMessageIndex == 0:
             messageList = messageList[:2]
         elif complaintMessageIndex >= 2 and complaintMessageIndex < 6:
-            messageList = messageList[:6]
+            messageList = messageList[:complaintMessageIndex+2]
         else:
             messageList = messageList[complaintMessageIndex-4:complaintMessageIndex+2]
 
