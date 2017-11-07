@@ -314,6 +314,9 @@ def complaintDetail(request, complaint_id):
                 if englishForm.is_valid:
                     tag = ClassTag.objects.get(pk=englishForm.data['tag'])
                     pattern, created = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
+
+                    tag.errorCount += 1
+                    tag.save()
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
                 else:
@@ -327,6 +330,8 @@ def complaintDetail(request, complaint_id):
                     newMessage, _ = EnglishResponses.objects.get_or_create(responseMessage=newTagForm.cleaned_data['response'], tag=tag)
                     newPattern, _ = EnglishRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
 
+                    tag.errorCount += 1
+                    tag.save()
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
                 else:
@@ -346,6 +351,9 @@ def complaintDetail(request, complaint_id):
                 if banglaForm.is_valid:
                     tag = ClassTag.objects.get(pk=banglaForm.data['tag'])
                     pattern, created = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
+
+                    tag.errorCount += 1
+                    tag.save()
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
                 else:
@@ -359,6 +367,8 @@ def complaintDetail(request, complaint_id):
                     newMessage, _ = BanglaResponses.objects.get_or_create(responseMessage=newTagForm.cleaned_data['response'], tag=tag)
                     newPattern, _ = BanglaRequests.objects.get_or_create(requestMessage=complaint.requestMessage, tag=tag)
 
+                    tag.errorCount += 1
+                    tag.save()
                     complaint.delete()
                     return redirect('chatbot:modComplaints')
                 else:
@@ -410,6 +420,7 @@ def complaint_delete(request, complaint_id):
     else:
         return HttpResponse("<h1>Why u tryna delete what's not there!</h1>")
 
+
 def feedbackView(request):
     feedback_list = Feedbacks.objects.all()
     paginator = Paginator(feedback_list, 5)
@@ -432,6 +443,7 @@ def statsView(request):
     context['sessionCount'] = SessionTracker.objects.all().count()
     context['complaintCount'] = Complaints.objects.all().count()
     context['tagAccess'] = []
+    context['tagError'] = []
 
     totalMessages = 0
     totalComplaints = 0
@@ -447,8 +459,10 @@ def statsView(request):
 
         if tag.agentId:
             context['tagAccess'].append((tag.tagName, tempCount, tag.agentId.name))
+            context['tagError'].append((tag.tagName, tag.errorCount, tag.agentId.name))
         else:
             context['tagAccess'].append((tag.tagName, tempCount, 'Unreferenced'))
+            context['tagError'].append((tag.tagName, tag.errorCount, 'Unreferenced'))
 
         if tempCount > 0:
             context['uniqueTagAccessCount'] += 1

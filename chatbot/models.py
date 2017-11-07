@@ -11,6 +11,7 @@ class Agent(models.Model):
 class ClassTag(models.Model):
     tagName = models.CharField(max_length=255)
     agentId = models.ForeignKey(Agent, on_delete=models.CASCADE, null=True)
+    errorCount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.tagName

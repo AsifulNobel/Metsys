@@ -43,6 +43,16 @@
         {% endfor %}
         </ol>
     </div>
+    <div class="">
+        <h3>Tag List with Prediction Error Counts</h3>
+        <ol class="list-group">
+        {% for name, count, bot in tagError %}
+            <li>{{ bot }} : {{ name }} ---> {{ count }}</li>
+        {% empty %}
+            <h4 class="text-center">No List Found</h4>
+        {% endfor %}
+        </ol>
+    </div>
 </div>
 {% else %}
 <h1>You are not Authenticated</h1>
