@@ -4,12 +4,15 @@
             "tag": "greeting",
             "patterns": [
                 "Hi",
-                "How are you",
                 "Is anyone there?",
                 "Hello",
                 "Good day",
                 "hellow",
-                "hey"
+                "hey",
+                "yo bro",
+                "yo",
+                "heyyyyyy",
+                "heyyy"
             ],
             "responses": [
                 "Hello, welcome to Chowdhury Electronics. How can I help you?"
@@ -47,7 +50,8 @@
                 "What hours are you open?",
                 "What are your hours?",
                 "When are you open?",
-                "Opening time?"
+                "Opening time?",
+                "when do you open?"
             ],
             "responses": [
                 "Our hours are 9am-9pm every day",
@@ -114,7 +118,9 @@
                 "Tell me about price of sony home theater",
                 "Sony home theater price",
                 "What is the price of sony home theater",
-                "How much for sony home theater?"
+                "How much for sony home theater?",
+                "I want to buy sony compact satellite speakers",
+                "what is the price of home theater"
             ],
             "responses": [
                 "Sony compact satellite speakers will cost 27 thousand taka, tall boy speakers will cost 34 thousand taka, floor standing speakers with subwoofers will cost 40 thousand taka and 5-master digital amplifiers will cost 62 thousand taka"
@@ -145,7 +151,12 @@
                 "Which tv do you guys sell?",
                 "Which tv brand you guys sell",
                 "I want to buy a tv",
-                "Tell me about tv"
+                "Tell me about tv",
+                "what other brands of tv do you sell?",
+                "tv",
+                "Show all TV",
+                "Other TV",
+                "Give me some information on Television."
             ],
             "responses": [
                 "We sell television from Samsung,Sony,LG,and Toshiba"
@@ -157,7 +168,9 @@
             "patterns": [
                 "Tell me about sony TV",
                 "Which sony tv do you guys have?",
-                "what sony television models do you guys have?"
+                "what sony television models do you guys have?",
+                "tell me more about sony tv",
+                "which models of sony tv do you sell"
             ],
             "responses": [
                 "We have Sony TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
@@ -228,7 +241,8 @@
                 "Tell me about 24 inch",
                 "24 inch",
                 "What is the price of 24 inch?",
-                "how much for 24 inch?"
+                "how much for 24 inch?",
+                "what are the features of 24 inch"
             ],
             "responses": [
                 "Sony 24 inch TV costs 22 thousand taka. It has only 720p screen. You should consider it if you have small room"
@@ -355,7 +369,8 @@
             "patterns": [
                 "Tell me about Samsung TV",
                 "tell me about Samsung television",
-                "Which Samsung tv do you guys have?"
+                "Which Samsung tv do you guys have?",
+                "which models of samsung are available"
             ],
             "responses": [
                 "We have Samsung TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
@@ -367,7 +382,8 @@
             "patterns": [
                 "Tell me about Samsung",
                 "Samsung",
-                "Which Samsung models do you guys have?"
+                "Which Samsung models do you guys have?",
+                "Price of Samsung"
             ],
             "responses": [
                 "We have Samsung TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
@@ -551,7 +567,9 @@
             "patterns": [
                 "Tell me about Toshiba TV",
                 "Toshiba",
-                "Which Toshiba tv do you guys have?"
+                "Which Toshiba tv do you guys have?",
+                "can you let me know about some Toshiba tv",
+                "give me some information about Toshiba television"
             ],
             "responses": [
                 "We have Toshiba TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
@@ -746,7 +764,8 @@
             "tag": "LG_TV",
             "patterns": [
                 "Tell me about LG TV",
-                "Which LG tv do you guys have?"
+                "Which LG tv do you guys have?",
+                "What models of LG and Toshiba tvs you have?"
             ],
             "responses": [
                 "We have LG TV model with 24, 32, 40, 55, 60 inch screen they have 720p , 1080p or 4k resolution"
@@ -915,7 +934,8 @@
                 "Tell me about lg 60 inch TV",
                 "lg 60 inch tv",
                 "What is the price of 60 inch lg tv?",
-                "how much for 60 inch lg tv?"
+                "how much for 60 inch lg tv?",
+                "what is the price of the LG 60 inch television?"
             ],
             "responses": [
                 "LG 60 inch TV costs 95 thousand taka. It has a really beautiful 4k display with all the best features LG can provide right now"
@@ -945,7 +965,10 @@
                 "Can you give me detailed info?",
                 "contact info",
                 "what is your contact number",
-                "can i get your contact info"
+                "can i get your contact info",
+                "WHat is your phone?",
+                "phone number?",
+                "how do you deliver?"
             ],
             "responses": [
                 "For more information please call 01752508980"
@@ -968,7 +991,15 @@
             "tag": "payments_bkash",
             "patterns": [
                 "Do you accept bKash",
-                "Can I pay with bKash"
+                "Can I pay with bKash",
+                "Tell me your bKash number?",
+                "Bkash Number?",
+                "give me your bkash number",
+                "give me bkash number",
+                "what is your bkash number?",
+                "do you accept bikash \\",
+                "bkash",
+                "Tell me your bKash number?"
             ],
             "responses": [
                 "Yes we accept bKash payment and our bkash marchent account no.01687032353"
@@ -991,7 +1022,8 @@
             "patterns": [
                 "how can i pay?",
                 "what payment methods are available",
-                "What are the payment options"
+                "What are the payment options",
+                "how do I pay"
             ],
             "responses": [
                 "You can pay with cash, credit card or bKash"
@@ -1004,7 +1036,8 @@
                 "Tell me your address ?",
                 "Where your shop is located ?",
                 "What is the address of your shop?",
-                "Can you give me your address?"
+                "Can you give me your address?",
+                "where are you?"
             ],
             "responses": [
                 "Our address is Shop-425, 426, 427, Level-4, 3rd Floor Alpana Plaza, 51 New Elephant Road, Dhaka, Bangladesh"
@@ -1014,7 +1047,9 @@
             "tag": "home_delivery",
             "patterns": [
                 "can I get the product by Home Delivery ?",
-                "do you guys have home delivery facilities?"
+                "do you guys have home delivery facilities?",
+                "delivery service?",
+                "shipment"
             ],
             "responses": [
                 "Yes, you can get the product through our home delivery service, but it costs extra 300 taka"
@@ -1037,7 +1072,10 @@
             "patterns": [
                 "is there any discount?",
                 "are you currently giving any discount?",
-                "can I get a discount?"
+                "can I get a discount?",
+                "can I get some discount?",
+                "discount on television",
+                "give me some discount"
             ],
             "responses": [
                 "At the moment, we are not giving any amount of discount on  any of our products"
@@ -1057,7 +1095,9 @@
             "tag": "buying_procedure",
             "patterns": [
                 "how do i buy a product?",
-                "I want to place an order"
+                "I want to place an order",
+                "buying procedure",
+                "so how do I buy?"
             ],
             "responses": [
                 "You can chat with me for product information. But for placing order you must call our shop at 01752509890"
@@ -1130,10 +1170,68 @@
                 "Hi beautiful",
                 "Appi nyc lagsa",
                 "halka mutay shuye poro",
-                "send nudes"
+                "send nudes",
+                "show me some boobs",
+                "are you stupid?"
             ],
             "responses": [
                 "That is very inappropriate! Sorry I can't co operate with you. I only give answers about the products, payment and general inquery about Chowdhury Electronics"
+            ]
+        },
+        {
+            "tag": "asking_about_bot_s_day",
+            "patterns": [
+                "how was your day",
+                "how are you"
+            ],
+            "responses": [
+                "Busy working. Thanks for asking."
+            ]
+        },
+        {
+            "tag": "asking_about_chowdhury",
+            "patterns": [
+                "who is Chowdhury?"
+            ],
+            "responses": [
+                "He is a mystery man !"
+            ]
+        },
+        {
+            "tag": "Am_I_bot",
+            "patterns": [
+                "are you a bot?",
+                "are u a bot?"
+            ],
+            "responses": [
+                "Yes. I am a nice friendly bot happy who is happy to help you :-)"
+            ]
+        },
+        {
+            "tag": "thanks_in_response",
+            "patterns": [
+                "I like you"
+            ],
+            "responses": [
+                "Thank you!"
+            ]
+        },
+        {
+            "tag": "Shop_Name",
+            "patterns": [
+                "Name of the Shop"
+            ],
+            "responses": [
+                "The name of our shop is Chowdhury Electronics and we sell products like Television and Hometheater system"
+            ]
+        },
+        {
+            "tag": "Cheapest_TV",
+            "patterns": [
+                "what is the cheapest TV you sell?"
+            ],
+            "responses": [
+                "Toshiba 24-inch TV model is our cheapest one and it costs 17 thousand taka"
             ]
         }
     ]
