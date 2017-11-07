@@ -152,7 +152,7 @@ function checkTag(tag) {
         else {
             language = bn.toUpperCase();
         }
-        actualTag = tag.slice((tag.indexOf('_')+1), );
+        actualTag = tag.slice((tag.indexOf('_')+1), (tag.length));
 
         message = language.concat(' Agent\'s "'.concat(actualTag)).concat('" topic');
     }
