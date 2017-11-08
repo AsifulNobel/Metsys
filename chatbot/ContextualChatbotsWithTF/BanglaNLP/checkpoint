@@ -1,2 +1,0 @@
-model_checkpoint_path: "/home/ubuntu/Metsys/chatbot/ContextualChatbotsWithTF/BanglaNLP/model.tflearn"
-all_model_checkpoint_paths: "/home/ubuntu/Metsys/chatbot/ContextualChatbotsWithTF/BanglaNLP/model.tflearn"

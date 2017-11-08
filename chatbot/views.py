@@ -7,12 +7,12 @@ from .models import (Feedbacks, Complaints, ClassTag, BanglaRequests, BanglaResp
 Message, TagAccessHistory)
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
-from .ContextualChatbotsWithTF.responderInterface import (response_message,
-initAgents, trainEnglishAgent, trainBanglaAgent ,removeUser, isEnglish)
+from .tensor_interface import (response_message,
+trainEnglishAgent, trainBanglaAgent ,removeUser, isEnglish)
+
 import logging
 
 # Initialize Chatbots
-initAgents()
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +57,7 @@ def addTagAccess(tag, sessionId):
         elif bn in tag:
             remove= bn
             tempAgent = Agent.objects.get(name="Bangla Chowdhury")
+            
         tagParts = tag.split('_')
         removeIndex = tagParts.index(remove)
         tag = "_".join(tagParts[removeIndex+1:])

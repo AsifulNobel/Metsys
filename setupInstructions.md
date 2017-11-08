@@ -29,6 +29,7 @@
     - Restore database `psql -U nobel -d metsys -f metsysLatest.dump`
         * If peer authentication failure, then add '-h localhost'
 + Install redis `sudo apt-get install redis-server`
++ Change to previously created environment
 + Install pip packages from requirements.txt
 + Run a python shell and download nltk package
     - `import nltk`
@@ -36,42 +37,27 @@
 + Run server `python manage.py runserver`
 
 ## Production Setup
-+ Install gunicorn: `pip install gunicorn`
-+ Make a gunicorn.service file in /etc/systemd/system:
-    - Write this in the file:
-    ```
-    [Unit]
-    Description=gunicorn daemon
-    After=network.target
-
-    [Service]
-    User=nobel
-    Group=www-data
-    WorkingDirectory=absolute_path_to_web_app_directory
-    ExecStart=/home/user_name/.pyenv/versions/Metsys/bin/gunicorn --access-logfile - --workers 4 --timeout 600 --bind unix:/absolute_path_to_web_app_directory/bazar.sock bazar.wsgi:application
-
-    [Install]
-    WantedBy=multi-user.target
-    ```
-    - change directory names, where necessary
-    - Run gunicorn script: `sudo systemctl start gunicorn.service`
 + Install nginx: `sudo apt install nginx`
     - Configure nginx
         * Make a file named `metsys` in /etc/nginx/sites-available/
         * Put configuration data in the file:
         ```
         server {
-            listen 80;
+            listen port_number;
             server_name domain_name_or_ip;
 
             location = /favicon.ico { access_log off; log_not_found off; }
             location /static/ {
-                alias absolute_path_to_app_directory/staticfiles/;
+                alias /home/nobel/Devel/499_Test/metsys/bazar/staticfiles/;
             }
 
             location / {
                 include proxy_params;
-                proxy_pass http://unix:/home/nobel/Devel/metsys/bazar.sock;
+                proxy_pass http://unix:/home/nobel/Devel/499_Test/metsys/bazar.sock;
+
+	            proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
             }
         }
         ```
@@ -81,4 +67,12 @@
     - Restart nginx: `sudo systemctl restart nginx`
     - If there is any firewall issue, run: `sudo ufw allow 'Nginx Full'`
 + If everything runs correctly, website homepage should be accessible by now.
-But channels app is still unaccessible
++ Then run daphne: `daphne -u path_to_this_directory/bazar.sock -p 8000 bazar.asgi:channel_layer`
+    - If nginx show bazar.sock related issue in error log, check permission of the file. Use if necessary:
+    ```
+    chmod o+r path_to_this_directory/bazar.sock
+    chmod o+x path_to_this_directory/bazar.sock
+    ```
+    - nginx logs can be found in `/var/logs/nginx/` directory
++ Next run multiple worker processes, but not more than the number of cores available:
+    - `python manage.py runworker >$processNumber.out 2>$processNumber.err`
