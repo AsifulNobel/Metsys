@@ -58,6 +58,11 @@
 	            proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection "upgrade";
+
+                proxy_connect_timeout       600;
+                proxy_send_timeout          600;
+                proxy_read_timeout          600;
+                send_timeout                600;
             }
         }
         ```
@@ -67,7 +72,7 @@
     - Restart nginx: `sudo systemctl restart nginx`
     - If there is any firewall issue, run: `sudo ufw allow 'Nginx Full'`
 + If everything runs correctly, website homepage should be accessible by now.
-+ Then run daphne: `daphne -u path_to_this_directory/bazar.sock -p 8000 bazar.asgi:channel_layer`
++ Then run daphne: `daphne -u path_to_this_directory/bazar.sock -p 8000 bazar.asgi:channel_layer -t 600`
     - If nginx show bazar.sock related issue in error log, check permission of the file. Use if necessary:
     ```
     chmod o+r path_to_this_directory/bazar.sock
@@ -76,3 +81,4 @@
     - nginx logs can be found in `/var/logs/nginx/` directory
 + Next run multiple worker processes, but not more than the number of cores available:
     - `python manage.py runworker >$processNumber.out 2>$processNumber.err`
++ After that, go to `metsys_core` directory, then run: `python manage.py runserver 8005`

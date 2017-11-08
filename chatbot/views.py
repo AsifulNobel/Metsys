@@ -57,7 +57,7 @@ def addTagAccess(tag, sessionId):
         elif bn in tag:
             remove= bn
             tempAgent = Agent.objects.get(name="Bangla Chowdhury")
-            
+
         tagParts = tag.split('_')
         removeIndex = tagParts.index(remove)
         tag = "_".join(tagParts[removeIndex+1:])
@@ -79,7 +79,7 @@ def chat(request):
     return render(request, 'chatbot/chatbot.html', context)
 
 def deleteUserContext(userID):
-    removeUser(userID)
+    logger.debug(removeUser(userID))
 
     return
 
@@ -535,24 +535,24 @@ def updateBanglaFile(request):
 
 # Training
 def train_english(request):
-    try:
-        trainEnglishAgent()
-    except Exception:
+    response = trainEnglishAgent()
+    logger.debug(response)
+
+    if "Unsuccessful" in response:
         return render(request, 'chatbot/trainStatus.html', {'status': 1})
     return render(request, 'chatbot/trainStatus.html', {'status': 0})
 
-
-
 def train_bangla(request):
-    try:
-        trainBanglaAgent()
-    except Exception:
+    response = trainBanglaAgent()
+    logger.debug(response)
+
+    if "Unsuccessful" in response:
         return render(request, 'chatbot/trainStatus.html', {'status': 1})
     return render(request, 'chatbot/trainStatus.html', {'status': 0})
 
 def viewLog(request):
-    path = os.path.dirname(os.path.abspath('__file__'))
-    path = os.path.join(path, 'nohup.out')
+    path = os.path.dirname(os.path.dirname(os.path.abspath('__file__')))
+    path = os.path.join(path, 'metsys_core', 'nohup.out')
     content = ''
     try:
         with open(path, 'r') as f:

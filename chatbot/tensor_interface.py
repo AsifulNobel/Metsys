@@ -41,14 +41,47 @@ def response_message(message, userID='123'):
     except requests.exceptions.ConnectionError:
         return getDefaultResponse(message)
 
-def initAgents():
-    pass
-
 def trainEnglishAgent():
-    pass
+    try:
+        request = requests.get(URL+'/tensor/chatbot/chowdhury/train/english')
+
+        if request.status_code == 202:
+             response = request.json()
+
+             return response['message']
+
+    except requests.exceptions.ConnectionError:
+        return "Chatbot Server cannot reached"
+
 
 def trainBanglaAgent():
-    pass
+    try:
+        request = requests.get(URL+'/tensor/chatbot/chowdhury/train/bangla')
+
+        if request.status_code == 202:
+             response = request.json()
+
+             return response['message']
+
+    except requests.exceptions.ConnectionError:
+        return "Chatbot Server cannot reached"
+
 
 def removeUser(userID):
-    pass
+    response = None
+    payload = {
+        "userId": userID
+    }
+
+    try:
+        request = requests.post(URL+'/tensor/chatbot/user/delete', json=payload)
+
+        if request.status_code == 202:
+             response = request.json()
+
+             return response['message']
+        else:
+            return response['message']
+
+    except requests.exceptions.ConnectionError:
+        return "Chatbot Server cannot reached"
