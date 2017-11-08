@@ -80,5 +80,5 @@
     ```
     - nginx logs can be found in `/var/logs/nginx/` directory
 + Next run multiple worker processes, but not more than the number of cores available:
-    - `python manage.py runworker >$processNumber.out 2>$processNumber.err`
+    - `nohup python manage.py runworker >$processNumber.out 2>$processNumber.err &`
 + After that, go to `metsys_core` directory, then run: `python manage.py runserver 8005`
