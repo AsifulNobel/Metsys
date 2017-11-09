@@ -24,7 +24,7 @@ if(!supportsWebSockets){
 var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 
 // Calls the websocket connect channel
-var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/stream/test-chat");
+var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/stream");
 chatsock.timeoutInterval = 10000;
 chatsock.reconnectInterval = 2000;
 

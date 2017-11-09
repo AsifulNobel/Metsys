@@ -72,7 +72,7 @@
     - Restart nginx: `sudo systemctl restart nginx`
     - If there is any firewall issue, run: `sudo ufw allow 'Nginx Full'`
 + If everything runs correctly, website homepage should be accessible by now.
-+ Then run daphne: `daphne -u path_to_this_directory/bazar.sock -p 8000 bazar.asgi:channel_layer -t 600`
++ Then run daphne: `/path_to_python_package_bin_directory/daphne -u /var/run/metsys.sock bazar.asgi:channel_layer -t 600`
     - If nginx show bazar.sock related issue in error log, check permission of the file. Use if necessary:
     ```
     chmod o+r path_to_this_directory/bazar.sock
