@@ -51,7 +51,7 @@ def trainEnglishAgent():
              return response['message']
 
     except requests.exceptions.ConnectionError:
-        return "Chatbot Server cannot reached"
+        return "Chatbot Server cannot be reached"
 
 
 def trainBanglaAgent():
@@ -64,7 +64,7 @@ def trainBanglaAgent():
              return response['message']
 
     except requests.exceptions.ConnectionError:
-        return "Chatbot Server cannot reached"
+        return "Chatbot Server cannot be reached"
 
 
 def removeUser(userID):

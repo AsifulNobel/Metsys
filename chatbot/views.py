@@ -108,8 +108,6 @@ def saveFeedback(feedbackMessage):
     return
 
 def saveComplaint(complaintMessage):
-    logger.debug(complaintMessage.keys())
-
     result_message = {}
     result_message['type'] = 'complaintSaveStatus'
     complaint, created = Complaints.objects.get_or_create(requestMessage=complaintMessage['messagePair']['userMessageText'], responseMessage=complaintMessage['messagePair']['botMessageText'], session_id=SessionTracker.objects.get(text_id=complaintMessage['username']))
@@ -161,6 +159,7 @@ def terminate_api(request):
         if serializer.is_valid():
             if userIdExists(serializer.get_userId()):
                 removeUserId(serializer.get_userId())
+                deleteUserContext(serializer.get_userId())
                 query_response['message'] = 'Successful Termination'
             else:
                 query_response['message'] = 'Unsuccessful Termination'
@@ -472,7 +471,7 @@ def statsView(request):
 
 # Intents
 from .intents import (updateBanglaIntents, updateEnglishIntents,
-generateBanglaIntents, generateEnglishIntents)
+generateBanglaIntents, generateEnglishIntents, getDirName)
 import os, json
 from django.http import HttpResponse, JsonResponse
 
@@ -509,8 +508,8 @@ def banglaIntentDownload(request):
 
 def updateEnglishFile(request):
     data = generateEnglishIntents()
-    path = os.path.dirname(os.path.abspath('__file__'))
-    path = os.path.join(path, 'chatbot', 'ContextualChatbotsWithTF', 'EnglishNLP', 'intents.json')
+    path = getDirName(os.path.abspath('__file__'), 2)
+    path = os.path.join(path, 'metsys-core', 'tensor_model', 'ContextualChatbotsWithTF', 'EnglishNLP', 'intents.json')
 
     try:
         with open(path, 'w') as f:
@@ -522,8 +521,8 @@ def updateEnglishFile(request):
 
 def updateBanglaFile(request):
     data = generateBanglaIntents()
-    path = os.path.dirname(os.path.abspath('__file__'))
-    path = os.path.join(path, 'chatbot', 'ContextualChatbotsWithTF', 'BanglaNLP', 'banglaintents.json')
+    path = getDirName(os.path.abspath('__file__'), 2)
+    path = os.path.join(path, 'metsys-core', 'tensor_model', 'ContextualChatbotsWithTF', 'BanglaNLP', 'banglaintents.json')
 
     try:
         with open(path, 'w') as f:
@@ -536,7 +535,6 @@ def updateBanglaFile(request):
 # Training
 def train_english(request):
     response = trainEnglishAgent()
-    logger.debug(response)
 
     if "Unsuccessful" in response:
         return render(request, 'chatbot/trainStatus.html', {'status': 1})
@@ -544,27 +542,26 @@ def train_english(request):
 
 def train_bangla(request):
     response = trainBanglaAgent()
-    logger.debug(response)
 
     if "Unsuccessful" in response:
         return render(request, 'chatbot/trainStatus.html', {'status': 1})
     return render(request, 'chatbot/trainStatus.html', {'status': 0})
 
 def viewLog(request):
-    path = os.path.dirname(os.path.dirname(os.path.abspath('__file__')))
-    path = os.path.join(path, 'metsys_core', 'nohup.out')
+    path = getDirName(os.path.abspath('__file__'), 2)
+    path = os.path.join(path, 'metsys-core', 'nohup.out')
     content = ''
     try:
         with open(path, 'r') as f:
             content = tail(f, 300)
     except Exception as e:
         content = 'No file found!'
-        logger.debug("{}".format(e))
+
     return HttpResponse(content, content_type='text/plain; charset=utf-8')
 
 def downloadLog(request):
-    path = os.path.dirname(os.path.abspath('__file__'))
-    path = os.path.join(path, 'nohup.out')
+    path = getDirName(os.path.abspath('__file__'), 2)
+    path = os.path.join(path, 'metsys-core', 'nohup.out')
     content = ''
     response = None
 

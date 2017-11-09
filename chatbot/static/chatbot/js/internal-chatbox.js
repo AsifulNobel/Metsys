@@ -66,6 +66,10 @@ function sendTextMessage() {
 		message.text = message.text.replace('&nbsp;', '');
 	}
 
+	while(message.text.indexOf('\n') != -1) {
+		message.text = message.text.replace('\n', '');
+	}
+
     message.command= 'send'
     message.timestamp = new Date();
 

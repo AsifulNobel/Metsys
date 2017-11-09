@@ -3,7 +3,13 @@ import os
 from .models import (BanglaRequests, BanglaResponses, EnglishRequests,
 EnglishResponses, ClassTag, Agent, ContextMethod, Context)
 
-DIR_NAME = os.path.dirname(os.path.abspath(__file__))
+def getDirName(path, depth):
+    while depth > 0:
+        path = os.path.dirname(path)
+        depth = depth - 1
+    return path
+
+DIR_NAME = getDirName(os.path.abspath(__file__), 3)
 suffix_dir = 'ContextualChatbotsWithTF'
 
 def generateBanglaIntents():
@@ -93,7 +99,7 @@ def generateEnglishIntents():
 def updateBanglaIntents():
     """Update database from banglaintents.json"""
     try:
-        with open(os.path.join(DIR_NAME, suffix_dir, 'BanglaNLP', 'banglaintents.json'), 'r') as f:
+        with open(os.path.join(DIR_NAME, 'metsys-core', 'tensor_model', suffix_dir, 'BanglaNLP', 'banglaintents.json'), 'r') as f:
             data = json.load(f)
 
             agent, _ = Agent.objects.get_or_create(name="Bangla Chowdhury")
@@ -123,14 +129,14 @@ def updateBanglaIntents():
 
                     context, _ = Context.objects.get_or_create(contextClass=setTagObject, contextMethod=contextMethodObject, contextParent=tag)
     except FileNotFoundError:
-        print('{} - {} not found'.format(__name__, os.path.join(DIR_NAME, suffix_dir, 'BanglaNLP', 'banglaintents.json')))
+        print('{} - {} not found'.format(__name__, os.path.join(DIR_NAME, 'metsys-core', 'tensor_model', suffix_dir, 'BanglaNLP', 'banglaintents.json')))
         return 1
 
     return 0
 
 def updateEnglishIntents():
     try:
-        with open(os.path.join(DIR_NAME, suffix_dir, 'EnglishNLP', 'intents.json'), 'r') as f:
+        with open(os.path.join(DIR_NAME, 'metsys-core', 'tensor_model', suffix_dir, 'EnglishNLP', 'intents.json'), 'r') as f:
             data = json.load(f)
 
             agent, _ = Agent.objects.get_or_create(name="English Chowdhury")
@@ -160,7 +166,7 @@ def updateEnglishIntents():
 
                     context, _ = Context.objects.get_or_create(contextClass=setTagObject, contextMethod=contextMethodObject, contextParent=tag)
     except FileNotFoundError:
-        print('{} - {} not found'.format(__name__, os.path.join(DIR_NAME, suffix_dir, 'EnglishNLP', 'intents.json')))
+        print('{} - {} not found'.format(__name__, os.path.join(DIR_NAME, 'metsys-core', 'tensor_model', suffix_dir, 'EnglishNLP', 'intents.json')))
         return 1
 
     return 0

@@ -37,6 +37,9 @@
 + Run server `python manage.py runserver`
 
 ## Production Setup
++ Stop dev server
++ Change to parent directory
++ clone Metsys-Core repo into metsys-core directory
 + Install nginx: `sudo apt install nginx`
     - Configure nginx
         * Make a file named `metsys` in /etc/nginx/sites-available/
@@ -53,7 +56,7 @@
 
             location / {
                 include proxy_params;
-                proxy_pass http://unix:/home/nobel/Devel/499_Test/metsys/bazar.sock;
+                proxy_pass http://unix:/path_to_this_directory/metsys.sock;
 
 	            proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
@@ -72,13 +75,13 @@
     - Restart nginx: `sudo systemctl restart nginx`
     - If there is any firewall issue, run: `sudo ufw allow 'Nginx Full'`
 + If everything runs correctly, website homepage should be accessible by now.
-+ Then run daphne: `/path_to_python_package_bin_directory/daphne -u /var/run/metsys.sock bazar.asgi:channel_layer -t 600`
-    - If nginx show bazar.sock related issue in error log, check permission of the file. Use if necessary:
++ Then run daphne: `nohup daphne -u ../metsys.sock bazar.asgi:channel_layer -t 600 >../logs/daphne.out.log 2>../logs/daphne.err.log &`
+    - If nginx show metsys.sock related issue in error log, check permission of the file. Use if necessary:
     ```
-    chmod o+r path_to_this_directory/bazar.sock
-    chmod o+x path_to_this_directory/bazar.sock
+    chmod o+r path_to_this_directory/metsys.sock
+    chmod o+x path_to_this_directory/metsys.sock
     ```
     - nginx logs can be found in `/var/logs/nginx/` directory
 + Next run multiple worker processes, but not more than the number of cores available:
-    - `nohup python manage.py runworker >$processNumber.out 2>$processNumber.err &`
-+ After that, go to `metsys_core` directory, then run: `python manage.py runserver 8005`
+    - `nohup python manage.py runworker >../logs/worker.$processNumber.out.log 2>../logs/worker.$processNumber.err.log &`
++ After that, go to `metsys_core` directory, then run: `nohup python manage.py runserver 8005 &`
