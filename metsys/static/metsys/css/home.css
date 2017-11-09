@@ -28,14 +28,6 @@ html, body {
     color: white;
 }
 
-.boxOfThree > a:hover > div::before {
-    content: "Visit This Page";
-}
-
-.boxOfThree > a:hover > div > span {
-    display: none;
-}
-
 @keyframes fade {
     0% { background-color: #3a4873; }
     100% { background-color: #653073; }
