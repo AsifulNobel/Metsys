@@ -44,10 +44,12 @@
 
 
 {% block script %}
-$('.trainer').on('click', function() {
+$('.trainer').on('click', function(e) {
+    e.preventDefault();
+
     <!-- $('#loader').addClass('loading'); -->
-    alert("Training of chatbots has been disabled temporarily due to lack of
-    server memory.");
+
+    alert("Training of chatbots has been disabled temporarily due to lack of server memory.");
 })
 
 $('body').keyup(function(e) {
