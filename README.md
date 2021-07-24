@@ -54,6 +54,6 @@ The work of this repository has been licensed under the [MIT License](License.md
 
 If you use any work of this repository, please cite the journal article in your work the following way -
 
-```plain text
+```text
 Anirudha Paul, Asiful Haque Latif, Foysal Amin Adnan & Rashedur M Rahman (2019) Focused domain contextual AI chatbot framework for resource poor languages, Journal of Information and Telecommunication, 3:2, 248-269, DOI: 10.1080/24751839.2018.1558378
 ```
