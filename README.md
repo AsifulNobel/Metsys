@@ -1,4 +1,4 @@
-# METSYS - মেত্‌সিস
+# METSYS - মেত্‌সিস 🤖
 
 This repository contains the work done as part of our Senior Capstone project at North South University. Our team consisted of [Anirudha Paul](https://github.com/anirudha-ani), [Foysal Amin Adnan](https://github.com/adnanfoysal) and [me](https://github.com/AsifulNobel). Based on our findings of this project, we published an article titled [Focused domain contextual AI chatbot framework for resource poor languages](https://doi.org/10.1080/24751839.2018.1558378). The article appeared in Taylor & Francis' Journal of Information and Telecommunication on 2018.
 
@@ -30,11 +30,11 @@ The moderator can view the chatbot's log files, train the chatbot, update the ch
 
 ![complaint-detail](screenshots/complaint-detail.png)
 
-## Technology
+## Technology 🔩
 
 We used Python 3.6.2 with [pyenv](https://github.com/pyenv/pyenv) during development. We used TensorFlow to train the bot. We used Django web framework to build the site pages and REST APIs. We used Django Channels to build real-time communication (WebSockets) interface between user and the bot. PostgreSQL has been used as database. We also used Cython to improve the Bangla Agent's performance. Other package related information can be found [here](ecommerce-site-with-chatbot/requirements.txt).
 
-## How to Run
+## How to Run 🏃
 
 Instructions to get the project up and running can be found [here](ecommerce-site-with-chatbot/setupInstructions.md). After running the project, the following command should be run to update the databases -
 
@@ -46,14 +46,14 @@ Our database dumps have been provided to view some data quickly and login using 
 
 The applications of this repository have not been hosted anywhere. So, the credentials and `security_key.txt` values are **harmless**. But if anyone is hoping to run it in a publicly accessible server, then please change those for your own good.
 
-## License
+## License ⚖️
 
 The work of this repository has been licensed under the [MIT License](License.md).
 
-## Citation
+## Citation 🖋️
 
 If you use any work of this repository, please cite the journal article in your work the following way -
 
-```
+```plain text
 Anirudha Paul, Asiful Haque Latif, Foysal Amin Adnan & Rashedur M Rahman (2019) Focused domain contextual AI chatbot framework for resource poor languages, Journal of Information and Telecommunication, 3:2, 248-269, DOI: 10.1080/24751839.2018.1558378
 ```
