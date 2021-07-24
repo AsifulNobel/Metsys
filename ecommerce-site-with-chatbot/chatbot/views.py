@@ -509,7 +509,7 @@ def banglaIntentDownload(request):
 def updateEnglishFile(request):
     data = generateEnglishIntents()
     path = getDirName(os.path.abspath('__file__'), 2)
-    path = os.path.join(path, 'metsys-core', 'tensor_model', 'ContextualChatbotsWithTF', 'EnglishNLP', 'intents.json')
+    path = os.path.join(path, 'chatbot-admin', 'tensor_model', 'ContextualChatbotsWithTF', 'EnglishNLP', 'intents.json')
 
     try:
         with open(path, 'w') as f:
@@ -522,7 +522,7 @@ def updateEnglishFile(request):
 def updateBanglaFile(request):
     data = generateBanglaIntents()
     path = getDirName(os.path.abspath('__file__'), 2)
-    path = os.path.join(path, 'metsys-core', 'tensor_model', 'ContextualChatbotsWithTF', 'BanglaNLP', 'banglaintents.json')
+    path = os.path.join(path, 'chatbot-admin', 'tensor_model', 'ContextualChatbotsWithTF', 'BanglaNLP', 'banglaintents.json')
 
     try:
         with open(path, 'w') as f:
@@ -549,7 +549,7 @@ def train_bangla(request):
 
 def viewLog(request):
     path = getDirName(os.path.abspath('__file__'), 2)
-    path = os.path.join(path, 'metsys-core', 'nohup.out')
+    path = os.path.join(path, 'chatbot-admin', 'nohup.out')
     content = ''
     try:
         with open(path, 'r') as f:
@@ -561,7 +561,7 @@ def viewLog(request):
 
 def downloadLog(request):
     path = getDirName(os.path.abspath('__file__'), 2)
-    path = os.path.join(path, 'metsys-core', 'nohup.out')
+    path = os.path.join(path, 'chatbot-admin', 'nohup.out')
     content = ''
     response = None
 
