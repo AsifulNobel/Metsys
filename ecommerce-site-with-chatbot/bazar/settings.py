@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'metsys',
         'USER': 'nobel',
-        'PASSWORD': 'v@R@ns1',
+        'PASSWORD': '%R#P*$q9',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

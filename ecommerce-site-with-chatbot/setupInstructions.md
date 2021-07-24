@@ -22,7 +22,7 @@
     - Log into postgresql server `sudo -u postgres psql`
     - Create role nobel
     ```
-    CREATE ROLE nobel WITH LOGIN CREATEDB SUPERUSER PASSWORD'v@R@ns1';
+    CREATE ROLE nobel WITH LOGIN CREATEDB SUPERUSER PASSWORD '';
     ```
     - Create new database `CREATE DATABASE metsys OWNER nobel ENCODING 'UTF8';`
     - Quit from postgresql-cli `\q`
