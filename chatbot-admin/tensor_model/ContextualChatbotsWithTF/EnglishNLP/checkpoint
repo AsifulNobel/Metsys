@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/nobel/dev/metsys-core/tensor_model/ContextualChatbotsWithTF/EnglishNLP/model.tflearn"
+all_model_checkpoint_paths: "/home/nobel/dev/metsys-core/tensor_model/ContextualChatbotsWithTF/EnglishNLP/model.tflearn"
