@@ -30,8 +30,8 @@
         <a class="btn btn-success" href="{% url 'chatbot:banglaIntentsAdd' %}">Update Bangla Intents Database From Json File</a><br>
         <a class="btn btn-primary" href="{% url 'chatbot:englishIntDown' %}">Download English Intents Json File</a><br/>
         <a class="btn btn-primary" href="{% url 'chatbot:banglaIntDown' %}">Download Bangla Intents Json File</a><br>
-        <a class="btn btn-warning trainer" href="#">Train English Chatbot</a><br>
-        <a class="btn btn-warning trainer" href="#">Train Bangla Chatbot</a><br>
+        <a class="btn btn-warning trainer" href="{% url 'chatbot:trainEnglish' %}">Train English Chatbot</a><br>
+        <a class="btn btn-warning trainer" href="{% url 'chatbot:trainBangla' %}">Train Bangla Chatbot</a><br>
         <a class="btn btn-danger" href="{% url 'chatbot:updateEnglishFile' %}">Update English Intents Json</a><br>
         <a class="btn btn-danger" href="{% url 'chatbot:updateBanglaFile' %}">Update Bangla Intents Json</a><br>
     </div>
@@ -45,17 +45,13 @@
 
 {% block script %}
 $('.trainer').on('click', function(e) {
-    e.preventDefault();
-
-    <!-- $('#loader').addClass('loading'); -->
-
-    alert("Training of chatbots has been disabled temporarily due to lack of server memory.");
+    $('#loader').addClass('loading');
 })
 
 $('body').keyup(function(e) {
     var key = e.which;
     if (key == 27) {
-        <!-- $('#loader').removeClass('loading'); -->
+        $('#loader').removeClass('loading');
     }
 })
 {% endblock %}
