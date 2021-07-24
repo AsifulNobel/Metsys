@@ -32,7 +32,7 @@ The moderator can view the chatbot's log files, train the chatbot, update the ch
 
 ## Technology
 
-We used Python 3.6.2 with [pyenv](https://github.com/pyenv/pyenv) during development. We used TensorFlow to train the bot. We used Django web framework to build the site pages and REST APIs. We used Django Channels to build real-time communication (WebSockets) interface between user and the bot. PostgreSQL has been used as database. Other package related information can be found [here](ecommerce-site-with-chatbot/requirements.txt).
+We used Python 3.6.2 with [pyenv](https://github.com/pyenv/pyenv) during development. We used TensorFlow to train the bot. We used Django web framework to build the site pages and REST APIs. We used Django Channels to build real-time communication (WebSockets) interface between user and the bot. PostgreSQL has been used as database. We also used Cython to improve the Bangla Agent's performance. Other package related information can be found [here](ecommerce-site-with-chatbot/requirements.txt).
 
 ## How to Run
 
@@ -44,7 +44,7 @@ python manage.py migrate
 
 Our database dumps have been provided to view some data quickly and login using credentials given [here](ecommerce-site-with-chatbot/superPass.txt). The database dumps can be found inside `ecommerce-site-with-chatbot` directory with `.dump` extension and can be restored using psql.
 
-The applications of this repository have not been hosted anywhere. So, the credentials and `security_key.txt` values are harmless. But if anyone is hoping to run it in a publicly accessible server, then please change those for your own good.
+The applications of this repository have not been hosted anywhere. So, the credentials and `security_key.txt` values are **harmless**. But if anyone is hoping to run it in a publicly accessible server, then please change those for your own good.
 
 ## License
 
