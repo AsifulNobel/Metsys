@@ -1,4 +1,4 @@
-# METSYS
+# METSYS - মেত্‌সিস
 
 This repository contains the work done as part of our Senior Capstone project at North South University. Our team consisted of [Anirudha Paul](https://github.com/anirudha-ani), [Foysal Amin Adnan](https://github.com/adnanfoysal) and [me](https://github.com/AsifulNobel). Based on our findings of this project, we published an article titled [Focused domain contextual AI chatbot framework for resource poor languages](https://doi.org/10.1080/24751839.2018.1558378). The article appeared in Taylor & Francis' Journal of Information and Telecommunication on 2018.
 
