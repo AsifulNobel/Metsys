@@ -6,3 +6,4 @@ db.sqlite3
 .idea
 nohup.out
 .tool-versions
+**/tflearn_logs/*
