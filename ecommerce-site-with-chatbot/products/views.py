@@ -38,6 +38,7 @@ class CategoryView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
         context['products'] = Product.objects.filter(category=context['category'])
 
         return context

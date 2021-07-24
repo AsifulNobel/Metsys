@@ -32,24 +32,6 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
 
                   <ul class="dropdown-menu">
-                      <!-- <li class="dropdown-submenu">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">shirts</a>
-
-                          <ul class="dropdown-menu">
-                              <li><a href="#">men</a></li>
-                              <li><a href="#">women</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="#">pants</a></li>
-                      <li><a href="#">sunglasses</a></li>
-                      <li><a href="#">shoes</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="#">books</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="#">smartphones</a></li>
-                      <li><a href="#">tv</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="#">bags</a></li> -->
                     {% if categories %}
                         {% for category in categories %}
                             <li><a href="{% url 'products:category_products' category.category %}">{{ category.category }}</a></li>
@@ -57,16 +39,6 @@
                     {% endif %}
                   </ul>
                 </li>
-              </ul>
-              <form class="navbar-form navbar-left">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-              </form>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Sign up</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
