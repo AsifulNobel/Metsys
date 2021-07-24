@@ -32,7 +32,7 @@ The moderator can view the chatbot's log files, train the chatbot, update the ch
 
 ## Technology 🔩
 
-We used Python 3.6.2 with [pyenv](https://github.com/pyenv/pyenv) during development. We used TensorFlow to train the bot. We used Django web framework to build the site pages and REST APIs. We used Django Channels to build real-time communication (WebSockets) interface between user and the bot. PostgreSQL has been used as database. We also used Cython to improve the Bangla Agent's performance. Other package related information can be found [here](ecommerce-site-with-chatbot/requirements.txt).
+We used Python 3.6.2 with [pyenv](https://github.com/pyenv/pyenv) during development. We used TensorFlow to train the bot. We used Django web framework to build the site pages and REST APIs. These can be found in ecommerce-site-with-chatbot directory. We used Django Channels to build real-time communication (WebSockets) interface between user and the bot. The bots can be found in `chatbot-engine/tensor_model` directory. PostgreSQL has been used as database. We also used Cython to improve the Bangla Agent's performance. Other package related information can be found [here](ecommerce-site-with-chatbot/requirements.txt).
 
 ## How to Run 🏃
 
