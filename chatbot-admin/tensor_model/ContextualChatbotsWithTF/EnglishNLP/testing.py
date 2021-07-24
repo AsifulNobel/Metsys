@@ -118,29 +118,6 @@ import pickle
 pickle.dump( {'words':words, 'classes':classes, 'train_x':train_x, 'train_y':train_y}, open( "training_data", "wb" ) )
 
 
-
-
-# #this stupid code make no sense . Cause I tried to use this code from separate file and failed . In same file we don't need to reload everything again
-# ##############################    STEP 8    ################################
-# #loading our previous works . So if Step 1-7 is done we don't need to further run them again and again
-#
-# # restore all of our data structures
-# import pickle
-# data = pickle.load( open( "training_data", "rb" ) )
-# words = data['words']
-# classes = data['classes']
-# train_x = data['train_x']
-# train_y = data['train_y']
-#
-# # import our chat-bot intents file
-# import json
-# with open('intents.json') as json_data:
-#     intents = json.load(json_data)
-#
-# # load our saved model
-#model.load('./model.tflearn')
-
-
 ##############################    STEP 9    ################################
 # Before we can begin processing intents, we need a way to produce a bag-of-words from user input.
 # This is the same technique as we used earlier to create our training document
