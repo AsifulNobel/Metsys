@@ -16,7 +16,7 @@ This repo contains two Django web applications - an e-commerce site and a chatbo
 
 If we click on the chatbot link, we will be redirected to a page where we can communicate with the bot. The bot is actually two bots. The two bots have been trained on Bangla and English language separately. Based on language type, messages are passed to the appropriate bot. A sample conversation can be found below -
 
-![sample-bangla-conversation](screenshots/sample-bangla-conversation.jpg)
+![sample-bangla-conversation](screenshots/session.gif)
 
 The `X` buttons beside each bot message lets user mark the message as incorrect so that a human can review the response, take action such as updating pre-defined bot responses and then train the bot on new data. The `Chatbot Known Topics` show the topics that the bot knows for demo and testing purpose. The `Feedback` option let visitors give feedback to our project at the day of the event.
 
