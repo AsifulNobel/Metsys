@@ -48,7 +48,7 @@ The applications of this repository have not been hosted anywhere. So, the crede
 
 ## License ⚖️
 
-The work of this repository has been licensed under the [MIT License](License.md).
+The work of this repository has been licensed under the the terms of the [Creative Commons Attribution License](http://creativecommons.org/licenses/by/4.0/).
 
 ## Citation 🖋️
 
